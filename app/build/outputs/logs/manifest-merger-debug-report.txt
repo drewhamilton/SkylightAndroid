@@ -1,0 +1,225 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/drew.hamilton/Documents/personal-code/SkylightAndroid/app/src/main/AndroidManifest.xml:1:1-30:12
+INJECTED from /Users/drew.hamilton/Documents/personal-code/SkylightAndroid/app/src/main/AndroidManifest.xml:1:1-30:12
+INJECTED from /Users/drew.hamilton/Documents/personal-code/SkylightAndroid/app/src/main/AndroidManifest.xml:1:1-30:12
+INJECTED from /Users/drew.hamilton/Documents/personal-code/SkylightAndroid/app/src/main/AndroidManifest.xml:1:1-30:12
+MERGED from [androidx.multidex:multidex:2.0.1] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/a5c0e3157533ff06d76d7767e9193279/AndroidManifest.xml:17:1-22:12
+MERGED from [drewhamilton.skylight:skylight-views:0.9.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/1b14b16ec3aed43ead6826bacb1bcfdf/AndroidManifest.xml:2:1-11:12
+MERGED from [drewhamilton.rxpreferences:rxpreferences-ktx:1.0.0-beta2] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/731fdcd51203389386c6e2464a95ab16/AndroidManifest.xml:2:1-11:12
+MERGED from [drewhamilton.rxpreferences:rxpreferences-dagger:1.0.0-beta2] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/deb715f35a9115a4472c8b6af8d2c38e/AndroidManifest.xml:2:1-11:12
+MERGED from [com.jakewharton.threetenabp:threetenabp:1.2.1] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/f7a427f237a56525b73a66b27412c360/AndroidManifest.xml:2:1-9:12
+MERGED from [androidx.core:core-ktx:1.0.2] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/18da5378ba9f14558a1486d6ca19d676/AndroidManifest.xml:2:1-7:12
+MERGED from [androidx.fragment:fragment-ktx:1.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/221275f88cea72ac721a3615a89f823d/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.0-beta1] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/a1b891cb50ab5728eaddb61e6a34e2ad/AndroidManifest.xml:2:1-11:12
+MERGED from [com.google.android.material:material:1.1.0-alpha07] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/d1ea8d8e58a2691804faece51ce8dd5b/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.appcompat:appcompat:1.1.0-alpha05] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/741389f174a9deccba3608fe982211eb/AndroidManifest.xml:17:1-22:12
+MERGED from [drewhamilton.rxpreferences:rxpreferences:1.0.0-beta2] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/eaa7d8c1c8b91b57ee6c2d178f33c541/AndroidManifest.xml:2:1-11:12
+MERGED from [io.reactivex.rxjava2:rxandroid:2.1.1] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/b7c4136c3ee4935e04e2c4b910dd11a9/AndroidManifest.xml:15:1-20:12
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/54423fc7251b7636fd3006a894e367a8/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/8923d451d970f1b5f86a00a5a910887e/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0-alpha01] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/a81686b148b37b47b10a2f7a20d2067e/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.transition:transition:1.0.1] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/f5e97c6c2e15b7d6820bb491cc4c3915/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.appcompat:appcompat-resources:1.1.0-alpha05] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/cf58b8e85af7d43b680ba28dd8185635/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0-beta01] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/4206766bccb744ed2ba6cffed0173f8e/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0-beta01] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/3225c2c9a50f74f3f0e0ab18471bf1b4/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.viewpager2:viewpager2:1.0.0-alpha04] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/ac9b8a2a68d4505e12cd59deee30daa5/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.fragment:fragment:1.1.0-alpha08] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/d9d9e92fbf9e3ed28a7f0f04e6474980/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.loader:loader:1.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/5bc7941daa75d12ad80e914e2a3d87cd/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/c24ed06ec2efa037c96f13a71d84d165/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/1bfb23c64b675cef3e57c4b0fd206d26/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/40e4947b569de2cf5d30a4396a510843/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.recyclerview:recyclerview:1.1.0-alpha05] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/729d87451f15bd4904769cde47e43d23/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.customview:customview:1.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/849efa8dab2c6a104f800f0a9caeb3a2/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/ea3d1e042c5d257ab1c87b2593bb065f/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/e269819eb5841cd5ab0c4292153230f8/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.activity:activity:1.0.0-alpha08] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/0232a42c5dba3f287dddd06226c9b975/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.core:core:1.1.0-beta01] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/0503d479077c0a89590c234490edc4c4/AndroidManifest.xml:17:1-24:12
+MERGED from [androidx.cardview:cardview:1.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/b6143da367d66343e5507213881ae8ff/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.documentfile:documentfile:1.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/3590e0053d137cc290e4815b1f02cf31/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/549d905647bee343c42c2d26058ffae1/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.print:print:1.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/e42adb3be8a76207d272ed7a2c4c1e25/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/04d656d8815105bdeba97a5c593a59f9/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0-beta01] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/b19af54c342e7cb5e28b5a1f8bb53cbf/AndroidManifest.xml:17:1-25:12
+MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/12451373c7635a36efe0fe12654d8f2b/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/70f6dc30e7dc3cfc5ffa9fdb36fe3619/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/1aaebd50cbc10a31ef584d5e8a19e183/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.arch.core:core-runtime:2.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/4a62c1bd1259c2e17344b08e8e6ed66a/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.2.0-alpha01] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/f086876a30f47fe86186d8b2c65d4984/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.savedstate:savedstate:1.0.0-beta01] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/ebc370310967e1140fa807e584b9b86f/AndroidManifest.xml:17:1-22:12
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.2.0-alpha01] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/c1994a44faf94fd280ba61b8f4183691/AndroidManifest.xml:17:1-22:12
+INJECTED from /Users/drew.hamilton/Documents/personal-code/SkylightAndroid/app/src/main/AndroidManifest.xml:1:1-30:12
+INJECTED from /Users/drew.hamilton/Documents/personal-code/SkylightAndroid/app/src/main/AndroidManifest.xml:1:1-30:12
+INJECTED from /Users/drew.hamilton/Documents/personal-code/SkylightAndroid/app/src/main/AndroidManifest.xml:1:1-30:12
+	package
+		ADDED from /Users/drew.hamilton/Documents/personal-code/SkylightAndroid/app/src/main/AndroidManifest.xml:4:5-51
+		INJECTED from /Users/drew.hamilton/Documents/personal-code/SkylightAndroid/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/drew.hamilton/Documents/personal-code/SkylightAndroid/app/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /Users/drew.hamilton/Documents/personal-code/SkylightAndroid/app/src/main/AndroidManifest.xml
+		ADDED from /Users/drew.hamilton/Documents/personal-code/SkylightAndroid/app/src/main/AndroidManifest.xml:1:1-30:12
+		INJECTED from /Users/drew.hamilton/Documents/personal-code/SkylightAndroid/app/src/main/AndroidManifest.xml
+	xmlns:tools
+		ADDED from /Users/drew.hamilton/Documents/personal-code/SkylightAndroid/app/src/main/AndroidManifest.xml:3:5-51
+	android:versionCode
+		INJECTED from /Users/drew.hamilton/Documents/personal-code/SkylightAndroid/app/src/main/AndroidManifest.xml
+		ADDED from /Users/drew.hamilton/Documents/personal-code/SkylightAndroid/app/src/main/AndroidManifest.xml:1:1-30:12
+		INJECTED from /Users/drew.hamilton/Documents/personal-code/SkylightAndroid/app/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/drew.hamilton/Documents/personal-code/SkylightAndroid/app/src/main/AndroidManifest.xml:2:5-63
+uses-permission#android.permission.INTERNET
+ADDED from /Users/drew.hamilton/Documents/personal-code/SkylightAndroid/app/src/main/AndroidManifest.xml:6:3-65
+	android:name
+		ADDED from /Users/drew.hamilton/Documents/personal-code/SkylightAndroid/app/src/main/AndroidManifest.xml:6:20-62
+application
+ADDED from /Users/drew.hamilton/Documents/personal-code/SkylightAndroid/app/src/main/AndroidManifest.xml:8:3-28:17
+MERGED from [com.jakewharton.threetenabp:threetenabp:1.2.1] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/f7a427f237a56525b73a66b27412c360/AndroidManifest.xml:7:5-20
+MERGED from [com.jakewharton.threetenabp:threetenabp:1.2.1] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/f7a427f237a56525b73a66b27412c360/AndroidManifest.xml:7:5-20
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.0-beta1] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/a1b891cb50ab5728eaddb61e6a34e2ad/AndroidManifest.xml:9:5-20
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.0-beta1] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/a1b891cb50ab5728eaddb61e6a34e2ad/AndroidManifest.xml:9:5-20
+MERGED from [com.google.android.material:material:1.1.0-alpha07] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/d1ea8d8e58a2691804faece51ce8dd5b/AndroidManifest.xml:22:5-20
+MERGED from [com.google.android.material:material:1.1.0-alpha07] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/d1ea8d8e58a2691804faece51ce8dd5b/AndroidManifest.xml:22:5-20
+MERGED from [androidx.core:core:1.1.0-beta01] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/0503d479077c0a89590c234490edc4c4/AndroidManifest.xml:22:5-89
+MERGED from [androidx.core:core:1.1.0-beta01] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/0503d479077c0a89590c234490edc4c4/AndroidManifest.xml:22:5-89
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0-beta01] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/b19af54c342e7cb5e28b5a1f8bb53cbf/AndroidManifest.xml:22:5-23:19
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0-beta01] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/b19af54c342e7cb5e28b5a1f8bb53cbf/AndroidManifest.xml:22:5-23:19
+	android:appComponentFactory
+		ADDED from [androidx.core:core:1.1.0-beta01] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/0503d479077c0a89590c234490edc4c4/AndroidManifest.xml:22:18-86
+	android:supportsRtl
+		ADDED from /Users/drew.hamilton/Documents/personal-code/SkylightAndroid/app/src/main/AndroidManifest.xml:15:7-33
+	android:label
+		ADDED from /Users/drew.hamilton/Documents/personal-code/SkylightAndroid/app/src/main/AndroidManifest.xml:10:7-39
+	tools:ignore
+		ADDED from /Users/drew.hamilton/Documents/personal-code/SkylightAndroid/app/src/main/AndroidManifest.xml:16:7-46
+	android:roundIcon
+		ADDED from /Users/drew.hamilton/Documents/personal-code/SkylightAndroid/app/src/main/AndroidManifest.xml:12:7-52
+	android:icon
+		ADDED from /Users/drew.hamilton/Documents/personal-code/SkylightAndroid/app/src/main/AndroidManifest.xml:11:7-41
+	android:allowBackup
+		ADDED from /Users/drew.hamilton/Documents/personal-code/SkylightAndroid/app/src/main/AndroidManifest.xml:14:7-34
+	android:theme
+		ADDED from /Users/drew.hamilton/Documents/personal-code/SkylightAndroid/app/src/main/AndroidManifest.xml:13:7-38
+	tools:replace
+		ADDED from /Users/drew.hamilton/Documents/personal-code/SkylightAndroid/app/src/main/AndroidManifest.xml:17:7-36
+	android:name
+		ADDED from /Users/drew.hamilton/Documents/personal-code/SkylightAndroid/app/src/main/AndroidManifest.xml:9:7-40
+activity#drewhamilton.skylight.android.sample.main.MainActivity
+ADDED from /Users/drew.hamilton/Documents/personal-code/SkylightAndroid/app/src/main/AndroidManifest.xml:19:5-24:16
+	android:name
+		ADDED from /Users/drew.hamilton/Documents/personal-code/SkylightAndroid/app/src/main/AndroidManifest.xml:19:15-48
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from /Users/drew.hamilton/Documents/personal-code/SkylightAndroid/app/src/main/AndroidManifest.xml:20:7-23:23
+action#android.intent.action.MAIN
+ADDED from /Users/drew.hamilton/Documents/personal-code/SkylightAndroid/app/src/main/AndroidManifest.xml:21:9-61
+	android:name
+		ADDED from /Users/drew.hamilton/Documents/personal-code/SkylightAndroid/app/src/main/AndroidManifest.xml:21:17-58
+category#android.intent.category.LAUNCHER
+ADDED from /Users/drew.hamilton/Documents/personal-code/SkylightAndroid/app/src/main/AndroidManifest.xml:22:9-69
+	android:name
+		ADDED from /Users/drew.hamilton/Documents/personal-code/SkylightAndroid/app/src/main/AndroidManifest.xml:22:19-66
+activity#drewhamilton.skylight.android.sample.settings.SettingsActivity
+ADDED from /Users/drew.hamilton/Documents/personal-code/SkylightAndroid/app/src/main/AndroidManifest.xml:26:5-59
+	android:name
+		ADDED from /Users/drew.hamilton/Documents/personal-code/SkylightAndroid/app/src/main/AndroidManifest.xml:26:15-56
+uses-sdk
+INJECTED from /Users/drew.hamilton/Documents/personal-code/SkylightAndroid/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/drew.hamilton/Documents/personal-code/SkylightAndroid/app/src/main/AndroidManifest.xml
+INJECTED from /Users/drew.hamilton/Documents/personal-code/SkylightAndroid/app/src/main/AndroidManifest.xml
+MERGED from [androidx.multidex:multidex:2.0.1] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/a5c0e3157533ff06d76d7767e9193279/AndroidManifest.xml:20:5-43
+MERGED from [androidx.multidex:multidex:2.0.1] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/a5c0e3157533ff06d76d7767e9193279/AndroidManifest.xml:20:5-43
+MERGED from [drewhamilton.skylight:skylight-views:0.9.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/1b14b16ec3aed43ead6826bacb1bcfdf/AndroidManifest.xml:7:5-9:41
+MERGED from [drewhamilton.skylight:skylight-views:0.9.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/1b14b16ec3aed43ead6826bacb1bcfdf/AndroidManifest.xml:7:5-9:41
+MERGED from [drewhamilton.rxpreferences:rxpreferences-ktx:1.0.0-beta2] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/731fdcd51203389386c6e2464a95ab16/AndroidManifest.xml:7:5-9:41
+MERGED from [drewhamilton.rxpreferences:rxpreferences-ktx:1.0.0-beta2] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/731fdcd51203389386c6e2464a95ab16/AndroidManifest.xml:7:5-9:41
+MERGED from [drewhamilton.rxpreferences:rxpreferences-dagger:1.0.0-beta2] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/deb715f35a9115a4472c8b6af8d2c38e/AndroidManifest.xml:7:5-9:41
+MERGED from [drewhamilton.rxpreferences:rxpreferences-dagger:1.0.0-beta2] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/deb715f35a9115a4472c8b6af8d2c38e/AndroidManifest.xml:7:5-9:41
+MERGED from [com.jakewharton.threetenabp:threetenabp:1.2.1] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/f7a427f237a56525b73a66b27412c360/AndroidManifest.xml:5:5-44
+MERGED from [com.jakewharton.threetenabp:threetenabp:1.2.1] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/f7a427f237a56525b73a66b27412c360/AndroidManifest.xml:5:5-44
+MERGED from [androidx.core:core-ktx:1.0.2] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/18da5378ba9f14558a1486d6ca19d676/AndroidManifest.xml:5:5-44
+MERGED from [androidx.core:core-ktx:1.0.2] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/18da5378ba9f14558a1486d6ca19d676/AndroidManifest.xml:5:5-44
+MERGED from [androidx.fragment:fragment-ktx:1.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/221275f88cea72ac721a3615a89f823d/AndroidManifest.xml:20:5-44
+MERGED from [androidx.fragment:fragment-ktx:1.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/221275f88cea72ac721a3615a89f823d/AndroidManifest.xml:20:5-44
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.0-beta1] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/a1b891cb50ab5728eaddb61e6a34e2ad/AndroidManifest.xml:5:5-7:41
+MERGED from [androidx.constraintlayout:constraintlayout:2.0.0-beta1] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/a1b891cb50ab5728eaddb61e6a34e2ad/AndroidManifest.xml:5:5-7:41
+MERGED from [com.google.android.material:material:1.1.0-alpha07] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/d1ea8d8e58a2691804faece51ce8dd5b/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.material:material:1.1.0-alpha07] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/d1ea8d8e58a2691804faece51ce8dd5b/AndroidManifest.xml:20:5-44
+MERGED from [androidx.appcompat:appcompat:1.1.0-alpha05] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/741389f174a9deccba3608fe982211eb/AndroidManifest.xml:20:5-44
+MERGED from [androidx.appcompat:appcompat:1.1.0-alpha05] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/741389f174a9deccba3608fe982211eb/AndroidManifest.xml:20:5-44
+MERGED from [drewhamilton.rxpreferences:rxpreferences:1.0.0-beta2] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/eaa7d8c1c8b91b57ee6c2d178f33c541/AndroidManifest.xml:7:5-9:41
+MERGED from [drewhamilton.rxpreferences:rxpreferences:1.0.0-beta2] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/eaa7d8c1c8b91b57ee6c2d178f33c541/AndroidManifest.xml:7:5-9:41
+MERGED from [io.reactivex.rxjava2:rxandroid:2.1.1] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/b7c4136c3ee4935e04e2c4b910dd11a9/AndroidManifest.xml:18:5-43
+MERGED from [io.reactivex.rxjava2:rxandroid:2.1.1] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/b7c4136c3ee4935e04e2c4b910dd11a9/AndroidManifest.xml:18:5-43
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/54423fc7251b7636fd3006a894e367a8/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-ui:1.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/54423fc7251b7636fd3006a894e367a8/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/8923d451d970f1b5f86a00a5a910887e/AndroidManifest.xml:20:5-44
+MERGED from [androidx.legacy:legacy-support-core-utils:1.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/8923d451d970f1b5f86a00a5a910887e/AndroidManifest.xml:20:5-44
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0-alpha01] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/a81686b148b37b47b10a2f7a20d2067e/AndroidManifest.xml:20:5-44
+MERGED from [androidx.coordinatorlayout:coordinatorlayout:1.1.0-alpha01] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/a81686b148b37b47b10a2f7a20d2067e/AndroidManifest.xml:20:5-44
+MERGED from [androidx.transition:transition:1.0.1] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/f5e97c6c2e15b7d6820bb491cc4c3915/AndroidManifest.xml:20:5-44
+MERGED from [androidx.transition:transition:1.0.1] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/f5e97c6c2e15b7d6820bb491cc4c3915/AndroidManifest.xml:20:5-44
+MERGED from [androidx.appcompat:appcompat-resources:1.1.0-alpha05] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/cf58b8e85af7d43b680ba28dd8185635/AndroidManifest.xml:20:5-44
+MERGED from [androidx.appcompat:appcompat-resources:1.1.0-alpha05] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/cf58b8e85af7d43b680ba28dd8185635/AndroidManifest.xml:20:5-44
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0-beta01] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/4206766bccb744ed2ba6cffed0173f8e/AndroidManifest.xml:20:5-44
+MERGED from [androidx.vectordrawable:vectordrawable-animated:1.1.0-beta01] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/4206766bccb744ed2ba6cffed0173f8e/AndroidManifest.xml:20:5-44
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0-beta01] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/3225c2c9a50f74f3f0e0ab18471bf1b4/AndroidManifest.xml:20:5-44
+MERGED from [androidx.vectordrawable:vectordrawable:1.1.0-beta01] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/3225c2c9a50f74f3f0e0ab18471bf1b4/AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager2:viewpager2:1.0.0-alpha04] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/ac9b8a2a68d4505e12cd59deee30daa5/AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager2:viewpager2:1.0.0-alpha04] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/ac9b8a2a68d4505e12cd59deee30daa5/AndroidManifest.xml:20:5-44
+MERGED from [androidx.fragment:fragment:1.1.0-alpha08] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/d9d9e92fbf9e3ed28a7f0f04e6474980/AndroidManifest.xml:20:5-44
+MERGED from [androidx.fragment:fragment:1.1.0-alpha08] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/d9d9e92fbf9e3ed28a7f0f04e6474980/AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/5bc7941daa75d12ad80e914e2a3d87cd/AndroidManifest.xml:20:5-44
+MERGED from [androidx.loader:loader:1.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/5bc7941daa75d12ad80e914e2a3d87cd/AndroidManifest.xml:20:5-44
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/c24ed06ec2efa037c96f13a71d84d165/AndroidManifest.xml:20:5-44
+MERGED from [androidx.drawerlayout:drawerlayout:1.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/c24ed06ec2efa037c96f13a71d84d165/AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/1bfb23c64b675cef3e57c4b0fd206d26/AndroidManifest.xml:20:5-44
+MERGED from [androidx.viewpager:viewpager:1.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/1bfb23c64b675cef3e57c4b0fd206d26/AndroidManifest.xml:20:5-44
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/40e4947b569de2cf5d30a4396a510843/AndroidManifest.xml:20:5-44
+MERGED from [androidx.slidingpanelayout:slidingpanelayout:1.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/40e4947b569de2cf5d30a4396a510843/AndroidManifest.xml:20:5-44
+MERGED from [androidx.recyclerview:recyclerview:1.1.0-alpha05] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/729d87451f15bd4904769cde47e43d23/AndroidManifest.xml:20:5-44
+MERGED from [androidx.recyclerview:recyclerview:1.1.0-alpha05] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/729d87451f15bd4904769cde47e43d23/AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/849efa8dab2c6a104f800f0a9caeb3a2/AndroidManifest.xml:20:5-44
+MERGED from [androidx.customview:customview:1.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/849efa8dab2c6a104f800f0a9caeb3a2/AndroidManifest.xml:20:5-44
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/ea3d1e042c5d257ab1c87b2593bb065f/AndroidManifest.xml:20:5-44
+MERGED from [androidx.swiperefreshlayout:swiperefreshlayout:1.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/ea3d1e042c5d257ab1c87b2593bb065f/AndroidManifest.xml:20:5-44
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/e269819eb5841cd5ab0c4292153230f8/AndroidManifest.xml:20:5-44
+MERGED from [androidx.asynclayoutinflater:asynclayoutinflater:1.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/e269819eb5841cd5ab0c4292153230f8/AndroidManifest.xml:20:5-44
+MERGED from [androidx.activity:activity:1.0.0-alpha08] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/0232a42c5dba3f287dddd06226c9b975/AndroidManifest.xml:20:5-44
+MERGED from [androidx.activity:activity:1.0.0-alpha08] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/0232a42c5dba3f287dddd06226c9b975/AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core:1.1.0-beta01] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/0503d479077c0a89590c234490edc4c4/AndroidManifest.xml:20:5-44
+MERGED from [androidx.core:core:1.1.0-beta01] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/0503d479077c0a89590c234490edc4c4/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cardview:cardview:1.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/b6143da367d66343e5507213881ae8ff/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cardview:cardview:1.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/b6143da367d66343e5507213881ae8ff/AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/3590e0053d137cc290e4815b1f02cf31/AndroidManifest.xml:20:5-44
+MERGED from [androidx.documentfile:documentfile:1.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/3590e0053d137cc290e4815b1f02cf31/AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/549d905647bee343c42c2d26058ffae1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.localbroadcastmanager:localbroadcastmanager:1.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/549d905647bee343c42c2d26058ffae1/AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/e42adb3be8a76207d272ed7a2c4c1e25/AndroidManifest.xml:20:5-44
+MERGED from [androidx.print:print:1.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/e42adb3be8a76207d272ed7a2c4c1e25/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/04d656d8815105bdeba97a5c593a59f9/AndroidManifest.xml:20:5-44
+MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/04d656d8815105bdeba97a5c593a59f9/AndroidManifest.xml:20:5-44
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0-beta01] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/b19af54c342e7cb5e28b5a1f8bb53cbf/AndroidManifest.xml:20:5-44
+MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.0-beta01] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/b19af54c342e7cb5e28b5a1f8bb53cbf/AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/12451373c7635a36efe0fe12654d8f2b/AndroidManifest.xml:20:5-44
+MERGED from [androidx.interpolator:interpolator:1.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/12451373c7635a36efe0fe12654d8f2b/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/70f6dc30e7dc3cfc5ffa9fdb36fe3619/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata:2.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/70f6dc30e7dc3cfc5ffa9fdb36fe3619/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/1aaebd50cbc10a31ef584d5e8a19e183/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-livedata-core:2.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/1aaebd50cbc10a31ef584d5e8a19e183/AndroidManifest.xml:20:5-44
+MERGED from [androidx.arch.core:core-runtime:2.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/4a62c1bd1259c2e17344b08e8e6ed66a/AndroidManifest.xml:20:5-44
+MERGED from [androidx.arch.core:core-runtime:2.0.0] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/4a62c1bd1259c2e17344b08e8e6ed66a/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.2.0-alpha01] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/f086876a30f47fe86186d8b2c65d4984/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-viewmodel:2.2.0-alpha01] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/f086876a30f47fe86186d8b2c65d4984/AndroidManifest.xml:20:5-44
+MERGED from [androidx.savedstate:savedstate:1.0.0-beta01] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/ebc370310967e1140fa807e584b9b86f/AndroidManifest.xml:20:5-44
+MERGED from [androidx.savedstate:savedstate:1.0.0-beta01] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/ebc370310967e1140fa807e584b9b86f/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.2.0-alpha01] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/c1994a44faf94fd280ba61b8f4183691/AndroidManifest.xml:20:5-44
+MERGED from [androidx.lifecycle:lifecycle-runtime:2.2.0-alpha01] /Users/drew.hamilton/.gradle/caches/transforms-2/files-2.1/c1994a44faf94fd280ba61b8f4183691/AndroidManifest.xml:20:5-44
+INJECTED from /Users/drew.hamilton/Documents/personal-code/SkylightAndroid/app/src/main/AndroidManifest.xml
+INJECTED from /Users/drew.hamilton/Documents/personal-code/SkylightAndroid/app/src/main/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /Users/drew.hamilton/Documents/personal-code/SkylightAndroid/app/src/main/AndroidManifest.xml
+		ADDED from /Users/drew.hamilton/Documents/personal-code/SkylightAndroid/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/drew.hamilton/Documents/personal-code/SkylightAndroid/app/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/drew.hamilton/Documents/personal-code/SkylightAndroid/app/src/main/AndroidManifest.xml
+		ADDED from /Users/drew.hamilton/Documents/personal-code/SkylightAndroid/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/drew.hamilton/Documents/personal-code/SkylightAndroid/app/src/main/AndroidManifest.xml

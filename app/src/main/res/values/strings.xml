@@ -1,0 +1,17 @@
+<resources>
+  <string name="app_name">Skylight demo</string>
+
+  <string name="settings">Settings</string>
+
+  <string name="dawn">Dawn</string>
+  <string name="sunrise">Sunrise</string>
+  <string name="sunset">Sunset</string>
+  <string name="dusk">Dusk</string>
+
+  <string name="never">Never</string>
+
+  <string name="all_times_local">All times local</string>
+  <string name="version_info">Skylight Android %s</string>
+
+  <string name="good_to_know">Good to know</string>
+</resources>
