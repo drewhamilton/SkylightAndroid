@@ -1,6 +1,5 @@
-package drewhamilton.skylight.views.event
+package drewhamilton.skylight.android.views.event
 
-import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
 import java.time.Instant
@@ -10,15 +9,15 @@ import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 
-@RequiresApi(Build.VERSION_CODES.O)
+@RequiresApi(26)
 fun SkylightEventView.setTime(time: OffsetTime?, @StringRes fallback: Int) =
     setTime(time, fallback = context.getString(fallback))
 
-@RequiresApi(Build.VERSION_CODES.O)
+@RequiresApi(26)
 fun SkylightEventView.setTime(time: OffsetTime?, formatter: DateTimeFormatter, @StringRes fallback: Int) =
     setTime(time, formatter, fallback = context.getString(fallback))
 
-@RequiresApi(Build.VERSION_CODES.O)
+@RequiresApi(26)
 fun SkylightEventView.setTime(
     time: OffsetTime?,
     formatter: DateTimeFormatter,
@@ -26,7 +25,7 @@ fun SkylightEventView.setTime(
     @StringRes fallback: Int
 ) = setTime(time, formatter, timeZone, context.getString(fallback))
 
-@RequiresApi(Build.VERSION_CODES.O)
+@RequiresApi(26)
 fun SkylightEventView.setTime(
     time: OffsetTime?,
     formatter: DateTimeFormatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT),

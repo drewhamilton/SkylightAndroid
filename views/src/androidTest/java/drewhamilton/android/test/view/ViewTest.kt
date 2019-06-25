@@ -1,10 +1,10 @@
-package drewhamilton.skylight.views.test.view
+package drewhamilton.android.test.view
 
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
-import drewhamilton.skylight.views.test.CustomActions
-import drewhamilton.skylight.views.test.UiTest
+import drewhamilton.android.test.CustomActions
+import drewhamilton.android.test.UiTest
 import org.junit.Assert.fail
 
 abstract class ViewTest<V : View> : UiTest<ViewTestActivity>() {

@@ -1,4 +1,4 @@
-package drewhamilton.skylight.views.test
+package drewhamilton.android.test
 
 import android.view.View
 import android.widget.TextView

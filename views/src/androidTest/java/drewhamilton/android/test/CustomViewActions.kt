@@ -1,4 +1,4 @@
-package drewhamilton.skylight.views.test
+package drewhamilton.android.test
 
 import android.view.View
 import androidx.test.espresso.UiController
@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit
 object CustomViewActions {
 
     fun loopMainThread(time: Int, unit: TimeUnit) = object : ViewAction {
-        override fun getConstraints() = Matchers.any<View>(View::class.java)
+        override fun getConstraints() = Matchers.any(View::class.java)
 
         override fun getDescription() = "loop main thread for ${toMilliseconds(time, unit)} milliseconds"
 

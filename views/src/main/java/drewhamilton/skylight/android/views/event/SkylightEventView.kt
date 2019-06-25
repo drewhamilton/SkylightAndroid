@@ -1,4 +1,4 @@
-package drewhamilton.skylight.views.event
+package drewhamilton.skylight.android.views.event
 
 import android.content.Context
 import android.content.res.TypedArray
@@ -8,9 +8,9 @@ import android.view.View
 import androidx.annotation.StringRes
 import androidx.annotation.StyleRes
 import com.google.android.material.card.MaterialCardView
+import drewhamilton.skylight.android.views.setCompatAutoSizeTextTypeUniformWithConfiguration
+import drewhamilton.skylight.android.views.setCompatTextAppearance
 import drewhamilton.skylight.views.R
-import drewhamilton.skylight.views.compat.setCompatAutoSizeTextTypeUniformWithConfiguration
-import drewhamilton.skylight.views.compat.setCompatTextAppearance
 import kotlinx.android.synthetic.main.view_skylight_event.view.label
 import kotlinx.android.synthetic.main.view_skylight_event.view.time
 

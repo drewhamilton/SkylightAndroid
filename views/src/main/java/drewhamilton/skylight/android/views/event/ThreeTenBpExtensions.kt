@@ -1,4 +1,4 @@
-package drewhamilton.skylight.views.event
+package drewhamilton.skylight.android.views.event
 
 import androidx.annotation.StringRes
 import org.threeten.bp.Instant

@@ -1,4 +1,4 @@
-package drewhamilton.skylight.views.compat
+package drewhamilton.skylight.android.views
 
 import android.widget.TextView
 import androidx.annotation.StyleRes

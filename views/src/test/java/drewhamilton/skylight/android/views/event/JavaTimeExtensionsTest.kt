@@ -1,4 +1,4 @@
-package drewhamilton.skylight.views.event
+package drewhamilton.skylight.android.views.event
 
 import android.content.Context
 import com.nhaarman.mockitokotlin2.doReturn

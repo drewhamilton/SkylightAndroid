@@ -1,4 +1,4 @@
-package drewhamilton.skylight.views.event
+package drewhamilton.skylight.android.views.event
 
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -8,9 +8,9 @@ import androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility
 import androidx.test.espresso.matcher.ViewMatchers.withHint
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
+import drewhamilton.android.test.CustomViewMatchers
+import drewhamilton.android.test.view.ViewTest
 import drewhamilton.skylight.views.R
-import drewhamilton.skylight.views.test.CustomViewMatchers
-import drewhamilton.skylight.views.test.view.ViewTest
 import org.hamcrest.Matchers.`is`
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertSame
