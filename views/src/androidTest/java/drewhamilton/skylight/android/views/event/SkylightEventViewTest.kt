@@ -10,7 +10,9 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import drewhamilton.android.test.CustomViewMatchers
 import drewhamilton.android.test.view.ViewTest
-import drewhamilton.skylight.views.R
+import drewhamilton.inlinedimens.SpInt
+import drewhamilton.inlinedimens.toPx
+import drewhamilton.skylight.android.views.R
 import org.hamcrest.Matchers.`is`
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertSame
@@ -170,7 +172,7 @@ class SkylightEventViewTest : ViewTest<SkylightEventView>() {
 
         onView(withId(R.id.label))
             .check(matches(isDisplayed()))
-            .check(matches(CustomViewMatchers.withTextSize(34.spToPx())))
+            .check(matches(CustomViewMatchers.withTextSize(SpInt(34).toPx(activity).value)))
     }
 
     @Test
@@ -185,7 +187,7 @@ class SkylightEventViewTest : ViewTest<SkylightEventView>() {
 
         onView(withId(R.id.time))
             .check(matches(isDisplayed()))
-            .check(matches(CustomViewMatchers.withTextSize(56.spToPx())))
+            .check(matches(CustomViewMatchers.withTextSize(SpInt(56).toPx(activity).value)))
     }
 
     @Test
@@ -193,8 +195,8 @@ class SkylightEventViewTest : ViewTest<SkylightEventView>() {
         setView(R.layout.test_skylight_event_view_no_attributes)
         val view = getView()
 
-        val minSize = 12.spToPx()
-        val maxSize = 20.spToPx()
+        val minSize = SpInt(12).toPx(activity).value
+        val maxSize = SpInt(20).toPx(activity).value
         runOnUiThread {
             view.setTimeTextAutoSizeRange(minSize.toInt(), maxSize.toInt(), stepGranularity = 1)
             view.timeText = testTime
@@ -245,7 +247,4 @@ class SkylightEventViewTest : ViewTest<SkylightEventView>() {
         assertEquals(null, view.timeHint)
     }
     //endregion
-
-    // TODO: Create an inline Sp class
-    private fun Int.spToPx() = this * activity.resources.displayMetrics.scaledDensity
 }

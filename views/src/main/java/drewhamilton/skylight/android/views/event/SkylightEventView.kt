@@ -8,9 +8,9 @@ import android.view.View
 import androidx.annotation.StringRes
 import androidx.annotation.StyleRes
 import com.google.android.material.card.MaterialCardView
+import drewhamilton.skylight.android.views.R
 import drewhamilton.skylight.android.views.setCompatAutoSizeTextTypeUniformWithConfiguration
 import drewhamilton.skylight.android.views.setCompatTextAppearance
-import drewhamilton.skylight.views.R
 import kotlinx.android.synthetic.main.view_skylight_event.view.label
 import kotlinx.android.synthetic.main.view_skylight_event.view.time
 
