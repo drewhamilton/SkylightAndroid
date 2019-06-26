@@ -1,2 +1,3 @@
+include ':views'
 include ':app'
 rootProject.name='Skylight Android'
