@@ -5,8 +5,14 @@ import androidx.appcompat.app.AppCompatActivity
 
 abstract class AutoNightActivity : AppCompatActivity() {
 
+    /**
+     * The delegate used to update this Activity's night mode while the Activity is displayed. Uses
+     * [AutoNightDelegate.fallback] by default. Should be overridden if a different [AutoNightDelegate] is required.
+     */
+    protected open val autoNightDelegate: AutoNightDelegate by lazy { AutoNightDelegate.fallback() }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        lifecycle.addObserver(AutoNightDelegate())
+        lifecycle.addObserver(autoNightDelegate)
     }
 }
