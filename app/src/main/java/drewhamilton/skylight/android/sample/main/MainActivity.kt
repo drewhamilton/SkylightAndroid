@@ -12,11 +12,12 @@ import drewhamilton.skylight.android.sample.location.Location
 import drewhamilton.skylight.android.sample.location.LocationRepository
 import drewhamilton.skylight.android.sample.rx.ui.RxActivity
 import drewhamilton.skylight.android.sample.settings.SettingsActivity
+import drewhamilton.skylight.android.theme.AutoNightDelegate
+import drewhamilton.skylight.android.views.event.SkylightEventView
+import drewhamilton.skylight.android.views.event.setTime
 import drewhamilton.skylight.backport.Skylight
 import drewhamilton.skylight.backport.SkylightDay
 import drewhamilton.skylight.backport.rx.getSkylightDaySingle
-import drewhamilton.skylight.views.event.SkylightEventView
-import drewhamilton.skylight.views.event.setTime
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
@@ -40,11 +41,20 @@ class MainActivity : RxActivity() {
     @Suppress("ProtectedInFinal")
     @Inject protected lateinit var locationRepository: LocationRepository
 
+    private val autoNightDelegate: AutoNightDelegate by lazy {
+        val offset = ZoneId.systemDefault().rules.getOffset(Instant.now())
+        AutoNightDelegate.ofTimes(
+            dawn = OffsetTime.of(23, 34, 0, 0, offset),
+            dusk = OffsetTime.of(23, 33, 0, 0, offset)
+        )
+    }
+
     @Suppress("ProtectedInFinal")
     @Inject protected lateinit var skylight: Skylight
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        lifecycle.addObserver(autoNightDelegate)
         setContentView(R.layout.main_destination)
         version.text = getString(R.string.version_info, BuildConfig.VERSION_NAME)
         initializeMenu()

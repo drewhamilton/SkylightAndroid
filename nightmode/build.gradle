@@ -37,7 +37,7 @@ dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.lifecycle:lifecycle-runtime:2.0.0'
-    implementation 'androidx.lifecycle:lifecycle-common-java8:2.0.0'
+    api 'androidx.lifecycle:lifecycle-common-java8:2.0.0'
     implementation 'androidx.core:core-ktx:1.0.2'
 
     def skylightVersion = '0.9.0'
