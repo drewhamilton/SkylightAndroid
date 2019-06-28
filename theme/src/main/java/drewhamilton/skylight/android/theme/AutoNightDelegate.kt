@@ -2,21 +2,44 @@ package drewhamilton.skylight.android.theme
 
 import android.os.CountDownTimer
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.lifecycle.DefaultLifecycleObserver
+import androidx.lifecycle.LifecycleOwner
+import drewhamilton.skylight.backport.Coordinates
 import drewhamilton.skylight.backport.SkylightDay
 import drewhamilton.skylight.backport.SkylightForCoordinates
+import drewhamilton.skylight.backport.calculator.CalculatorSkylight
+import drewhamilton.skylight.backport.dummy.DummySkylight
+import drewhamilton.skylight.backport.forCoordinates
 import drewhamilton.skylight.backport.isDark
 import org.threeten.bp.LocalDate
 import org.threeten.bp.OffsetTime
+import org.threeten.bp.ZoneId
+import org.threeten.bp.ZoneOffset
 import org.threeten.bp.ZonedDateTime
 import org.threeten.bp.temporal.ChronoUnit
 
 class AutoNightDelegate(
-    private val skylight: SkylightForCoordinates
-) {
+    private val skylight: SkylightForCoordinates = if (true) {
+        CalculatorSkylight().forCoordinates(Coordinates(0.0, 0.0))
+    } else {
+        val zoneOffset = ZoneOffset.of(ZoneId.systemDefault().id)
+        DummySkylight(SkylightDay.NeverDaytime(
+            date = LocalDate.now(),
+            dawn = OffsetTime.of(7, 0, 0, 0, zoneOffset),
+            dusk = OffsetTime.of(22, 0, 0, 0, zoneOffset)
+        )).forCoordinates(Coordinates(0.0, 0.0))
+    }
+) : DefaultLifecycleObserver {
 
+    /*
+     * Count down to a night mode change while the LifecycleOwner is active so the theme can change while the screen
+     * is active.
+     *
+     * TODO: Use coroutines
+     */
     private var darkModeTimer: CountDownTimer? = null
 
-    fun onActivityStart() {
+    override fun onStart(lifecycleOwner: LifecycleOwner) {
         updateDarkMode()
 
         val nextEvent = skylight.getSkylightDay(LocalDate.now()).nextEvent
@@ -29,7 +52,7 @@ class AutoNightDelegate(
         }
     }
 
-    fun onActivityStop() {
+    override fun onStop(owner: LifecycleOwner) {
         darkModeTimer?.cancel()
         darkModeTimer = null
     }
