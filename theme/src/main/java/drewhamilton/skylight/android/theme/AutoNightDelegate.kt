@@ -35,11 +35,17 @@ class AutoNightDelegate(
      */
     private var darkModeTimer: CountDownTimer? = null
 
-    override fun onStart(lifecycleOwner: LifecycleOwner) {
+    /**
+     * Update the current night mode setting and watch for the next dawn/dusk event when the given [owner] starts.
+     */
+    override fun onStart(owner: LifecycleOwner) {
         updateNightMode()
         startTimer()
     }
 
+    /**
+     * Stop watching for the next dawn/dusk event when the given [owner] stops.
+     */
     override fun onStop(owner: LifecycleOwner) = stopTimer()
 
     private fun updateNightMode() = AppCompatDelegate.setDefaultNightMode(
