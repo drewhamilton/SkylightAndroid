@@ -16,6 +16,7 @@ android {
 
     buildTypes {
         release {
+            // TODO MISSING: Sign here
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt')
         }
