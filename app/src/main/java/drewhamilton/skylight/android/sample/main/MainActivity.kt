@@ -86,7 +86,7 @@ class MainActivity : RxActivity() {
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(Consumer { it.display(timeZone) })
-            .disposeOnDestroyView()
+            .untilDestroy()
     }
 
     private fun SkylightDay.display(timeZone: ZoneId) {

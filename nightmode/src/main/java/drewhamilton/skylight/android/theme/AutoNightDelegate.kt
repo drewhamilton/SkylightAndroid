@@ -28,10 +28,9 @@ class AutoNightDelegate(
 ) : DefaultLifecycleObserver {
 
     /*
-     * Count down to a night mode change while the LifecycleOwner is active so the theme can change while the screen
-     * is active.
+     * Counts down to a night mode change while the LifecycleOwner is started
      *
-     * TODO: Use coroutines
+     * TODO: Use coroutines?
      */
     private var darkModeTimer: CountDownTimer? = null
 

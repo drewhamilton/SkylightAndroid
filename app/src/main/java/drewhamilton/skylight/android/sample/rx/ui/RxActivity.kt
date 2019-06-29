@@ -13,7 +13,7 @@ abstract class RxActivity : AppCompatActivity() {
         super.onDestroy()
     }
 
-    protected fun Disposable.disposeOnDestroyView() {
+    protected fun Disposable.untilDestroy() {
         subscriptions.add(this)
     }
 }

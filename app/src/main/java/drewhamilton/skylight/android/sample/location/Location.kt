@@ -11,9 +11,7 @@ data class Location(
     val timeZone: ZoneId,
     val coordinates: Coordinates
 ) {
-    override fun toString(): String {
-        return longDisplayName
-    }
+    override fun toString() = longDisplayName
 }
 
 enum class ExampleLocation(
