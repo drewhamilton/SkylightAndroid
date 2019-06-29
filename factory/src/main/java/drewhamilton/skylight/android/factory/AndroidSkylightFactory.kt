@@ -20,8 +20,10 @@ import org.threeten.bp.ZoneId
 object AndroidSkylightFactory {
 
     /**
-     * Create a [SkylightForCoordinates] using the most recent location available via [context]. If [context] does not
-     * have location permissions, a dummy [SkylightForCoordinates] is created that assumes dawn at 7am and dusk at 10pm.
+     * Create a [SkylightForCoordinates] using the most recent location available via [context].
+     *
+     * If [context] does not have location permissions, a dummy [SkylightForCoordinates] is created that assumes dawn at
+     * 7am and dusk at 10pm.
      */
     @SuppressLint("MissingPermission") // Location permissions are explicitly checked
     fun createForLocation(context: Context): SkylightForCoordinates {
