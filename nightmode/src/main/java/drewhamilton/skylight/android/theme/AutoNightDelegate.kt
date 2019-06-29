@@ -78,6 +78,7 @@ class AutoNightDelegate(
                     startTimer()
                 }
             }
+            darkModeTimer?.start()
         }
     }
 

@@ -42,11 +42,7 @@ class MainActivity : RxActivity() {
     @Inject protected lateinit var locationRepository: LocationRepository
 
     private val autoNightDelegate: AutoNightDelegate by lazy {
-        val offset = ZoneId.systemDefault().rules.getOffset(Instant.now())
-        AutoNightDelegate.ofTimes(
-            dawn = OffsetTime.of(23, 34, 0, 0, offset),
-            dusk = OffsetTime.of(23, 33, 0, 0, offset)
-        )
+        AutoNightDelegate.fallback()
     }
 
     @Suppress("ProtectedInFinal")
