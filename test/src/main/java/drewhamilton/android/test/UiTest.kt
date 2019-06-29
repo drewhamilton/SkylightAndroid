@@ -11,8 +11,7 @@ abstract class UiTest<A : AppCompatActivity>(activityClass: Class<A> ) {
     @get:Rule
     val testRule = IntentsTestRule(activityClass, true, false)
 
-    protected val activity: A
-        get() = testRule.activity
+    protected val activity get(): A = testRule.activity
 
     protected fun launchActivity(intent: Intent = Intent()) {
         testRule.launchActivity(intent)
