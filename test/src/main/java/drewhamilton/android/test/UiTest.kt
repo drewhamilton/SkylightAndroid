@@ -6,13 +6,10 @@ import androidx.test.espresso.intent.rule.IntentsTestRule
 import org.junit.Assert.fail
 import org.junit.Rule
 
-abstract class UiTest<A : AppCompatActivity> {
+abstract class UiTest<A : AppCompatActivity>(activityClass: Class<A> ) {
 
-    @Suppress("LeakingThis")
     @get:Rule
     val testRule = IntentsTestRule(activityClass, true, false)
-
-    protected abstract val activityClass: Class<A>
 
     protected val activity: A
         get() = testRule.activity
