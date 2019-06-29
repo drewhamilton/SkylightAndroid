@@ -34,6 +34,10 @@ task clean(type: Delete) {
 ext {
     libraryVersion = '0.10.0'
 
+    targetSdk = 28
+    minSdk = 14
+
+    skylightVersion = '0.9.0'
     rxJavaVersion = '2.2.8'
     daggerVersion = '2.22.1'
 }

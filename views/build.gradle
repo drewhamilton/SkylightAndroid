@@ -6,11 +6,11 @@ apply plugin: 'kotlin-android-extensions'
 //apply from: 'publish.gradle'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion targetSdk
 
     defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 28
+        minSdkVersion minSdk
+        targetSdkVersion targetSdk
         versionName libraryVersion
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -20,7 +20,7 @@ android {
         release {
             // TODO MISSING: Sign here
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt')
         }
     }
 
@@ -28,7 +28,6 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
     kotlinOptions {
         jvmTarget = "1.8"
         freeCompilerArgs += ["-XXLanguage:+InlineClasses"]

@@ -12,7 +12,7 @@ import drewhamilton.skylight.android.sample.location.Location
 import drewhamilton.skylight.android.sample.location.LocationRepository
 import drewhamilton.skylight.android.sample.rx.ui.RxActivity
 import drewhamilton.skylight.android.sample.settings.SettingsActivity
-import drewhamilton.skylight.android.theme.AutoNightDelegate
+import drewhamilton.skylight.android.nightmode.AutoNightDelegate
 import drewhamilton.skylight.android.views.event.SkylightEventView
 import drewhamilton.skylight.android.views.event.setTime
 import drewhamilton.skylight.backport.Skylight
