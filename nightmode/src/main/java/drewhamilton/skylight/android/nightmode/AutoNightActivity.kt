@@ -1,4 +1,4 @@
-package drewhamilton.skylight.android.theme
+package drewhamilton.skylight.android.nightmode
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
