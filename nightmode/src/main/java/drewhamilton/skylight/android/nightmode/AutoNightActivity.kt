@@ -14,7 +14,7 @@ abstract class AutoNightActivity : AppCompatActivity() {
      * Uses [AutoNightDelegate.fallback] by default. Should be overridden if a different [AutoNightDelegate] is
      * required.
      */
-    protected open val autoNightDelegate: AutoNightDelegate by lazy { AutoNightDelegate.fallback() }
+    protected open val autoNightDelegate: AutoNightDelegate by lazy { AutoNightDelegate.fallback(delegate) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

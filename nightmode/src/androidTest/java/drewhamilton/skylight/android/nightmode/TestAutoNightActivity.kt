@@ -17,6 +17,7 @@ class TestAutoNightActivity : AutoNightActivity() {
             throw IllegalArgumentException("Dawn and dusk times must be provided")
 
         autoNightDelegate = AutoNightDelegate.ofTimes(
+            delegate,
             dawn = OffsetTime.ofInstant(Instant.ofEpochMilli(dawnMilli), ZoneId.systemDefault()),
             dusk = OffsetTime.ofInstant(Instant.ofEpochMilli(duskMilli), ZoneId.systemDefault())
         )
