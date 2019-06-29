@@ -41,7 +41,6 @@ dependencies {
     api 'androidx.lifecycle:lifecycle-common-java8:2.0.0'
     implementation 'androidx.core:core-ktx:1.0.2'
 
-    def skylightVersion = '0.9.0'
     api "drewhamilton.skylight.backport:skylight-backport:$skylightVersion"
     implementation "drewhamilton.skylight.backport:skylight-backport-calculator:$skylightVersion"
     implementation "drewhamilton.skylight.backport:skylight-backport-dummy:$skylightVersion"

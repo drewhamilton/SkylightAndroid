@@ -37,7 +37,6 @@ dependencies {
 
     implementation 'com.jakewharton.threetenabp:threetenabp:1.2.1'
 
-    def skylightVersion = '0.9.0'
     implementation "drewhamilton.skylight.backport:skylight-backport:$skylightVersion"
     implementation "drewhamilton.skylight.backport:skylight-backport-sso:$skylightVersion"
     implementation "drewhamilton.skylight.backport:skylight-backport-calculator:$skylightVersion"

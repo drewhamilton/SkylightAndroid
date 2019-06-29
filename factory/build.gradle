@@ -33,7 +33,10 @@ android {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
-    implementation 'androidx.appcompat:appcompat:1.0.2'
+    api "drewhamilton.skylight.backport:skylight-backport:$skylightVersion"
+    implementation "drewhamilton.skylight.backport:skylight-backport-calculator:$skylightVersion"
+    implementation "drewhamilton.skylight.backport:skylight-backport-dummy:$skylightVersion"
+
     implementation 'androidx.core:core-ktx:1.0.2'
 
     testImplementation 'junit:junit:4.12'
