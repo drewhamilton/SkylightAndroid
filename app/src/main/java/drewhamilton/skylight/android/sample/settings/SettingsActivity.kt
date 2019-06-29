@@ -33,7 +33,7 @@ class SettingsActivity : RxActivity() {
                     SkylightRepository.SkylightType.DUMMY -> dummyButton.isChecked = true
                 }
             }
-            .disposeOnDestroyView()
+            .untilDestroy()
 
         sourceSelection.setOnCheckedChangeListener { _, checkedId ->
             val selectedType = when (checkedId) {

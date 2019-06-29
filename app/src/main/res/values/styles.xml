@@ -1,6 +1,6 @@
 <resources>
 
-  <style name="AppTheme" parent="DarkTheme">
+  <style name="AppTheme" parent="LightTheme">
     <item name="android:popupBackground">@drawable/popup_background</item>
   </style>
 
