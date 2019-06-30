@@ -14,9 +14,18 @@ android {
         consumerProguardFiles 'consumer-rules.pro'
     }
 
+    signingConfigs {
+        release {
+            storeFile file(keystore)
+            storePassword keystorePassword
+            keyAlias keyAlias
+            keyPassword keyPassword
+        }
+    }
+
     buildTypes {
         release {
-            // TODO MISSING: Sign here
+            signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt')
         }
