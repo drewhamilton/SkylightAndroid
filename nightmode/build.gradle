@@ -55,6 +55,7 @@ dependencies {
     api "drewhamilton.skylight.backport:skylight-backport:$skylightVersion"
     implementation "drewhamilton.skylight.backport:skylight-backport-calculator:$skylightVersion"
     implementation "drewhamilton.skylight.backport:skylight-backport-dummy:$skylightVersion"
+    implementation project(':factory')
 
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-inline:2.27.0'
