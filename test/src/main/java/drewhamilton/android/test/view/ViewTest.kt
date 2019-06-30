@@ -7,10 +7,7 @@ import drewhamilton.android.test.CustomActions
 import drewhamilton.android.test.UiTest
 import org.junit.Assert.fail
 
-abstract class ViewTest<V : View> : UiTest<ViewTestActivity>() {
-
-    final override val activityClass
-        get() = ViewTestActivity::class.java
+abstract class ViewTest<V : View> : UiTest<ViewTestActivity>(ViewTestActivity::class.java) {
 
     @Suppress("UNCHECKED_CAST")
     protected fun getView() = activity.getContentView().getChildAt(0) as V

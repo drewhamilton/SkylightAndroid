@@ -24,6 +24,7 @@ import org.threeten.bp.temporal.ChronoUnit
  * has not stopped.
  */
 class AutoNightDelegate(
+    private val appCompatDelegate: AppCompatDelegate,
     private val skylight: SkylightForCoordinates
 ) : DefaultLifecycleObserver {
 
@@ -47,12 +48,15 @@ class AutoNightDelegate(
      */
     override fun onStop(owner: LifecycleOwner) = stopTimer()
 
-    private fun updateNightMode() = AppCompatDelegate.setDefaultNightMode(
-        if (skylight.isDark(ZonedDateTime.now()))
-            AppCompatDelegate.MODE_NIGHT_YES
-        else
-            AppCompatDelegate.MODE_NIGHT_NO
-    )
+    private fun updateNightMode() {
+        AppCompatDelegate.setDefaultNightMode(
+            if (skylight.isDark(ZonedDateTime.now()))
+                AppCompatDelegate.MODE_NIGHT_YES
+            else
+                AppCompatDelegate.MODE_NIGHT_NO
+        )
+        appCompatDelegate.applyDayNight()
+    }
 
     private fun startTimer() {
         val today = LocalDate.now()
@@ -125,9 +129,10 @@ class AutoNightDelegate(
         /**
          * Construct an [AutoNightDelegate] that updates the night mode at the default times of 7am and 10pm.
          */
-        @JvmStatic fun fallback(): AutoNightDelegate {
+        @JvmStatic fun fallback(appCompatDelegate: AppCompatDelegate): AutoNightDelegate {
             val currentZoneOffset = ZoneId.systemDefault().rules.getOffset(Instant.now())
             return ofTimes(
+                appCompatDelegate,
                 dawn = OffsetTime.of(7, 0, 0, 0, currentZoneOffset),
                 dusk = OffsetTime.of(22, 0, 0, 0, currentZoneOffset)
             )
@@ -136,19 +141,27 @@ class AutoNightDelegate(
         /**
          * Construct an [AutoNightDelegate] that updates the night mode at the given [dawn] and [dusk] times.
          */
-        @JvmStatic fun ofTimes(dawn: OffsetTime, dusk: OffsetTime): AutoNightDelegate {
+        @JvmStatic fun ofTimes(
+            appCompatDelegate: AppCompatDelegate,
+            dawn: OffsetTime,
+            dusk: OffsetTime
+        ): AutoNightDelegate {
             val dummySkylightDay = SkylightDay.NeverDaytime(LocalDate.now(), dawn, dusk)
             val skylight = DummySkylight(dummySkylightDay).forCoordinates(Coordinates(0.0, 0.0))
-            return AutoNightDelegate(skylight)
+            return AutoNightDelegate(appCompatDelegate, skylight)
         }
 
         /**
          * Construct an [AutoNightDelegate] that updates the night mode at dawn and dusk at the given [latitude]
          * and [longitude].
          */
-        @JvmStatic fun ofCoordinates(latitude: Double, longitude: Double): AutoNightDelegate {
+        @JvmStatic fun ofCoordinates(
+            appCompatDelegate: AppCompatDelegate,
+            latitude: Double,
+            longitude: Double
+        ): AutoNightDelegate {
             val skylight = CalculatorSkylight().forCoordinates(Coordinates(latitude, longitude))
-            return AutoNightDelegate(skylight)
+            return AutoNightDelegate(appCompatDelegate, skylight)
         }
     }
 }

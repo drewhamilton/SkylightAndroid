@@ -1,7 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-
 android {
     compileSdkVersion targetSdk
 
@@ -18,7 +17,7 @@ android {
         release {
             // TODO MISSING: Sign here
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt')
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 
@@ -28,26 +27,18 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
-    }
-    testOptions {
-        // Needed for Process pid when checking permissions:
-        unitTests.returnDefaultValues = true
+        freeCompilerArgs += ["-XXLanguage:+InlineClasses"]
     }
 }
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
-    api "drewhamilton.skylight.backport:skylight-backport:$skylightVersion"
-    implementation "drewhamilton.skylight.backport:skylight-backport-calculator:$skylightVersion"
-    implementation "drewhamilton.skylight.backport:skylight-backport-dummy:$skylightVersion"
+    implementation 'androidx.appcompat:appcompat:1.0.2'
 
-    implementation 'androidx.core:core-ktx:1.0.2'
+    implementation 'androidx.test.ext:junit:1.1.1'
+    implementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation 'androidx.test.espresso:espresso-intents:3.2.0'
 
     testImplementation 'junit:junit:4.12'
-    testImplementation 'org.mockito:mockito-inline:2.27.0'
-    testImplementation 'org.threeten:threetenbp:1.4.0'
-
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }
