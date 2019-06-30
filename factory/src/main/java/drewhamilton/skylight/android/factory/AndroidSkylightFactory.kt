@@ -26,7 +26,7 @@ object AndroidSkylightFactory {
      * 7am and dusk at 10pm.
      */
     @SuppressLint("MissingPermission") // Location permissions are explicitly checked
-    fun createForLocation(context: Context): SkylightForCoordinates {
+    @JvmStatic fun createForLocation(context: Context): SkylightForCoordinates {
         val hasCoarseLocationPermission = context.hasCoarseLocationPermission
         val hasFineLocationPermission = context.hasFineLocationPermission
 
@@ -59,12 +59,13 @@ object AndroidSkylightFactory {
     /**
      * Create a [SkylightForCoordinates] using the given [location].
      */
-    fun createForLocation(location: Location) = createForCoordinates(Coordinates(location.latitude, location.longitude))
+    @JvmStatic fun createForLocation(location: Location) =
+        createForCoordinates(Coordinates(location.latitude, location.longitude))
 
-    private fun createForCoordinates(coordinates: Coordinates) : SkylightForCoordinates =
+    @JvmStatic private fun createForCoordinates(coordinates: Coordinates) : SkylightForCoordinates =
         CalculatorSkylight().forCoordinates(coordinates)
 
-    private fun createDummy(): SkylightForCoordinates {
+    @JvmStatic private fun createDummy(): SkylightForCoordinates {
         val currentZoneOffset = ZoneId.systemDefault().rules.getOffset(Instant.now())
         val dummySkylightDay = SkylightDay.NeverDaytime(
             LocalDate.now(),
@@ -74,13 +75,13 @@ object AndroidSkylightFactory {
         return DummySkylight(dummySkylightDay).forCoordinates(Coordinates(0.0, 0.0))
     }
 
-    private val Context.hasCoarseLocationPermission get() =
+    @JvmStatic private val Context.hasCoarseLocationPermission get() =
         isPermissionGranted(Manifest.permission.ACCESS_COARSE_LOCATION)
 
-    private val Context.hasFineLocationPermission get() =
+    @JvmStatic private val Context.hasFineLocationPermission get() =
         isPermissionGranted(Manifest.permission.ACCESS_FINE_LOCATION)
 
-    private fun Context.isPermissionGranted(permission: String): Boolean {
+    @JvmStatic private fun Context.isPermissionGranted(permission: String): Boolean {
         val result = PermissionChecker.checkSelfPermission(this, permission)
         return result == PermissionChecker.PERMISSION_GRANTED
     }
