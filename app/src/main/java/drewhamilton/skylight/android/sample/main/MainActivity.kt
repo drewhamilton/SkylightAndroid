@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import drewhamilton.skylight.android.nightmode.AutoNightDelegate
 import drewhamilton.skylight.android.sample.AppComponent
 import drewhamilton.skylight.android.sample.BuildConfig
 import drewhamilton.skylight.android.sample.R
@@ -12,7 +13,6 @@ import drewhamilton.skylight.android.sample.location.Location
 import drewhamilton.skylight.android.sample.location.LocationRepository
 import drewhamilton.skylight.android.sample.rx.ui.RxActivity
 import drewhamilton.skylight.android.sample.settings.SettingsActivity
-import drewhamilton.skylight.android.nightmode.AutoNightDelegate
 import drewhamilton.skylight.android.views.event.SkylightEventView
 import drewhamilton.skylight.android.views.event.setTime
 import drewhamilton.skylight.backport.Skylight
@@ -42,7 +42,7 @@ class MainActivity : RxActivity() {
     @Inject protected lateinit var locationRepository: LocationRepository
 
     private val autoNightDelegate: AutoNightDelegate by lazy {
-        AutoNightDelegate.fallback()
+        AutoNightDelegate.fallback(delegate)
     }
 
     @Suppress("ProtectedInFinal")

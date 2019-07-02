@@ -2,6 +2,8 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
+apply from: 'publish.gradle'
+
 android {
     compileSdkVersion targetSdk
 
@@ -14,9 +16,18 @@ android {
         consumerProguardFiles 'consumer-rules.pro'
     }
 
+    signingConfigs {
+        release {
+            storeFile file(keystore)
+            storePassword keystorePassword
+            keyAlias keyAlias
+            keyPassword keyPassword
+        }
+    }
+
     buildTypes {
         release {
-            // TODO MISSING: Sign here
+            signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt')
         }
@@ -28,22 +39,19 @@ android {
     }
     kotlinOptions {
         jvmTarget = "1.8"
-        freeCompilerArgs += ["-XXLanguage:+InlineClasses"]
     }
 }
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
 
-    // TODO: Trim these dependencies
     implementation 'androidx.appcompat:appcompat:1.0.2'
-    implementation 'androidx.lifecycle:lifecycle-runtime:2.0.0'
     api 'androidx.lifecycle:lifecycle-common-java8:2.0.0'
-    implementation 'androidx.core:core-ktx:1.0.2'
 
     api "drewhamilton.skylight.backport:skylight-backport:$skylightVersion"
     implementation "drewhamilton.skylight.backport:skylight-backport-calculator:$skylightVersion"
     implementation "drewhamilton.skylight.backport:skylight-backport-dummy:$skylightVersion"
+    implementation project(':factory')
 
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-inline:2.27.0'
