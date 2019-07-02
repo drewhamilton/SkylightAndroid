@@ -62,21 +62,22 @@ class SkylightEventView : MaterialCardView {
     fun setLabelText(@StringRes resId: Int) = label.setText(resId)
 
     /**
-     * Set the text appearance for the label view.
-     * @param resId The style to apply as the label view's text appearance
+     * Set the text appearance for the label view to [resId].
      */
     fun setLabelTextAppearance(@StyleRes resId: Int) {
         label.setCompatTextAppearance(resId)
     }
 
+    /**
+     * Set the time text to the string resolved through [resId].
+     */
     fun setTimeText(@StringRes resId: Int) {
         time.setText(resId)
         label.visibility = if (shouldShowLabel) View.VISIBLE else View.INVISIBLE
     }
 
     /**
-     * Set the text appearance for the time view.
-     * @param resId The style to apply as the time view's text appearance
+     * Set the text appearance for the time view to [resId].
      */
     fun setTimeTextAppearance(@StyleRes resId: Int) {
         time.setCompatTextAppearance(resId)
@@ -90,6 +91,9 @@ class SkylightEventView : MaterialCardView {
         stepGranularity: Int = resources.getDimensionPixelSize(R.dimen.skylight_granularity_skylightEventTime)
     ) = setTimeTextAutoSizeRange(PxInt(minSizePx), PxInt(maxSizePx), PxInt(stepGranularity))
 
+    /**
+     * Set the time view to auto-size its text from [minSize] to [maxSize] based on the view size.
+     */
     fun setTimeTextAutoSizeRange(
         minSize: PxInt, maxSize: PxInt,
         stepGranularity: PxInt = resources.getDimensionPxSize(R.dimen.skylight_granularity_skylightEventTime)
