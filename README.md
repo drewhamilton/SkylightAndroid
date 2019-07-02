@@ -1,16 +1,22 @@
 # Skylight Android
 
-**Note:** The initial migration of this code from [Skylight](https://github.com/drewhamilton/Skylight) is still in
-progress.
-
 Skylight Android enhances the functionality of [Skylight](https://github.com/drewhamilton/Skylight) on the Android
 platform.
 
 ## Download
-Coming soon.
+[ ![Download](https://api.bintray.com/packages/drewhamilton/SkylightAndroid/SkylightAndroid-factory/images/download.svg) ](https://bintray.com/drewhamilton/SkylightAndroid)
 
-Skylight Android will be available in JCenter. It is still in pre-release development, and the API may undergo breaking
+Skylight Android is available in JCenter. It is still in pre-release development, and the API may undergo breaking
 changes before version 1.0.0.
+
+```groovy
+// Factory:
+implementation "drewhamilton.skylight.android:skylight-factory:$version"
+// Automatic night mode helpers:
+implementation "drewhamilton.skylight.android:skylight-nightmode:$version"
+// Views and themes:
+implementation "drewhamilton.skylight.android:skylight-views:$version"
+```
 
 ## License
 ```
