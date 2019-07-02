@@ -36,3 +36,13 @@ task javadocJar(type: Jar, dependsOn: dokkaJavadoc) {
     archiveClassifier = 'javadoc'
     from javadocDestinationDir
 }
+
+// Add "skylight-" prefix to local module artifacts in POM:
+def installer = install.repositories.mavenInstaller
+installer*.pom*.whenConfigured { pom ->
+    pom.dependencies.each { dep ->
+        if (dep.groupId == publishedGroupId) {
+            dep.artifactId = "skylight-" + dep.artifactId
+        }
+    }
+}
