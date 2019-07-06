@@ -31,7 +31,7 @@ task clean(type: Delete) {
 }
 
 ext {
-    libraryVersion = '0.10.0'
+    libraryVersion = '0.10.1'
 
     targetSdk = 28
     minSdk = 15
