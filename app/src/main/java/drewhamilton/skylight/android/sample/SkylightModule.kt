@@ -31,7 +31,7 @@ object SkylightModule {
         ssoSkylight: SsoSkylight,
         calculatorSkylight: CalculatorSkylight,
         dummySkylight: DummySkylight
-    ): Skylight = when (skylightRepository.getSelectedSkylightType().blockingGet()!!) {
+    ): Skylight = when (skylightRepository.getSelectedSkylightTypeOnce().blockingGet()!!) {
         SkylightRepository.SkylightType.SSO -> ssoSkylight
         SkylightRepository.SkylightType.CALCULATOR -> calculatorSkylight
         SkylightRepository.SkylightType.DUMMY -> dummySkylight

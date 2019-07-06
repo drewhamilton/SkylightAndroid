@@ -25,7 +25,7 @@ class SettingsActivity : RxActivity() {
 
         toolbar.setNavigationOnClickListener { finish() }
 
-        skylightRepository.observeSelectedSkylightType()
+        skylightRepository.getSelectedSkylightTypeStream()
             .subscribe {
                 when (it!!) {
                     SkylightRepository.SkylightType.SSO -> networkButton.isChecked = true

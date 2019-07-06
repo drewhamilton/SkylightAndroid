@@ -2,8 +2,8 @@ package drewhamilton.skylight.android.sample.source
 
 import dagger.Reusable
 import drewhamilton.rxpreferences.RxPreferences
-import drewhamilton.rxpreferences.getEnum
-import drewhamilton.rxpreferences.observeEnum
+import drewhamilton.rxpreferences.getEnumOnce
+import drewhamilton.rxpreferences.getEnumStream
 import io.reactivex.Observable
 import io.reactivex.Single
 import javax.inject.Inject
@@ -11,11 +11,11 @@ import javax.inject.Inject
 @Reusable
 open class SkylightRepository @Inject constructor(protected val preferences: RxPreferences) {
 
-    fun observeSelectedSkylightType(): Observable<SkylightType> =
-        preferences.observeEnum(Keys.SKYLIGHT_TYPE, Defaults.SKYLIGHT_TYPE)
+    fun getSelectedSkylightTypeStream(): Observable<SkylightType> =
+        preferences.getEnumStream(Keys.SKYLIGHT_TYPE, Defaults.SKYLIGHT_TYPE)
 
-    fun getSelectedSkylightType(): Single<SkylightType> =
-        preferences.getEnum(Keys.SKYLIGHT_TYPE, Defaults.SKYLIGHT_TYPE)
+    fun getSelectedSkylightTypeOnce(): Single<SkylightType> =
+        preferences.getEnumOnce(Keys.SKYLIGHT_TYPE, Defaults.SKYLIGHT_TYPE)
 
     enum class SkylightType {
         SSO,
