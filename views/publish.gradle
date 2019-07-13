@@ -3,7 +3,6 @@ apply from: '../publish.gradle'
 ext {
     bintrayName = 'SkylightAndroid-views'
     libraryName = 'Skylight Views'
-    artifact = 'skylight-views'
 
     libraryDescription = 'Custom Android views that useful in displaying Skylight information.'
 

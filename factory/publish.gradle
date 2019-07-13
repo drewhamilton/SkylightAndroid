@@ -3,7 +3,6 @@ apply from: '../publish.gradle'
 ext {
     bintrayName = 'SkylightAndroid-factory'
     libraryName = 'Skylight Android Factory'
-    artifact = 'skylight-factory'
 
     libraryDescription = 'A simple factory for creating Skylight instances on Android.'
 

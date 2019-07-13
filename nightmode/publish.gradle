@@ -3,7 +3,6 @@ apply from: '../publish.gradle'
 ext {
     bintrayName = 'SkylightAndroid-nightmode'
     libraryName = 'Skylight Android Night Mode'
-    artifact = 'skylight-nightmode'
 
     libraryDescription = 'A delegate supporting automatic switching between night and notnight resources based at dawn and dusk.'
 
