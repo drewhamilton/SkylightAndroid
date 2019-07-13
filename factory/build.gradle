@@ -2,6 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
+ext.artifact = 'skylight-factory'
 apply from: 'publish.gradle'
 
 android {
@@ -62,3 +63,45 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }
+
+// TODO WORKAROUND: Get this to work in its own file
+//region Compatibility
+configurations {
+    baseline
+    latest
+}
+
+dependencies {
+    baseline("$publishedGroupId:$artifact:$compatibleVersion") {
+        transitive false
+        force true
+    }
+    latest project(path: ":$project.name", configuration: 'releaseRuntimeElements')
+}
+
+apply plugin: 'me.champeau.gradle.japicmp'
+//noinspection UnnecessaryQualifiedReference
+task japicmp(type: me.champeau.gradle.japicmp.JapicmpTask) {
+    oldClasspath = configurations.baseline.incoming.artifactView { config ->
+        config.attributes { container ->
+            container.attribute(Attribute.of("artifactType", String.class), "jar")
+        }
+    }.artifacts.artifactFiles
+
+    newClasspath = configurations.latest.incoming.artifactView { config ->
+        config.attributes { container ->
+            container.attribute(Attribute.of("artifactType", String.class), "jar")
+        }
+    }.artifacts.artifactFiles
+
+    onlyBinaryIncompatibleModified true
+    failOnModification failIfIncompatible
+    txtOutputFile = file("$buildDir/reports/japi.txt")
+
+    // TODO WORKAROUND: JApiCmp can't find Android classes
+    ignoreMissingClasses true
+}
+
+check.dependsOn(japicmp)
+build.dependsOn(check)
+//endregion
