@@ -52,7 +52,7 @@ dependencies {
     implementation project(':nightmode')
     implementation 'com.google.android.material:material:1.1.0-alpha07'
 
-    def rxPreferencesVersion = '1.0.0-beta3'
+    def rxPreferencesVersion = '1.0.0-beta4'
     implementation "drewhamilton.rxpreferences:rxpreferences:$rxPreferencesVersion"
     implementation "drewhamilton.rxpreferences:rxpreferences-ktx:$rxPreferencesVersion"
     implementation "drewhamilton.rxpreferences:rxpreferences-dagger:$rxPreferencesVersion"
