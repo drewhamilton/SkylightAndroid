@@ -1,0 +1,5 @@
+<lint>
+  <issue id="InvalidPackage">
+    <ignore path="**/drewhamilton.skylight*/**/skylight*.jar" />
+  </issue>
+</lint>
