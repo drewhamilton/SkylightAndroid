@@ -45,6 +45,9 @@ android {
         // Needed for Process pid when checking permissions:
         unitTests.returnDefaultValues = true
     }
+    lintOptions {
+        lintConfig file('../lint.xml')
+    }
 }
 
 dependencies {
