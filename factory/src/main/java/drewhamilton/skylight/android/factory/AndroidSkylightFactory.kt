@@ -12,10 +12,10 @@ import drewhamilton.skylight.backport.SkylightForCoordinates
 import drewhamilton.skylight.backport.calculator.CalculatorSkylight
 import drewhamilton.skylight.backport.dummy.DummySkylight
 import drewhamilton.skylight.backport.forCoordinates
-import org.threeten.bp.Instant
 import org.threeten.bp.LocalDate
-import org.threeten.bp.OffsetTime
+import org.threeten.bp.LocalTime
 import org.threeten.bp.ZoneId
+import org.threeten.bp.ZonedDateTime
 
 object AndroidSkylightFactory {
 
@@ -23,7 +23,7 @@ object AndroidSkylightFactory {
      * Create a [SkylightForCoordinates] using the most recent location available via [context].
      *
      * If [context] does not have location permissions, a dummy [SkylightForCoordinates] is created that assumes dawn at
-     * 7am and dusk at 10pm.
+     * 7am and dusk at 10pm in the device's current time zone.
      */
     @SuppressLint("MissingPermission") // Location permissions are explicitly checked
     @JvmStatic fun createForLocation(context: Context): SkylightForCoordinates {
@@ -66,11 +66,10 @@ object AndroidSkylightFactory {
         CalculatorSkylight().forCoordinates(coordinates)
 
     @JvmStatic private fun createDummy(): SkylightForCoordinates {
-        val currentZoneOffset = ZoneId.systemDefault().rules.getOffset(Instant.now())
+        val currentZoneId = ZoneId.systemDefault()
         val dummySkylightDay = SkylightDay.NeverDaytime(
-            LocalDate.now(),
-            dawn = OffsetTime.of(7, 0, 0, 0, currentZoneOffset),
-            dusk = OffsetTime.of(22, 0, 0, 0, currentZoneOffset)
+            dawn = ZonedDateTime.of(LocalDate.now(), LocalTime.of(7, 0, 0, 0), currentZoneId),
+            dusk = ZonedDateTime.of(LocalDate.now(), LocalTime.of(22, 0, 0, 0), currentZoneId)
         )
         return DummySkylight(dummySkylightDay).forCoordinates(Coordinates(0.0, 0.0))
     }

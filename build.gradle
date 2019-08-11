@@ -45,7 +45,7 @@ ext {
     targetSdk = 28
     minSdk = 15
 
-    skylightVersion = '0.9.2'
+    skylightVersion = '0.10.0'
     daggerVersion = '2.24'
 
     keystore = project.hasProperty('personalKeystore') ? personalKeystore : 'dummy'

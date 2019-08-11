@@ -62,7 +62,7 @@ class AutoNightDelegate(
         val today = LocalDate.now()
         var nextEvent = skylight.getSkylightDay(today).nextEvent
 
-        // If there is no dawn/dusk event later today, so try tomorrow:
+        // If there is no dawn/dusk event later today, try tomorrow:
         if (nextEvent == null) {
             nextEvent = skylight.getSkylightDay(today.plusDays(1)).nextEvent
         }
@@ -72,7 +72,7 @@ class AutoNightDelegate(
             stopTimer()
         } else {
             // Count down to the next dawn/dusk event
-            val millisUntil = OffsetTime.now().absoluteMillisUntil(nextEvent) + 1000
+            val millisUntil = ChronoUnit.MILLIS.between(ZonedDateTime.now(), nextEvent) + 1000
             darkModeTimer = object : OneOffCountDownTimer(millisUntil) {
                 override fun onFinish() {
                     // A dawn/dusk event has happened; update night mode again
@@ -103,8 +103,8 @@ class AutoNightDelegate(
         darkModeTimer = null
     }
 
-    private val SkylightDay.nextEvent get(): OffsetTime? {
-        val now = OffsetTime.now()
+    private val SkylightDay.nextEvent get(): ZonedDateTime? {
+        val now = ZonedDateTime.now()
         return when(this) {
             is SkylightDay.Typical -> when {
                 dawn.isAfter(now) -> dawn
@@ -146,7 +146,7 @@ class AutoNightDelegate(
             dawn: OffsetTime,
             dusk: OffsetTime
         ): AutoNightDelegate {
-            val dummySkylightDay = SkylightDay.NeverDaytime(LocalDate.now(), dawn, dusk)
+            val dummySkylightDay = SkylightDay.NeverDaytime(dawn.today(), dusk.today())
             val skylight = DummySkylight(dummySkylightDay).forCoordinates(Coordinates(0.0, 0.0))
             return AutoNightDelegate(appCompatDelegate, skylight)
         }
@@ -163,5 +163,7 @@ class AutoNightDelegate(
             val skylight = CalculatorSkylight().forCoordinates(Coordinates(latitude, longitude))
             return AutoNightDelegate(appCompatDelegate, skylight)
         }
+
+        private fun OffsetTime.today() = ZonedDateTime.of(LocalDate.now(), this.toLocalTime(), this.offset)
     }
 }

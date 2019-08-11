@@ -28,10 +28,9 @@ import kotlinx.android.synthetic.main.main_destination.sunrise
 import kotlinx.android.synthetic.main.main_destination.sunset
 import kotlinx.android.synthetic.main.main_destination.toolbar
 import kotlinx.android.synthetic.main.main_destination.version
-import org.threeten.bp.Instant
 import org.threeten.bp.LocalDate
-import org.threeten.bp.OffsetTime
 import org.threeten.bp.ZoneId
+import org.threeten.bp.ZonedDateTime
 import org.threeten.bp.format.TextStyle
 import java.util.Locale
 import javax.inject.Inject
@@ -90,25 +89,25 @@ class MainActivity : RxActivity() {
     }
 
     private fun SkylightDay.display(timeZone: ZoneId) {
-        var dawnDateTime: OffsetTime? = null
-        var sunriseDateTime: OffsetTime? = null
-        var sunsetDateTime: OffsetTime? = null
-        var duskDateTime: OffsetTime? = null
+        var dawnDateTime: ZonedDateTime? = null
+        var sunriseDateTime: ZonedDateTime? = null
+        var sunsetDateTime: ZonedDateTime? = null
+        var duskDateTime: ZonedDateTime? = null
 
         when (this) {
             is SkylightDay.Typical -> {
-                dawnDateTime = dawn.inTimeZone(timeZone)
-                sunriseDateTime = sunrise.inTimeZone(timeZone)
-                sunsetDateTime = sunset.inTimeZone(timeZone)
-                duskDateTime = dusk.inTimeZone(timeZone)
+                dawnDateTime = dawn.inSystemTimeZone()
+                sunriseDateTime = sunrise.inSystemTimeZone()
+                sunsetDateTime = sunset.inSystemTimeZone()
+                duskDateTime = dusk.inSystemTimeZone()
             }
             is SkylightDay.AlwaysLight -> {
-                sunriseDateTime = sunrise.inTimeZone(timeZone)
-                sunsetDateTime = sunset.inTimeZone(timeZone)
+                sunriseDateTime = sunrise.inSystemTimeZone()
+                sunsetDateTime = sunset.inSystemTimeZone()
             }
             is SkylightDay.NeverDaytime -> {
-                dawnDateTime = dawn.inTimeZone(timeZone)
-                duskDateTime = dusk.inTimeZone(timeZone)
+                dawnDateTime = dawn.inSystemTimeZone()
+                duskDateTime = dusk.inSystemTimeZone()
             }
         }
 
@@ -123,10 +122,7 @@ class MainActivity : RxActivity() {
         dusk.showDetailsOnClick(timeZone)
     }
 
-    private fun OffsetTime.inTimeZone(timeZone: ZoneId): OffsetTime {
-        val offset = timeZone.rules.getOffset(Instant.now())
-        return withOffsetSameInstant(offset)
-    }
+    private fun ZonedDateTime.inSystemTimeZone(): ZonedDateTime = withZoneSameInstant(ZoneId.systemDefault())
 
     private fun SkylightEventView.showDetailsOnClick(timeZone: ZoneId) {
         val clickListener: View.OnClickListener? = if (timeText.isNotEmpty())

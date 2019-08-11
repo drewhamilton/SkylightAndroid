@@ -7,14 +7,15 @@ import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
 import org.junit.Before
 import org.junit.Test
-import org.threeten.bp.OffsetTime
+import org.threeten.bp.ZoneId
 import org.threeten.bp.ZoneOffset
+import org.threeten.bp.ZonedDateTime
 import org.threeten.bp.format.DateTimeFormatter
 import org.threeten.bp.format.FormatStyle
 
 class ThreeTenBpExtensionsTest : AlteredTimeZoneTest() {
 
-    private val dummyTime = OffsetTime.of(23, 45, 56, 789, ZoneOffset.UTC)
+    private val dummyTime = ZonedDateTime.of(2019, 8, 11, 23, 45, 56, 789, ZoneOffset.UTC)
     private val dummyTimeString = "Dummy time string"
     private val dummyZoneOffset = ZoneOffset.of("+02:00")
 
@@ -33,7 +34,8 @@ class ThreeTenBpExtensionsTest : AlteredTimeZoneTest() {
     fun setUpMocks() {
         mockDateTimeFormatter = mock {
             on { format(dummyTime) } doReturn dummyTimeString
-            on { format(dummyTime.withOffsetSameInstant(dummyZoneOffset)) } doReturn dummyTimeString
+            on { format(dummyTime.withZoneSameInstant(dummyZoneOffset)) } doReturn dummyTimeString
+            on { format(dummyTime.withZoneSameInstant(ZoneId.systemDefault())) } doReturn dummyTimeString
         }
 
         mockContext = mock {
@@ -52,7 +54,7 @@ class ThreeTenBpExtensionsTest : AlteredTimeZoneTest() {
 
     @Test
     fun `setTime(OffsetTime?) with null date sets empty text`() {
-        mockSkylightEventView.setTime(null as OffsetTime?)
+        mockSkylightEventView.setTime(null as ZonedDateTime?)
         verifyTimeHintSet("")
     }
 
@@ -65,7 +67,7 @@ class ThreeTenBpExtensionsTest : AlteredTimeZoneTest() {
 
     @Test
     fun `setTime(OffsetTime?, Int) with null date sets fallback text from resource`() {
-        mockSkylightEventView.setTime(null as OffsetTime?, dummyFallbackStringRes)
+        mockSkylightEventView.setTime(null as ZonedDateTime?, dummyFallbackStringRes)
         verify(mockSkylightEventView).context
         verifyTimeHintSet(dummyFallbackString)
     }
@@ -78,7 +80,7 @@ class ThreeTenBpExtensionsTest : AlteredTimeZoneTest() {
 
     @Test
     fun `setTime(OffsetTime?, String) with null date sets fallback text`() {
-        mockSkylightEventView.setTime(null as OffsetTime?, fallback = dummyFallbackString)
+        mockSkylightEventView.setTime(null as ZonedDateTime?, fallback = dummyFallbackString)
         verifyTimeHintSet(dummyFallbackString)
     }
 
