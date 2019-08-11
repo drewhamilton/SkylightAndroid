@@ -60,7 +60,7 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.0.2'
 
     testImplementation 'junit:junit:4.12'
-    testImplementation 'org.mockito:mockito-inline:2.27.0'
+    testImplementation 'org.mockito:mockito-inline:2.28.2'
     testImplementation 'org.threeten:threetenbp:1.4.0'
 
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

@@ -57,7 +57,7 @@ dependencies {
     implementation 'drewhamilton.inlinedimens:inlinedimens:0.2.0'
 
     testImplementation 'junit:junit:4.12'
-    testImplementation 'org.mockito:mockito-inline:2.27.0'
+    testImplementation 'org.mockito:mockito-inline:2.28.2'
     testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0'
 
     androidTestImplementation 'androidx.test:runner:1.2.0'
