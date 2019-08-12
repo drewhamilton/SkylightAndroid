@@ -13,6 +13,7 @@ import drewhamilton.android.test.view.ViewTest
 import drewhamilton.inlinedimens.PxInt
 import drewhamilton.inlinedimens.SpInt
 import drewhamilton.inlinedimens.toPx
+import drewhamilton.inlinedimens.toPxFloat
 import drewhamilton.inlinedimens.toPxInt
 import drewhamilton.skylight.android.views.R
 import org.hamcrest.Matchers.`is`
@@ -174,7 +175,7 @@ class SkylightEventViewTest : ViewTest<SkylightEventView>() {
 
         onView(withId(R.id.label))
             .check(matches(isDisplayed()))
-            .check(matches(CustomViewMatchers.withTextSize(SpInt(34).toPx(activity).value)))
+            .check(matches(CustomViewMatchers.withTextSize(SpInt(34).toPx(activity).toPxInt().value.toFloat())))
     }
 
     @Test
@@ -197,16 +198,16 @@ class SkylightEventViewTest : ViewTest<SkylightEventView>() {
         setView(R.layout.test_skylight_event_view_no_attributes)
         val view = getView()
 
-        val minSize = SpInt(12).toPx(activity).value
-        val maxSize = SpInt(20).toPx(activity).value
+        val minSize = SpInt(12).toPx(activity).toPxInt().value
+        val maxSize = SpInt(20).toPx(activity).toPxInt().value
         runOnUiThread {
-            view.setTimeTextAutoSizeRange(minSize.toInt(), maxSize.toInt(), stepGranularity = 1)
+            view.setTimeTextAutoSizeRange(minSize, maxSize, stepGranularity = 1)
             view.timeText = testTime
         }
 
         onView(withId(R.id.time))
             .check(matches(isDisplayed()))
-            .check(matches(CustomViewMatchers.withTextSize(maxSize)))
+            .check(matches(CustomViewMatchers.withTextSize(maxSize.toFloat())))
     }
 
     @Test
@@ -214,16 +215,16 @@ class SkylightEventViewTest : ViewTest<SkylightEventView>() {
         setView(R.layout.test_skylight_event_view_no_attributes)
         val view = getView()
 
-        val minSize = SpInt(12).toPx(activity)
-        val maxSize = SpInt(20).toPx(activity)
+        val minSize = SpInt(12).toPx(activity).toPxInt()
+        val maxSize = SpInt(20).toPx(activity).toPxInt()
         runOnUiThread {
-            view.setTimeTextAutoSizeRange(minSize.toPxInt(), maxSize.toPxInt(), stepGranularity = PxInt(1))
+            view.setTimeTextAutoSizeRange(minSize, maxSize, stepGranularity = PxInt(1))
             view.timeText = testTime
         }
 
         onView(withId(R.id.time))
             .check(matches(isDisplayed()))
-            .check(matches(CustomViewMatchers.withTextSize(maxSize.value)))
+            .check(matches(CustomViewMatchers.withTextSize(maxSize.toPxFloat().value)))
     }
 
     //region setTimeHint

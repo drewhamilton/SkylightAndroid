@@ -39,7 +39,7 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = JavaVersion.VERSION_1_8
     }
     lintOptions {
         lintConfig file('../lint.xml')
@@ -58,7 +58,7 @@ dependencies {
     implementation project(':factory')
 
     testImplementation 'junit:junit:4.12'
-    testImplementation 'org.mockito:mockito-inline:2.27.0'
+    testImplementation 'org.mockito:mockito-inline:2.28.2'
     testImplementation 'org.threeten:threetenbp:1.4.0'
 
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
