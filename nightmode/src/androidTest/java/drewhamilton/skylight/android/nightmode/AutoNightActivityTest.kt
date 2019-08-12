@@ -1,8 +1,6 @@
 package drewhamilton.skylight.android.nightmode
 
 import android.content.Intent
-import android.util.Log
-import android.widget.TextView
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
@@ -11,10 +9,8 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.jakewharton.threetenabp.AndroidThreeTen
 import drewhamilton.android.test.CustomActions
 import drewhamilton.android.test.UiTest
-import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-import org.threeten.bp.ZoneId
 import java.util.concurrent.TimeUnit
 
 class AutoNightActivityTest : UiTest<TestAutoNightActivity>(TestAutoNightActivity::class.java) {
@@ -40,11 +36,6 @@ class AutoNightActivityTest : UiTest<TestAutoNightActivity>(TestAutoNightActivit
         val now = System.currentTimeMillis()
         launchActivity(testIntent(dawnMilli = now + 500, duskMilli = now + 100_000))
 
-        val actualText = activity.findViewById<TextView>(R.id.testText).text
-        assertEquals(
-            "(Text was $actualText) System time zone: ${ZoneId.systemDefault()}",
-            "Night", actualText
-        )
         onView(withText("Night")).check(matches(isDisplayed()))
         CustomActions.waitForUiThread(1500, TimeUnit.MILLISECONDS)
         onView(withText("Day")).check(matches(isDisplayed()))
