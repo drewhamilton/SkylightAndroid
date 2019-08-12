@@ -111,20 +111,6 @@ class ThreeTenBpExtensionsTest : AlteredTimeZoneTest() {
     }
 
     @Test
-    fun `setTime(OffsetTime?, DateTimeFormatter, ZoneOffset, Int) with non-null date sets formatted date text`() {
-        mockSkylightEventView.setTime(dummyTime, mockDateTimeFormatter, dummyZoneOffset, dummyFallbackStringRes)
-        verify(mockSkylightEventView).context
-        verifyTimeTextSet(dummyTimeString)
-    }
-
-    @Test
-    fun `setTime(OffsetTime?, DateTimeFormatter, ZoneOffset, Int) with null date sets fallback text from resource`() {
-        mockSkylightEventView.setTime(null, mockDateTimeFormatter, dummyZoneOffset, dummyFallbackStringRes)
-        verify(mockSkylightEventView).context
-        verifyTimeHintSet(dummyFallbackString)
-    }
-
-    @Test
     fun `setTime(OffsetTime?, DateTimeFormatter, String) with non-null date sets formatted date text`() {
         mockSkylightEventView.setTime(dummyTime, mockDateTimeFormatter, fallback = dummyFallbackString)
         verifyTimeTextSet(dummyTimeString)

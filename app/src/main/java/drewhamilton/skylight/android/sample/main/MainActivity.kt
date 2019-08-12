@@ -96,18 +96,18 @@ class MainActivity : RxActivity() {
 
         when (this) {
             is SkylightDay.Typical -> {
-                dawnDateTime = dawn.inSystemTimeZone()
-                sunriseDateTime = sunrise.inSystemTimeZone()
-                sunsetDateTime = sunset.inSystemTimeZone()
-                duskDateTime = dusk.inSystemTimeZone()
+                dawnDateTime = dawn.withZoneSameInstant(timeZone)
+                sunriseDateTime = sunrise.withZoneSameInstant(timeZone)
+                sunsetDateTime = sunset.withZoneSameInstant(timeZone)
+                duskDateTime = dusk.withZoneSameInstant(timeZone)
             }
             is SkylightDay.AlwaysLight -> {
-                sunriseDateTime = sunrise.inSystemTimeZone()
-                sunsetDateTime = sunset.inSystemTimeZone()
+                sunriseDateTime = sunrise.withZoneSameInstant(timeZone)
+                sunsetDateTime = sunset.withZoneSameInstant(timeZone)
             }
             is SkylightDay.NeverDaytime -> {
-                dawnDateTime = dawn.inSystemTimeZone()
-                duskDateTime = dusk.inSystemTimeZone()
+                dawnDateTime = dawn.withZoneSameInstant(timeZone)
+                duskDateTime = dusk.withZoneSameInstant(timeZone)
             }
         }
 
@@ -121,8 +121,6 @@ class MainActivity : RxActivity() {
         sunset.showDetailsOnClick(timeZone)
         dusk.showDetailsOnClick(timeZone)
     }
-
-    private fun ZonedDateTime.inSystemTimeZone(): ZonedDateTime = withZoneSameInstant(ZoneId.systemDefault())
 
     private fun SkylightEventView.showDetailsOnClick(timeZone: ZoneId) {
         val clickListener: View.OnClickListener? = if (timeText.isNotEmpty())
