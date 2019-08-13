@@ -7,10 +7,8 @@ import android.util.TypedValue
 import android.view.View
 import androidx.annotation.StringRes
 import androidx.annotation.StyleRes
+import androidx.core.widget.TextViewCompat
 import com.google.android.material.card.MaterialCardView
-import drewhamilton.inlinedimens.PxInt
-import drewhamilton.inlinedimens.getDimensionPxSize
-import drewhamilton.inlinedimens.setAutoSizeTextTypeUniformWithConfiguration
 import drewhamilton.skylight.android.views.R
 import drewhamilton.skylight.android.views.setCompatTextAppearance
 import kotlinx.android.synthetic.main.view_skylight_event.view.label
@@ -89,15 +87,13 @@ class SkylightEventView : MaterialCardView {
     fun setTimeTextAutoSizeRange(
         minSizePx: Int, maxSizePx: Int,
         stepGranularity: Int = resources.getDimensionPixelSize(R.dimen.skylight_granularity_skylightEventTime)
-    ) = setTimeTextAutoSizeRange(PxInt(minSizePx), PxInt(maxSizePx), PxInt(stepGranularity))
-
-    /**
-     * Set the time view to auto-size its text from [minSize] to [maxSize] based on the view size.
-     */
-    fun setTimeTextAutoSizeRange(
-        minSize: PxInt, maxSize: PxInt,
-        stepGranularity: PxInt = resources.getDimensionPxSize(R.dimen.skylight_granularity_skylightEventTime)
-    ) = time.setAutoSizeTextTypeUniformWithConfiguration(minSize, maxSize, stepGranularity)
+    ) = TextViewCompat.setAutoSizeTextTypeUniformWithConfiguration(
+        time,
+        minSizePx,
+        maxSizePx,
+        stepGranularity,
+        TypedValue.COMPLEX_UNIT_PX
+    )
 
     private fun initAttributeSet(attrs: AttributeSet) {
         val styledAttributes = context.obtainStyledAttributes(attrs, R.styleable.SkylightEventView)

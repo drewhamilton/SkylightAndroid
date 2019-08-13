@@ -10,10 +10,8 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import drewhamilton.android.test.CustomViewMatchers
 import drewhamilton.android.test.view.ViewTest
-import drewhamilton.inlinedimens.PxInt
 import drewhamilton.inlinedimens.SpInt
 import drewhamilton.inlinedimens.toPx
-import drewhamilton.inlinedimens.toPxFloat
 import drewhamilton.inlinedimens.toPxInt
 import drewhamilton.skylight.android.views.R
 import org.hamcrest.Matchers.`is`
@@ -208,23 +206,6 @@ class SkylightEventViewTest : ViewTest<SkylightEventView>() {
         onView(withId(R.id.time))
             .check(matches(isDisplayed()))
             .check(matches(CustomViewMatchers.withTextSize(maxSize.toFloat())))
-    }
-
-    @Test
-    fun setTimeTextAutoSizeRange_inlineDimens_appliesExpectedSize() {
-        setView(R.layout.test_skylight_event_view_no_attributes)
-        val view = getView()
-
-        val minSize = SpInt(12).toPx(activity).toPxInt()
-        val maxSize = SpInt(20).toPx(activity).toPxInt()
-        runOnUiThread {
-            view.setTimeTextAutoSizeRange(minSize, maxSize, stepGranularity = PxInt(1))
-            view.timeText = testTime
-        }
-
-        onView(withId(R.id.time))
-            .check(matches(isDisplayed()))
-            .check(matches(CustomViewMatchers.withTextSize(maxSize.toPxFloat().value)))
     }
 
     //region setTimeHint
