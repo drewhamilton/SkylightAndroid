@@ -15,6 +15,9 @@ import java.util.concurrent.TimeUnit
 
 class AutoNightActivityTest : UiTest<TestAutoNightActivity>(TestAutoNightActivity::class.java) {
 
+    // The smallest number of milliseconds needed for test devices to reliably apply the night theme on launch
+    private val shortDelayMillis = 100
+
     @Before fun initializeThreeTenAbp() =
         AndroidThreeTen.init(InstrumentationRegistry.getInstrumentation().targetContext)
 
@@ -36,6 +39,7 @@ class AutoNightActivityTest : UiTest<TestAutoNightActivity>(TestAutoNightActivit
         val now = System.currentTimeMillis()
         launchActivity(testIntent(dawnMilli = now + 500, duskMilli = now + 100_000))
 
+        CustomActions.waitForUiThread(shortDelayMillis, TimeUnit.MILLISECONDS)
         onView(withText("Night")).check(matches(isDisplayed()))
         CustomActions.waitForUiThread(1500, TimeUnit.MILLISECONDS)
         onView(withText("Day")).check(matches(isDisplayed()))
