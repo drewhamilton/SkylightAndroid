@@ -1,3 +1,5 @@
+[![Build Status](https://drewhamilton.visualstudio.com/Skylight%20Android/_apis/build/status/drewhamilton.SkylightAndroid?branchName=master)](https://drewhamilton.visualstudio.com/Skylight%20Android/_build/latest?definitionId=2&branchName=master)
+
 # Skylight Android
 
 Skylight Android enhances the functionality of [Skylight](https://github.com/drewhamilton/Skylight) on the Android
