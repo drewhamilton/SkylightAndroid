@@ -35,8 +35,11 @@
     <item name="colorPrimary">?attr/lightThemeColorPrimary</item>
     <item name="colorPrimaryDark">?attr/lightThemeColorPrimaryDark</item>
     <item name="colorPrimaryVariant">?attr/lightThemeColorPrimaryVariant</item>
+
     <item name="colorSecondary">?attr/lightThemeColorSecondary</item>
     <item name="colorSecondaryVariant">?attr/lightThemeColorSecondaryVariant</item>
+    <item name="colorOnSecondary">@color/on_dark_secondary</item>
+
     <item name="android:colorBackground">?attr/lightThemeColorBackground</item>
     <item name="colorError">?attr/lightThemeColorError</item>
 
