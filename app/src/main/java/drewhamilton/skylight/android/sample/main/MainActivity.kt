@@ -13,6 +13,7 @@ import drewhamilton.skylight.android.sample.location.Location
 import drewhamilton.skylight.android.sample.location.LocationRepository
 import drewhamilton.skylight.android.sample.rx.ui.RxActivity
 import drewhamilton.skylight.android.sample.settings.SettingsActivity
+import drewhamilton.skylight.android.sample.styles.StylesActivity
 import drewhamilton.skylight.android.views.event.SkylightEventView
 import drewhamilton.skylight.android.views.event.setTime
 import drewhamilton.skylight.backport.Skylight
@@ -137,6 +138,12 @@ class MainActivity : RxActivity() {
     }
 
     private fun initializeMenu() {
+        val stylesItem = toolbar.menu.findItem(R.id.styles)
+        stylesItem.setOnMenuItemClickListener {
+            startActivity(Intent(this, StylesActivity::class.java))
+            true
+        }
+
         val settingsItem = toolbar.menu.findItem(R.id.settings)
         settingsItem.setOnMenuItemClickListener {
             startActivity(Intent(this, SettingsActivity::class.java))

@@ -1,6 +1,7 @@
 <resources>
   <string name="app_name">Skylight demo</string>
 
+  <string name="styles">Styles</string>
   <string name="settings">Settings</string>
 
   <string name="dawn">Dawn</string>
