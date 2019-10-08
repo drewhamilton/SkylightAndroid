@@ -50,7 +50,8 @@ class MainActivity : RxActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        lifecycle.addObserver(autoNightDelegate)
+        // TODO: Restore use of autoNightDelegate
+//        lifecycle.addObserver(autoNightDelegate)
         setContentView(R.layout.main_destination)
         version.text = getString(R.string.version_info, BuildConfig.VERSION_NAME)
         initializeMenu()
