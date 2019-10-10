@@ -49,9 +49,9 @@ dependencies {
     api 'org.threeten:threetenbp:1.4.0:no-tzdb'
 
     implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
 
-    implementation 'com.google.android.material:material:1.1.0-alpha07'
+    implementation 'com.google.android.material:material:1.1.0-beta01'
 
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-inline:2.28.2'

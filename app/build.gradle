@@ -46,11 +46,11 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.1.0'
     implementation 'androidx.fragment:fragment-ktx:1.1.0'
     implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
 
     implementation project(':views')
     implementation project(':nightmode')
-    implementation 'com.google.android.material:material:1.1.0-alpha07'
+    implementation 'com.google.android.material:material:1.1.0-beta01'
 
     def rxPreferencesVersion = '2.0.0'
     implementation "drewhamilton.rxpreferences:rxpreferences:$rxPreferencesVersion"
