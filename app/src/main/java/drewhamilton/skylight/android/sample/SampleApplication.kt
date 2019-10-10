@@ -1,5 +1,6 @@
 package drewhamilton.skylight.android.sample
 
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.multidex.MultiDexApplication
 import com.jakewharton.threetenabp.AndroidThreeTen
 import drewhamilton.skylight.backport.SkylightDay
@@ -19,5 +20,8 @@ class SampleApplication : MultiDexApplication() {
             SsoSkylightComponent.create(),
             DummySkylightComponent.create(SkylightDay.NeverLight(LocalDate.now()))
         )
+
+        val savedDarkMode = AppComponent.instance.themeRepository().getSelectedDarkMode().blockingFirst()
+        AppCompatDelegate.setDefaultNightMode(savedDarkMode.appCompatValue)
     }
 }

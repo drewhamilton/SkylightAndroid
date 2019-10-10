@@ -17,6 +17,9 @@
     <item name="android:windowLightStatusBar" tools:targetApi="23">false</item>
     <item name="android:windowLightNavigationBar" tools:targetApi="27">false</item>
 
+    <item name="prominentButtonColor">@color/secondary_as_light_background</item>
+    <item name="textButtonTextColor">@color/secondary_as_light_text</item>
+
     <item name="materialAlertDialogTheme">@style/SkylightDark.AlertDialog</item>
     <item name="alertDialogTheme">@style/SkylightDark.AlertDialog</item>
   </style>
@@ -35,13 +38,19 @@
     <item name="colorPrimary">?attr/lightThemeColorPrimary</item>
     <item name="colorPrimaryDark">?attr/lightThemeColorPrimaryDark</item>
     <item name="colorPrimaryVariant">?attr/lightThemeColorPrimaryVariant</item>
+
     <item name="colorSecondary">?attr/lightThemeColorSecondary</item>
     <item name="colorSecondaryVariant">?attr/lightThemeColorSecondaryVariant</item>
+    <item name="colorOnSecondary">@color/on_dark_secondary</item>
+
     <item name="android:colorBackground">?attr/lightThemeColorBackground</item>
     <item name="colorError">?attr/lightThemeColorError</item>
 
     <item name="android:windowLightStatusBar" tools:targetApi="23">true</item>
     <item name="android:windowLightNavigationBar" tools:targetApi="27">true</item>
+
+    <item name="prominentButtonColor">@color/secondary_as_dark_background</item>
+    <item name="textButtonTextColor">@color/secondary_as_dark_text</item>
 
     <item name="materialAlertDialogTheme">@style/SkylightLight.AlertDialog</item>
     <item name="alertDialogTheme">@style/SkylightLight.AlertDialog</item>

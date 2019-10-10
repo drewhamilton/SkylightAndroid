@@ -22,7 +22,7 @@
   <RadioGroup
       android:id="@+id/sourceSelection"
       android:layout_width="0dp"
-      android:layout_height="0dp"
+      android:layout_height="wrap_content"
 
       android:clipToPadding="false"
       android:divider="@drawable/list_divider"
@@ -30,10 +30,12 @@
       android:paddingEnd="@dimen/marginSides_mainText"
       android:showDividers="beginning|end"
 
+      app:layout_constraintVertical_chainStyle="packed"
+      app:layout_constraintVertical_bias="0"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/toolbar"
-      app:layout_constraintBottom_toBottomOf="parent">
+      app:layout_constraintBottom_toTopOf="@+id/themeSelection">
 
     <TextView
         android:layout_width="match_parent"
@@ -65,6 +67,55 @@
         android:layout_height="wrap_content"
 
         android:text="Dummy" />
+
+  </RadioGroup>
+
+  <RadioGroup
+      android:id="@+id/themeSelection"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+
+      android:clipToPadding="false"
+      android:divider="@drawable/list_divider"
+      android:paddingStart="@dimen/marginSides_mainText"
+      android:paddingEnd="@dimen/marginSides_mainText"
+      android:showDividers="beginning|end"
+
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/sourceSelection"
+      app:layout_constraintBottom_toBottomOf="parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/divider_list"
+
+        android:text="Theme"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+    <com.google.android.material.radiobutton.MaterialRadioButton
+        android:id="@+id/systemButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:text="System"
+
+        tools:checked="true" />
+
+    <com.google.android.material.radiobutton.MaterialRadioButton
+        android:id="@+id/lightButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:text="Light" />
+
+    <com.google.android.material.radiobutton.MaterialRadioButton
+        android:id="@+id/darkButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:text="Dark" />
 
   </RadioGroup>
 

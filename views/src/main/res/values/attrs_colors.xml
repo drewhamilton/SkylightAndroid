@@ -16,4 +16,7 @@
   <attr name="lightThemeColorBackground" format="color" />
   <attr name="lightThemeColorError" format="color" />
 
+  <attr name="prominentButtonColor" format="color" />
+  <attr name="textButtonTextColor" format="color" />
+
 </resources>
