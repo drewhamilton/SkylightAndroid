@@ -61,7 +61,7 @@ dependencies {
     androidTestImplementation 'androidx.test:rules:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     androidTestImplementation project(':test')
-    androidTestImplementation 'drewhamilton.inlinedimens:inlinedimens:0.4.0'
+    androidTestImplementation 'drewhamilton.inlinedimens:inlinedimens:0.5.3'
 }
 
 // TODO WORKAROUND: Get this to work in its own file
