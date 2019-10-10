@@ -3,19 +3,17 @@
   <style name="ProminentButton" parent="Widget.MaterialComponents.Button">
     <item name="android:textColor">?attr/colorOnSecondary</item>
     <item name="iconTint">?attr/colorOnSecondary</item>
-<!--    <item name="rippleColor">?attr/colorOnSecondary</item>-->
-    <item name="backgroundTint">@color/secondary_as_dark_background</item>
+    <item name="backgroundTint">?attr/prominentButtonColor</item>
   </style>
 
   <style name="ProminentButton.Unelevated" parent="Widget.MaterialComponents.Button.UnelevatedButton">
     <item name="android:textColor">?attr/colorOnSecondary</item>
     <item name="iconTint">?attr/colorOnSecondary</item>
-<!--    <item name="rippleColor">?attr/colorOnSecondary</item>-->
-    <item name="backgroundTint">@color/secondary_as_dark_background</item>
+    <item name="backgroundTint">?attr/prominentButtonColor</item>
   </style>
 
   <style name="TextButton" parent="Widget.MaterialComponents.Button.TextButton">
-    <item name="android:textColor">@color/secondary_as_dark_text</item>
+    <item name="android:textColor">?attr/textButtonTextColor</item>
     <item name="iconTint">@color/secondary_as_dark_text</item>
     <item name="rippleColor">?attr/colorSecondary</item>
   </style>
