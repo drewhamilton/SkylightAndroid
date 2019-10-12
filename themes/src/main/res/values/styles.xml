@@ -5,9 +5,9 @@
     <item name="android:windowIsFloating">false</item>
     <item name="android:windowBackground">@android:color/transparent</item>
     <item name="android:windowAnimationStyle">@style/Animation.Skylight.BottomSheet.Modal</item>
-    <item name="android:statusBarColor">@android:color/transparent</item>
+    <item name="android:statusBarColor" tools:targetApi="lollipop">@android:color/transparent</item>
     <item name="bottomSheetStyle">@style/Widget.Skylight.BottomSheet.Modal</item>
-    <item name="android:navigationBarColor">?colorSurface</item>
+    <item name="android:navigationBarColor" tools:targetApi="lollipop">?colorSurface</item>
     <item name="android:navigationBarDividerColor" tools:ignore="NewApi">@android:color/transparent</item>
   </style>
 
