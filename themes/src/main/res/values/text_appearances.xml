@@ -41,7 +41,7 @@
   </style>
 
   <style name="TextAppearance.Skylight.Button" parent="TextAppearance.MaterialComponents.Button">
-    <item name="android:textColor">?colorOnSurface</item>
+    <item name="android:textColor">?colorOnPrimary</item>
   </style>
 
   <style name="TextAppearance.Skylight.Caption" parent="TextAppearance.MaterialComponents.Caption">

@@ -1,9 +1,5 @@
 <resources>
 
-  <style name="AppTheme" parent="LightTheme">
-    <item name="android:popupBackground">@drawable/popup_background</item>
-  </style>
-
   <style name="LightTheme" parent="SkylightLight.NoActionBar" />
   <style name="DarkTheme" parent="SkylightDark.NoActionBar" />
 
