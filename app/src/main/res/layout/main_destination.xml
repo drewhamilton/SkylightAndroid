@@ -12,7 +12,7 @@
       android:layout_width="0dp"
       android:layout_height="?android:attr/actionBarSize"
 
-      android:theme="@style/Theme.Skylight"
+      android:theme="@style/Theme.Skylight.DayNight"
 
       app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintBottom_toTopOf="@+id/timeZoneInfo"
