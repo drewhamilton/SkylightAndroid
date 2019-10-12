@@ -4,11 +4,11 @@
   <public name="Theme.Skylight.DayNight" type="style" />
   <style name="Theme.Skylight.DayNight" parent="Theme.Skylight.Light" />
 
-  <public name="Theme.Skylight.Light" type="style" />
-  <style name="Theme.Skylight.Light" parent="Base15.Theme.Skylight.Light" />
-
   <public name="Theme.Skylight" type="style" />
   <style name="Theme.Skylight" parent="Base15.Theme.Skylight" />
+
+  <public name="Theme.Skylight.Light" type="style" />
+  <style name="Theme.Skylight.Light" parent="Base15.Theme.Skylight.Light" />
 
   <style name="Base15.Theme.Skylight" parent="Theme.MaterialComponents.NoActionBar">
     <!--Color attributes -->
@@ -26,10 +26,6 @@
     <item name="colorOnBackground">#ffffff</item>
     <item name="colorOnSurface">#ffffff</item>
     <item name="colorOnError">#000000</item>
-
-    <!--TODO: System bars-->
-<!--    <item name="android:statusBarColor"></item>-->
-<!--    <item name="android:navigationBarColor">?colorBackgroundDark</item>-->
 
     <!--region Duplicated in both themes-->
     <!--Type attributes-->
@@ -80,10 +76,6 @@
     <item name="colorOnBackground">#000000</item>
     <item name="colorOnSurface">#000000</item>
     <item name="colorOnError">#ffffff</item>
-
-    <!--TODO: System bars-->
-<!--    <item name="android:statusBarColor"></item>-->
-<!--    <item name="android:navigationBarColor">?colorBackgroundDark</item>-->
 
     <!--region Duplicated in both themes-->
     <!--Type attributes-->

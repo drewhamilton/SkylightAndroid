@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+  <style name="Theme.Skylight" parent="Base27.Theme.Skylight" />
   <style name="Theme.Skylight.Light" parent="Base27.Theme.Skylight.Light" />
+
+  <style name="Base27.Theme.Skylight" parent="Base21.Theme.Skylight">
+    <item name="android:navigationBarColor">?android:colorBackground</item>
+  </style>
 
   <style name="Base27.Theme.Skylight.Light" parent="Base23.Theme.Skylight.Light">
     <item name="android:navigationBarColor">?android:colorBackground</item>
