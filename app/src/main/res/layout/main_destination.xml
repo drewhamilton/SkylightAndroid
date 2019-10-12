@@ -12,8 +12,6 @@
       android:layout_width="0dp"
       android:layout_height="?android:attr/actionBarSize"
 
-      android:theme="@style/Theme.Skylight.DayNight"
-
       app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintBottom_toTopOf="@+id/timeZoneInfo"
       app:layout_constraintStart_toStartOf="parent"
@@ -55,7 +53,7 @@
       android:layout_marginStart="@dimen/marginSides_mainCard"
       android:layout_marginEnd="@dimen/marginSides_mainCard"
 
-      android:theme="@style/LightTheme"
+      android:theme="@style/Theme.Skylight.Light"
 
       app:layout_constraintTop_toBottomOf="@+id/timeZoneInfo"
       app:layout_constraintBottom_toTopOf="@+id/sunrise"
@@ -74,7 +72,7 @@
       android:layout_marginStart="@dimen/marginSides_mainCard"
       android:layout_marginEnd="@dimen/marginSides_mainCard"
 
-      android:theme="@style/LightTheme"
+      android:theme="@style/Theme.Skylight.Light"
 
       app:layout_constraintTop_toBottomOf="@+id/dawn"
       app:layout_constraintBottom_toTopOf="@+id/sunset"
@@ -93,7 +91,7 @@
       android:layout_marginStart="@dimen/marginSides_mainCard"
       android:layout_marginEnd="@dimen/marginSides_mainCard"
 
-      android:theme="@style/DarkTheme"
+      android:theme="@style/Theme.Skylight"
 
       app:layout_constraintTop_toBottomOf="@+id/sunrise"
       app:layout_constraintBottom_toTopOf="@+id/dusk"
@@ -112,7 +110,7 @@
       android:layout_marginStart="@dimen/marginSides_mainCard"
       android:layout_marginEnd="@dimen/marginSides_mainCard"
 
-      android:theme="@style/DarkTheme"
+      android:theme="@style/Theme.Skylight"
 
       app:layout_constraintTop_toBottomOf="@+id/sunset"
       app:layout_constraintBottom_toTopOf="@+id/version"

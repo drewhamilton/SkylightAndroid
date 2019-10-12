@@ -17,7 +17,9 @@
       app:layout_constraintTop_toTopOf="parent"
 
       app:navigationIcon="@drawable/ic_close_24dp"
-      app:title="@string/settings" />
+      app:title="@string/settings"
+
+      style="@style/Widget.MaterialComponents.Toolbar.Surface" />
 
   <RadioGroup
       android:id="@+id/sourceSelection"
