@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <style name="Theme.Skylight" parent="SkylightTheme23" />
+
+  <style name="SkylightTheme23" parent="SkylightTheme21">
+    <item name="android:statusBarColor">?colorSurface</item>
+    <item name="android:windowLightStatusBar">@bool/skylight_lightStatusBar</item>
+  </style>
+
+</resources>

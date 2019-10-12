@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <!--DARK COLOR THEME-->
+  <!--The same color values are defined for dark theme, but with values more appropriate for -->
+  <!--low-luminance UIs. These colors will be used by night/themes.xml.-->
+  <color name="skylight_primary">@color/skylight_darkPurple</color>
+  <color name="skylight_primaryVariant">@color/skylight_darkPurple_extraDark</color>
+  <color name="skylight_secondary">@color/skylight_amber_dark</color>
+  <color name="skylight_secondaryVariant">@color/skylight_amber_extraDark</color>
+
+  <color name="skylight_background">@color/skylight_darkPurple_dark</color>
+  <color name="skylight_surface">@color/skylight_darkPurple_light</color>
+  <color name="skylight_error">#cf6679</color>
+
+  <color name="skylight_onPrimary">#000000</color>
+  <color name="skylight_onSecondary">#000000</color>
+  <color name="skylight_onBackground">#ffffff</color>
+  <color name="skylight_onSurface">#ffffff</color>
+  <color name="skylight_onError">#000000</color>
+
+</resources>

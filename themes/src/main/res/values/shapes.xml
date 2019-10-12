@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <style name="ShapeAppearance.Skylight.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+    <!--TODO-->
+  </style>
+
+  <!--Shape Appearance for medium components like cards, alert dialogs-->
+  <style name="ShapeAppearance.Skylight.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+    <!--TODO-->
+  </style>
+
+  <!--Shape Appearance for large components like side and bottom navigation drawers-->
+  <style name="ShapeAppearance.Skylight.LargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
+    <!--TODO-->
+  </style>
+</resources>

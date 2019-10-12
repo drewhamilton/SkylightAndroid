@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <style name="Theme.Skylight" parent="SkylightTheme27" />
+
+  <style name="SkylightTheme27" parent="SkylightTheme23">
+    <item name="android:navigationBarColor">?android:colorBackground</item>
+    <item name="android:windowLightNavigationBar">@bool/skylight_lightNavigationBar</item>
+  </style>
+
+</resources>

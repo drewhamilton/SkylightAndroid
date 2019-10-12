@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <style name="Animation.Skylight.BottomSheet.Modal" parent="Animation.AppCompat.Dialog">
+    <item name="android:windowEnterAnimation">@anim/skylight_bottom_sheet_slide_in</item>
+    <item name="android:windowExitAnimation">@anim/skylight_bottom_sheet_slide_out</item>
+  </style>
+</resources>

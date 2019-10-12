@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+  <style name="Theme.Skylight" parent="SkylightTheme21" />
+
+  <style name="SkylightTheme21" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <!--Color attributes -->
+    <item name="colorPrimary">@color/skylight_primary</item>
+    <item name="colorPrimaryVariant">@color/skylight_primaryVariant</item>
+    <item name="colorSecondary">@color/skylight_secondary</item>
+    <item name="colorSecondaryVariant">@color/skylight_secondaryVariant</item>
+
+    <item name="android:colorBackground">@color/skylight_background</item>
+    <item name="colorSurface">@color/skylight_surface</item>
+    <item name="colorError">@color/skylight_error</item>
+
+    <item name="colorOnPrimary">@color/skylight_onPrimary</item>
+    <item name="colorOnSecondary">@color/skylight_onSecondary</item>
+    <item name="colorOnBackground">@color/skylight_onBackground</item>
+    <item name="colorOnSurface">@color/skylight_onSurface</item>
+    <item name="colorOnError">@color/skylight_onError</item>
+
+    <!--Type attributes-->
+    <item name="textAppearanceHeadline1">@style/TextAppearance.Skylight.Headline1</item>
+    <item name="textAppearanceHeadline2">@style/TextAppearance.Skylight.Headline2</item>
+    <item name="textAppearanceHeadline3">@style/TextAppearance.Skylight.Headline3</item>
+    <item name="textAppearanceHeadline4">@style/TextAppearance.Skylight.Headline4</item>
+    <item name="textAppearanceHeadline5">@style/TextAppearance.Skylight.Headline5</item>
+    <item name="textAppearanceHeadline6">@style/TextAppearance.Skylight.Headline6</item>
+    <item name="textAppearanceSubtitle1">@style/TextAppearance.Skylight.Subtitle1</item>
+    <item name="textAppearanceSubtitle2">@style/TextAppearance.Skylight.Subtitle2</item>
+    <item name="textAppearanceBody1">@style/TextAppearance.Skylight.Body1</item>
+    <item name="textAppearanceBody2">@style/TextAppearance.Skylight.Body2</item>
+    <item name="textAppearanceButton">@style/TextAppearance.Skylight.Button</item>
+    <item name="textAppearanceCaption">@style/TextAppearance.Skylight.Caption</item>
+    <item name="textAppearanceOverline">@style/TextAppearance.Skylight.Overline</item>
+
+    <!--Shape attributes-->
+    <item name="shapeAppearanceSmallComponent">@style/ShapeAppearance.Skylight.SmallComponent</item>
+    <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.Skylight.MediumComponent</item>
+    <item name="shapeAppearanceLargeComponent">@style/ShapeAppearance.Skylight.LargeComponent</item>
+
+    <!--Component styles-->
+    <item name="materialAlertDialogTheme">@style/ThemeOverlay.MaterialComponents.Dialog.Alert</item>
+    <item name="bottomSheetDialogTheme">@style/ThemeOverlay.Skylight.BottomSheetDialog</item>
+    <item name="navigationViewStyle">@style/Widget.Skylight.NavigationView</item>
+    <item name="toolbarStyle">@style/Widget.MaterialComponents.Toolbar.PrimarySurface</item>
+
+    <!--TODO: System bars-->
+<!--    <item name="android:statusBarColor">?colorSurfaceDark</item>-->
+<!--    <item name="android:navigationBarColor">?colorBackgroundDark</item>-->
+
+    <!--Remap legacy AppCompat attributes to MaterialComponent attributes-->
+    <item name="colorPrimaryDark">?colorPrimaryVariant</item>
+    <item name="colorAccent">?colorSecondary</item>
+  </style>
+</resources>
