@@ -44,7 +44,7 @@
     <item name="materialAlertDialogTheme">@style/ThemeOverlay.MaterialComponents.Dialog.Alert</item>
     <item name="bottomSheetDialogTheme">@style/ThemeOverlay.Skylight.BottomSheetDialog</item>
     <item name="navigationViewStyle">@style/Widget.Skylight.NavigationView</item>
-    <item name="toolbarStyle">@style/Widget.MaterialComponents.Toolbar.PrimarySurface</item>
+    <item name="toolbarStyle">@style/Widget.MaterialComponents.Toolbar</item>
 
     <!--TODO: System bars-->
 <!--    <item name="android:statusBarColor">?colorSurfaceDark</item>-->

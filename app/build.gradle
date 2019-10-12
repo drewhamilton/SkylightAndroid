@@ -49,6 +49,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
 
     implementation project(':views')
+    implementation project(':themes')
     implementation project(':nightmode')
     implementation 'com.google.android.material:material:1.1.0-beta01'
 
