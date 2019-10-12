@@ -7,6 +7,7 @@
       <module fileurl="file://$PROJECT_DIR$/factory/factory.iml" filepath="$PROJECT_DIR$/factory/factory.iml" group="Skylight Android/factory" />
       <module fileurl="file://$PROJECT_DIR$/nightmode/nightmode.iml" filepath="$PROJECT_DIR$/nightmode/nightmode.iml" group="Skylight Android/nightmode" />
       <module fileurl="file://$PROJECT_DIR$/test/test.iml" filepath="$PROJECT_DIR$/test/test.iml" group="Skylight Android/test" />
+      <module fileurl="file://$PROJECT_DIR$/themes/themes.iml" filepath="$PROJECT_DIR$/themes/themes.iml" group="Skylight Android/themes" />
       <module fileurl="file://$PROJECT_DIR$/views/views.iml" filepath="$PROJECT_DIR$/views/views.iml" group="Skylight Android/views" />
     </modules>
   </component>

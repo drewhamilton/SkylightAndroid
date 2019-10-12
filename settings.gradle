@@ -1,3 +1,4 @@
-include ':factory', ':nightmode', ':views'
+include ':factory', ':nightmode'
+include ':themes', ':views'
 include ':test', ':app'
 rootProject.name='Skylight Android'
