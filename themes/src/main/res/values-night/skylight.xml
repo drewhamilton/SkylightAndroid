@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <public name="Theme.Skylight.DayNight" type="style" />
   <style name="Theme.Skylight.DayNight" parent="Theme.Skylight" />
 </resources>

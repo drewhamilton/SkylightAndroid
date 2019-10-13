@@ -24,66 +24,70 @@
 
       style="@style/Widget.MaterialComponents.Toolbar.Surface" />
 
-  <LinearLayout
+  <androidx.constraintlayout.widget.ConstraintLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
 
       android:clipChildren="false"
       android:clipToPadding="false"
-      android:orientation="vertical"
-      android:padding="8dp">
+      android:padding="@dimen/marginSides_mainText">
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/buttonsSwitch"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:checked="true"
+        android:text="Buttons"
+        android:textAppearance="?textAppearanceSubtitle1"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/elevatedButton" />
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/elevatedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:text="ProminentButton"
+        android:text="Bottom sheet"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textButton"
+        app:layout_constraintTop_toBottomOf="@+id/buttonsSwitch"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
 
         style="@style/Widget.MaterialComponents.Button" />
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/textButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:enabled="false"
-        android:text="ProminentButton (disabled)"
+        android:text="Nothing"
 
-        style="@style/Widget.MaterialComponents.Button" />
-
-    <com.google.android.material.button.MaterialButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:text="ProminentButton.Unelevated"
-
-        style="@style/Widget.MaterialComponents.Button.UnelevatedButton" />
-
-    <com.google.android.material.button.MaterialButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:enabled="false"
-        android:text="ProminentButton.Unelevated (disabled)"
-
-        style="@style/Widget.MaterialComponents.Button.UnelevatedButton" />
-
-    <com.google.android.material.button.MaterialButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:text="TextButton"
+        app:layout_constraintStart_toEndOf="@+id/elevatedButton"
+        app:layout_constraintEnd_toStartOf="@+id/outlinedButton"
+        app:layout_constraintTop_toTopOf="@+id/elevatedButton"
+        app:layout_constraintBottom_toBottomOf="@+id/elevatedButton"
 
         style="@style/Widget.MaterialComponents.Button.TextButton" />
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/outlinedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:enabled="false"
-        android:text="TextButton (disabled)"
+        android:text="Nothing"
 
-        style="@style/Widget.MaterialComponents.Button.TextButton" />
+        app:layout_constraintStart_toEndOf="@+id/textButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/elevatedButton"
+        app:layout_constraintBottom_toBottomOf="@+id/elevatedButton"
 
-  </LinearLayout>
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
 
 </LinearLayout>
