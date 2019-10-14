@@ -4,9 +4,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
 
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
+    android:orientation="vertical"
 
     tools:ignore="HardcodedText">
 
@@ -14,6 +15,8 @@
       android:id="@+id/toolbar"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+
+      android:elevation="@dimen/elevation_toolbar"
 
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
@@ -24,27 +27,22 @@
 
       style="@style/Widget.MaterialComponents.Toolbar.Surface" />
 
-  <androidx.constraintlayout.widget.ConstraintLayout
+  <androidx.constraintlayout.motion.widget.MotionLayout
+      android:id="@+id/motionLayout"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content">
+      android:layout_height="wrap_content"
+
+      app:layoutDescription="@xml/display_banner_motion">
 
     <drewhamilton.material.banner.Banner
         android:id="@+id/errorBanner"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
 
-        android:background="?colorSurface"
-        android:padding="8dp"
         android:theme="@style/Theme.Skylight.Error"
 
         app:bannerMessage="This is an example error banner."
-        app:bannerPositiveButtonText="OK"
-
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="parent"
-
-        tools:translationY="100dp" />
+        app:bannerPositiveButtonText="OK" />
 
     <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/buttonsSwitch"
@@ -56,17 +54,17 @@
         android:text="Buttons"
         android:textAppearance="?textAppearanceSubtitle1"
 
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/elevatedButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/errorBanner"
-        app:layout_constraintBottom_toTopOf="@+id/elevatedButton" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/errorBanner" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/elevatedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/marginSides_mainText"
         android:layout_marginStart="@dimen/marginSides_mainText"
+        android:layout_marginLeft="@dimen/marginSides_mainText"
         android:layout_marginBottom="@dimen/marginSides_mainText"
 
         android:text="Bottom sheet"
@@ -108,6 +106,6 @@
 
         style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
 
-  </androidx.constraintlayout.widget.ConstraintLayout>
+  </androidx.constraintlayout.motion.widget.MotionLayout>
 
 </LinearLayout>

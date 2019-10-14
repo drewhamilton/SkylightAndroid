@@ -8,6 +8,7 @@ import drewhamilton.skylight.android.sample.R
 import kotlinx.android.synthetic.main.styles_destination.buttonsSwitch
 import kotlinx.android.synthetic.main.styles_destination.elevatedButton
 import kotlinx.android.synthetic.main.styles_destination.errorBanner
+import kotlinx.android.synthetic.main.styles_destination.motionLayout
 import kotlinx.android.synthetic.main.styles_destination.outlinedButton
 import kotlinx.android.synthetic.main.styles_destination.textButton
 import kotlinx.android.synthetic.main.styles_destination.toolbar
@@ -35,7 +36,7 @@ class StylesActivity : AppCompatActivity() {
             }.show()
         }
 
-        errorBanner.setPositiveButtonOnClickListener(View.OnClickListener { errorBanner.dismiss() })
-        textButton.setOnClickListener { errorBanner.show() }
+        errorBanner.setPositiveButtonOnClickListener(View.OnClickListener { motionLayout.transitionToStart() })
+        textButton.setOnClickListener { motionLayout.transitionToEnd() }
     }
 }
