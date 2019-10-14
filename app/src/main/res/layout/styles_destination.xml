@@ -42,7 +42,8 @@
         android:theme="@style/Theme.Skylight.Error"
 
         app:bannerMessage="This is an example error banner."
-        app:bannerPositiveButtonText="OK" />
+        app:bannerPrimaryButtonText="Try again"
+        app:bannerSecondaryButtonText="Dismiss" />
 
     <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/buttonsSwitch"

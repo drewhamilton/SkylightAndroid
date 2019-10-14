@@ -65,7 +65,7 @@
       tools:text="This is the banner message." />
 
   <com.google.android.material.button.MaterialButton
-      android:id="@+id/positiveButton"
+      android:id="@+id/primaryButton"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginStart="8dp"
@@ -79,6 +79,21 @@
 
       style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
 
-      tools:text="OK" />
+      tools:text="Try again" />
+
+  <com.google.android.material.button.MaterialButton
+      android:id="@+id/secondaryButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="8dp"
+      android:layout_marginLeft="8dp"
+
+      app:layout_constraintEnd_toStartOf="@+id/primaryButton"
+      app:layout_constraintTop_toTopOf="@+id/primaryButton"
+      app:layout_constraintBottom_toBottomOf="@+id/primaryButton"
+
+      style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"
+
+      tools:text="Dismiss" />
 
 </merge>
