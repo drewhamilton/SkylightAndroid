@@ -50,6 +50,7 @@ dependencies {
 
     implementation project(':views')
     implementation project(':themes')
+    implementation project(':banner')
     implementation project(':nightmode')
     implementation 'com.google.android.material:material:1.1.0-beta01'
 

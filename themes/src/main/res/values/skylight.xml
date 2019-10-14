@@ -10,6 +10,43 @@
   <public name="Theme.Skylight.Light" type="style" />
   <style name="Theme.Skylight.Light" parent="Base15.Theme.Skylight.Light" />
 
+  <public name="Theme.Skylight.Error" type="style" />
+  <style name="Theme.Skylight.Error" parent="Theme.Skylight.Light">
+    <!--Color attributes -->
+    <item name="colorPrimary">?colorOnSurface</item>
+    <item name="colorPrimaryVariant">?colorPrimary</item>
+    <item name="colorSecondary">?colorPrimary</item>
+    <item name="colorSecondaryVariant">?colorSecondary</item>
+    <item name="android:colorBackground">@color/skylight_darkPurple_dark</item>
+    <item name="colorSurface">@color/skylight_pink_light</item>
+    <item name="colorError">?colorSurface</item>
+
+    <item name="colorOnPrimary">#000000</item>
+    <item name="colorOnSecondary">?colorOnPrimary</item>
+    <item name="colorOnBackground">#ffffff</item>
+    <item name="colorOnSurface">#000000</item>
+    <item name="colorOnError">?colorOnPrimary</item>
+  </style>
+
+  <public name="Theme.Skylight.Light.Error" type="style" />
+  <style name="Theme.Skylight.Light.Error" parent="Theme.Skylight">
+    <!--Color attributes -->
+    <item name="colorPrimary">?colorOnSurface</item>
+    <item name="colorPrimaryVariant">?colorPrimary</item>
+    <item name="colorSecondary">?colorPrimary</item>
+    <item name="colorSecondaryVariant">?colorSecondary</item>
+    <item name="android:colorBackground">@color/skylight_amber_extraLight</item>
+    <item name="colorSurface">@color/skylight_pink_dark</item>
+    <item name="colorError">?colorSurface</item>
+
+    <item name="colorOnPrimary">#000000</item>
+    <item name="colorOnSecondary">?colorOnPrimary</item>
+    <item name="colorOnBackground">#000000</item>
+    <item name="colorOnSurface">#ffffff</item>
+    <item name="colorOnError">?colorOnPrimary</item>
+  </style>
+
+  <!--region Base-->
   <style name="Base15.Theme.Skylight" parent="Theme.MaterialComponents.NoActionBar">
     <!--Color attributes -->
     <item name="colorPrimary">@color/skylight_amber_dark</item>
@@ -109,4 +146,5 @@
     <item name="colorAccent">?colorSecondary</item>
     <!--endregion-->
   </style>
+  <!--endregion-->
 </resources>

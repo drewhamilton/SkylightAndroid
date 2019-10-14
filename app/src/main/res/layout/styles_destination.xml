@@ -26,16 +26,31 @@
 
   <androidx.constraintlayout.widget.ConstraintLayout
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
+      android:layout_height="wrap_content">
 
-      android:clipChildren="false"
-      android:clipToPadding="false"
-      android:padding="@dimen/marginSides_mainText">
+    <drewhamilton.material.banner.Banner
+        android:id="@+id/errorBanner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:background="?colorSurface"
+        android:padding="8dp"
+        android:theme="@style/Theme.Skylight.Error"
+
+        app:bannerMessage="This is an example error banner."
+        app:bannerPositiveButtonText="OK"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="parent"
+
+        tools:translationY="100dp" />
 
     <com.google.android.material.switchmaterial.SwitchMaterial
         android:id="@+id/buttonsSwitch"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/marginSides_mainText"
 
         android:checked="true"
         android:text="Buttons"
@@ -43,13 +58,16 @@
 
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/errorBanner"
         app:layout_constraintBottom_toTopOf="@+id/elevatedButton" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/elevatedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/marginSides_mainText"
+        android:layout_marginStart="@dimen/marginSides_mainText"
+        android:layout_marginBottom="@dimen/marginSides_mainText"
 
         android:text="Bottom sheet"
 
@@ -65,7 +83,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:text="Nothing"
+        android:text="Error"
 
         app:layout_constraintStart_toEndOf="@+id/elevatedButton"
         app:layout_constraintEnd_toStartOf="@+id/outlinedButton"
@@ -78,6 +96,8 @@
         android:id="@+id/outlinedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/marginSides_mainText"
+        android:layout_marginRight="@dimen/marginSides_mainText"
 
         android:text="Nothing"
 
