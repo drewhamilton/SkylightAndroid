@@ -19,6 +19,8 @@ import kotlinx.android.synthetic.main.styles_destination.toolbar
  */
 class StylesActivity : AppCompatActivity() {
 
+    private var isBottomSheetShowing: Boolean = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.styles_destination)
@@ -31,11 +33,7 @@ class StylesActivity : AppCompatActivity() {
             textButton.isEnabled = isChecked
         }
 
-        elevatedButton.setOnClickListener {
-            BottomSheetDialog(this).apply {
-                setContentView(R.layout.bottom_sheet)
-            }.show()
-        }
+        elevatedButton.setOnClickListener { showBottomSheet() }
 
         errorBanner.setPrimaryButtonOnClickListener(View.OnClickListener {
             motionLayout.setTransitionListener(TryAgain())
@@ -44,6 +42,29 @@ class StylesActivity : AppCompatActivity() {
         errorBanner.setSecondaryButtonOnClickListener(View.OnClickListener { motionLayout.transitionToStart() })
         textButton.setOnClickListener { motionLayout.transitionToEnd() }
     }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+        super.onRestoreInstanceState(savedInstanceState)
+        if (savedInstanceState != null) {
+            val showError = savedInstanceState.getBoolean(KEY_IS_ERROR_SHOWING, false)
+            if (showError) motionLayout.transitionToEnd()
+
+            val showBottomSheet = savedInstanceState.getBoolean(KEY_IS_BOTTOM_SHEET_SHOWING, false)
+            if (showBottomSheet) showBottomSheet()
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putBoolean(KEY_IS_ERROR_SHOWING, motionLayout.currentState == motionLayout.endState)
+        outState.putBoolean(KEY_IS_BOTTOM_SHEET_SHOWING, isBottomSheetShowing)
+    }
+
+    private fun showBottomSheet() = BottomSheetDialog(this).apply {
+        setContentView(R.layout.bottom_sheet)
+        setOnShowListener { isBottomSheetShowing = true }
+        setOnDismissListener { isBottomSheetShowing = false }
+    }.show()
 
     /**
      * Listens for the motion layout's next transition to complete and then removes itself and transitions back to the
@@ -69,5 +90,10 @@ class StylesActivity : AppCompatActivity() {
             motionLayout.setTransitionListener(null)
             motionLayout.transitionToEnd()
         }
+    }
+
+    private companion object {
+        const val KEY_IS_ERROR_SHOWING = "is_error_showing"
+        const val KEY_IS_BOTTOM_SHEET_SHOWING = "is_bottom_sheet_showing"
     }
 }
