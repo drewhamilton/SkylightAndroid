@@ -1,9 +1,9 @@
 package drewhamilton.skylight.android.sample.styles
 
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.motion.widget.MotionLayout
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import drewhamilton.skylight.android.sample.R
 import kotlinx.android.synthetic.main.styles_destination.buttonsSwitch
@@ -36,7 +36,7 @@ class StylesActivity : AppCompatActivity() {
         elevatedButton.setOnClickListener { showBottomSheet() }
 
         errorBanner.setPrimaryButtonOnClickListener(View.OnClickListener {
-            motionLayout.setTransitionListener(TryAgain())
+            TryAgain { motionLayout.transitionToEnd() }.start()
             motionLayout.transitionToStart()
         })
         errorBanner.setSecondaryButtonOnClickListener(View.OnClickListener { motionLayout.transitionToStart() })
@@ -70,26 +70,14 @@ class StylesActivity : AppCompatActivity() {
      * Listens for the motion layout's next transition to complete and then removes itself and transitions back to the
      * layout's end state.
      */
-    private class TryAgain: MotionLayout.TransitionListener {
-        override fun onTransitionTrigger(
-            motionLayout: MotionLayout,
-            triggerId: Int,
-            positive: Boolean,
-            progress: Float
-        ) = Unit
-
-        override fun onTransitionStarted(motionLayout: MotionLayout, startid: Int, endId: Int) = Unit
-
-        override fun onTransitionChange(
-            motionLayout: MotionLayout,
-            startId: Int, endId: Int,
-            progress: Float
-        ) = Unit
-
-        override fun onTransitionCompleted(motionLayout: MotionLayout, currentId: Int) {
-            motionLayout.setTransitionListener(null)
-            motionLayout.transitionToEnd()
+    private class TryAgain(
+        private val showError: () -> Unit
+    ): CountDownTimer(300, 300) {
+        override fun onFinish() {
+            showError()
         }
+
+        override fun onTick(millisUntilFinished: Long) = Unit
     }
 
     private companion object {
