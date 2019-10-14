@@ -64,6 +64,8 @@
     <item name="colorOnSurface">#ffffff</item>
     <item name="colorOnError">#000000</item>
 
+    <item name="errorTheme">@style/Theme.Skylight.Error</item>
+
     <!--region Duplicated in both themes-->
     <!--Type attributes-->
     <item name="textAppearanceHeadline1">@style/TextAppearance.Skylight.Headline1</item>
@@ -113,6 +115,8 @@
     <item name="colorOnBackground">#000000</item>
     <item name="colorOnSurface">#000000</item>
     <item name="colorOnError">#ffffff</item>
+
+    <item name="errorTheme">@style/Theme.Skylight.Light.Error</item>
 
     <!--region Duplicated in both themes-->
     <!--Type attributes-->

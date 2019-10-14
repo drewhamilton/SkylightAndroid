@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <!--Theme to be used for error elements, such as an error banner.-->
+  <attr name="errorTheme" type="style" />
+</resources>

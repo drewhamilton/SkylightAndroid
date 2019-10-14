@@ -32,14 +32,15 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
 
-      app:layoutDescription="@xml/display_banner_motion">
+      app:layoutDescription="@xml/display_banner_motion"
+      tools:progress="0">
 
     <drewhamilton.material.banner.Banner
         android:id="@+id/errorBanner"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
 
-        android:theme="@style/Theme.Skylight.Error"
+        android:theme="?errorTheme"
 
         app:bannerMessage="This is an example error banner."
         app:bannerPrimaryButtonText="Try again"
