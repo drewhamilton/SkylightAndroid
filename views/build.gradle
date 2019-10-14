@@ -46,25 +46,25 @@ android {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation deps.kotlinStdLib
 
     // TODO: Should this be api or compileOnly? If api, should it be ThreeTenABP instead?
-    api 'org.threeten:threetenbp:1.4.0:no-tzdb'
+    api deps.threeTenBpNoTzDb
 
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta2'
+    implementation deps.appCompat
+    implementation deps.constraintLayout
 
-    implementation 'com.google.android.material:material:1.1.0-beta01'
+    implementation deps.materialComponents
 
-    testImplementation 'junit:junit:4.12'
-    testImplementation 'org.mockito:mockito-inline:2.28.2'
-    testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0'
+    testImplementation deps.junit
+    testImplementation deps.mockito
+    testImplementation deps.mockitoKotlin
 
-    androidTestImplementation 'androidx.test:runner:1.2.0'
-    androidTestImplementation 'androidx.test:rules:1.2.0'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    androidTestImplementation deps.testRunner
+    androidTestImplementation deps.testRules
+    androidTestImplementation deps.espresso
     androidTestImplementation project(':test')
-    androidTestImplementation 'drewhamilton.inlinedimens:inlinedimens:0.5.3'
+    androidTestImplementation deps.inlineDimens
 }
 
 // TODO WORKAROUND: Get this to work in its own file

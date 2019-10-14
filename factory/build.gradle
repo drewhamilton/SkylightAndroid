@@ -51,20 +51,20 @@ android {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation deps.kotlinStdLib
 
-    api "drewhamilton.skylight.backport:skylight-backport:$skylightVersion"
-    implementation "drewhamilton.skylight.backport:skylight-backport-calculator:$skylightVersion"
-    implementation "drewhamilton.skylight.backport:skylight-backport-dummy:$skylightVersion"
+    api deps.skylight
+    implementation deps.skylightCalculator
+    implementation deps.skylightDummy
 
-    implementation 'androidx.core:core-ktx:1.1.0'
+    implementation deps.coreKtx
 
-    testImplementation 'junit:junit:4.12'
-    testImplementation 'org.mockito:mockito-inline:2.28.2'
-    testImplementation 'org.threeten:threetenbp:1.4.0'
+    testImplementation deps.junit
+    testImplementation deps.mockito
+    testImplementation deps.threeTenBp
 
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    androidTestImplementation deps.junitExt
+    androidTestImplementation deps.espresso
 }
 
 // TODO WORKAROUND: Get this to work in its own file
