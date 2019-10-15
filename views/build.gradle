@@ -40,6 +40,9 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8
     }
+
+    // Generate R when mocking (material) views:
+    testOptions.unitTests.includeAndroidResources = true
 }
 
 dependencies {
