@@ -4,15 +4,15 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion targetSdk
+    compileSdkVersion projectVersions.targetSdk
 
     defaultConfig {
         applicationId "drewhamilton.skylight.android.sample"
         minSdkVersion 16
-        targetSdkVersion targetSdk
+        targetSdkVersion projectVersions.targetSdk
         multiDexEnabled true
         versionCode 1
-        versionName libraryVersion
+        versionName projectVersions.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 

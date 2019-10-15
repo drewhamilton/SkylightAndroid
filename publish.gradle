@@ -21,7 +21,7 @@ ext {
     bintrayKey = project.hasProperty('personalBintrayApiKey') ? personalBintrayApiKey : 'x'
 }
 
-version = libraryVersion
+version = projectVersions.versionName
 
 apply plugin: 'org.jetbrains.dokka'
 def javadocDestinationDir = "$buildDir/docs/javadoc"

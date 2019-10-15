@@ -40,13 +40,6 @@ buildscript {
     ]
     //endregion
 
-    repositories {
-        google()
-        mavenCentral()
-        gradlePluginPortal()
-        jcenter()
-    }
-
     dependencies {
         classpath 'com.android.tools.build:gradle:3.6.0-beta01'
 
@@ -58,6 +51,29 @@ buildscript {
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
     }
+
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+        jcenter()
+    }
+}
+
+ext.projectVersions = [
+        minSdk: 15,
+        targetSdk: 28,
+        versionName: '0.11.1',
+]
+
+ext {
+    compatibleVersion = '0.11.0'
+    failIfIncompatible = false
+
+    keystore = project.hasProperty('personalKeystore') ? personalKeystore : 'x'
+    keystorePassword = project.hasProperty('personalKeystorePassword') ? personalKeystorePassword : 'x'
+    keyAlias = project.hasProperty('personalKeyAlias') ? personalKeyAlias : 'x'
+    keyPassword = project.hasProperty('personalKeyPassword') ? personalKeyPassword : 'x'
 }
 
 allprojects { project ->
@@ -74,20 +90,6 @@ allprojects { project ->
             variant.generateBuildConfigProvider.get().enabled = false
         }
     }
-}
-
-ext {
-    libraryVersion = '0.11.1'
-    compatibleVersion = '0.11.0'
-    failIfIncompatible = false
-
-    targetSdk = 28
-    minSdk = 15
-
-    keystore = project.hasProperty('personalKeystore') ? personalKeystore : 'x'
-    keystorePassword = project.hasProperty('personalKeystorePassword') ? personalKeystorePassword : 'x'
-    keyAlias = project.hasProperty('personalKeyAlias') ? personalKeyAlias : 'x'
-    keyPassword = project.hasProperty('personalKeyPassword') ? personalKeyPassword : 'x'
 }
 
 task clean(type: Delete) {

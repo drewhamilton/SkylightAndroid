@@ -6,12 +6,12 @@ ext.artifact = 'skylight-nightmode'
 apply from: 'publish.gradle'
 
 android {
-    compileSdkVersion targetSdk
+    compileSdkVersion projectVersions.targetSdk
 
     defaultConfig {
-        minSdkVersion minSdk
-        targetSdkVersion targetSdk
-        versionName libraryVersion
+        minSdkVersion projectVersions.minSdk
+        targetSdkVersion projectVersions.targetSdk
+        versionName projectVersions.versionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'

@@ -7,11 +7,11 @@ apply plugin: 'kotlin-android-extensions'
 //  incomplete. It only lives here for now because it is used in the demo app.
 
 android {
-    compileSdkVersion targetSdk
+    compileSdkVersion projectVersions.targetSdk
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion targetSdk
+        targetSdkVersion projectVersions.targetSdk
         versionName "0.1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
