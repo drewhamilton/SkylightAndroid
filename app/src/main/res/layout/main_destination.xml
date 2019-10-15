@@ -12,8 +12,6 @@
       android:layout_width="0dp"
       android:layout_height="?android:attr/actionBarSize"
 
-      android:theme="@style/AppTheme"
-
       app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintBottom_toTopOf="@+id/timeZoneInfo"
       app:layout_constraintStart_toStartOf="parent"
@@ -21,14 +19,12 @@
 
       app:menu="@menu/home"
 
-      style="@style/Widget.MaterialComponents.Toolbar.Primary">
+      style="@style/Widget.MaterialComponents.Toolbar.Surface">
 
     <androidx.appcompat.widget.AppCompatSpinner
         android:id="@+id/locationSelector"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
-        android:popupBackground="?android:attr/popupBackground"
 
         tools:listitem="@layout/item_spinner" />
 
@@ -43,8 +39,8 @@
       android:layout_marginEnd="@dimen/marginSides_mainText"
 
       android:text="@string/all_times_local"
-      android:textAppearance="@style/TextAppearance.AppCompat.Small"
-      android:textColor="?android:attr/textColorHint"
+      android:textAppearance="?android:textAppearanceSmall"
+      android:textColor="?android:textColorHint"
 
       app:layout_constraintTop_toBottomOf="@+id/toolbar"
       app:layout_constraintBottom_toTopOf="@+id/dawn" />
@@ -57,7 +53,7 @@
       android:layout_marginStart="@dimen/marginSides_mainCard"
       android:layout_marginEnd="@dimen/marginSides_mainCard"
 
-      android:theme="@style/LightTheme"
+      android:theme="@style/Theme.Skylight.Light"
 
       app:layout_constraintTop_toBottomOf="@+id/timeZoneInfo"
       app:layout_constraintBottom_toTopOf="@+id/sunrise"
@@ -76,7 +72,7 @@
       android:layout_marginStart="@dimen/marginSides_mainCard"
       android:layout_marginEnd="@dimen/marginSides_mainCard"
 
-      android:theme="@style/LightTheme"
+      android:theme="@style/Theme.Skylight.Light"
 
       app:layout_constraintTop_toBottomOf="@+id/dawn"
       app:layout_constraintBottom_toTopOf="@+id/sunset"
@@ -95,7 +91,7 @@
       android:layout_marginStart="@dimen/marginSides_mainCard"
       android:layout_marginEnd="@dimen/marginSides_mainCard"
 
-      android:theme="@style/DarkTheme"
+      android:theme="@style/Theme.Skylight"
 
       app:layout_constraintTop_toBottomOf="@+id/sunrise"
       app:layout_constraintBottom_toTopOf="@+id/dusk"
@@ -114,7 +110,7 @@
       android:layout_marginStart="@dimen/marginSides_mainCard"
       android:layout_marginEnd="@dimen/marginSides_mainCard"
 
-      android:theme="@style/DarkTheme"
+      android:theme="@style/Theme.Skylight"
 
       app:layout_constraintTop_toBottomOf="@+id/sunset"
       app:layout_constraintBottom_toTopOf="@+id/version"
@@ -135,8 +131,8 @@
       android:layout_marginEnd="@dimen/marginSides_mainText"
 
       android:gravity="end"
-      android:textAppearance="@style/TextAppearance.AppCompat.Small"
-      android:textColor="?android:attr/textColorSecondary"
+      android:textAppearance="?android:textAppearanceSmall"
+      android:textColor="?android:textColorSecondary"
 
       app:layout_constraintTop_toBottomOf="@+id/dusk"
       app:layout_constraintBottom_toBottomOf="parent"

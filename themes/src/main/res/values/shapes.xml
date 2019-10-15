@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <style name="ShapeAppearance.Skylight.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+    <item name="cornerFamily">rounded</item>
+    <item name="cornerSize">8dp</item>
+  </style>
+
+  <!--Shape Appearance for medium components like cards, alert dialogs-->
+  <style name="ShapeAppearance.Skylight.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+    <item name="cornerFamily">rounded</item>
+    <item name="cornerSize">16dp</item>
+  </style>
+
+  <!--Shape Appearance for large components like side and bottom navigation drawers-->
+  <style name="ShapeAppearance.Skylight.LargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
+    <item name="cornerFamily">rounded</item>
+    <item name="cornerSize">32dp</item>
+  </style>
+</resources>

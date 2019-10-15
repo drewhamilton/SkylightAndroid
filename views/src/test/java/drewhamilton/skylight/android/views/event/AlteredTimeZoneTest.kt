@@ -15,7 +15,7 @@ abstract class AlteredTimeZoneTest(
     private var systemDefaultTimeZone: TimeZone? = null
 
     @Before
-    fun setDefaultTimeZoneToUtc() {
+    fun setDefaultTimeZoneForTest() {
         systemDefaultTimeZone = TimeZone.getDefault()
         TimeZone.setDefault(testSystemDefaultTimeZone)
     }

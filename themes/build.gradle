@@ -1,0 +1,41 @@
+apply plugin: 'com.android.library'
+
+ext.artifact = 'skylight-themes'
+
+android {
+    compileSdkVersion targetSdk
+
+    defaultConfig {
+        minSdkVersion minSdk
+        targetSdkVersion targetSdk
+        versionName libraryVersion
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        release {
+            storeFile file(keystore)
+            storePassword keystorePassword
+            keyAlias keyAlias
+            keyPassword keyPassword
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt')
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation 'com.google.android.material:material:1.1.0-beta01'
+}

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <public name="SkylightEventView" type="declare-styleable" />
   <declare-styleable name="SkylightEventView">
     <attr name="skylightEventLabelText" format="string" />
     <attr name="skylightEventLabelTextAppearance" format="reference" />

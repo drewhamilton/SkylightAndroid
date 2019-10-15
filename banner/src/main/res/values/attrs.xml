@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <public name="Banner" type="declare-styleable" />
+  <declare-styleable name="Banner">
+    <attr name="bannerMessage" format="string" />
+    <attr name="bannerPrimaryButtonText" format="string" />
+    <attr name="bannerSecondaryButtonText" format="string" />
+  </declare-styleable>
+</resources>

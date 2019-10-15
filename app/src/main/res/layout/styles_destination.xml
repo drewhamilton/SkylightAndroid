@@ -4,9 +4,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
 
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
+    android:orientation="vertical"
 
     tools:ignore="HardcodedText">
 
@@ -15,73 +16,98 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
 
+      android:elevation="@dimen/elevation_toolbar"
+
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintTop_toTopOf="parent"
 
       app:navigationIcon="@drawable/ic_close_24dp"
-      app:title="@string/styles" />
+      app:title="@string/styles"
 
-  <LinearLayout
+      style="@style/Widget.MaterialComponents.Toolbar.Surface" />
+
+  <androidx.constraintlayout.motion.widget.MotionLayout
+      android:id="@+id/motionLayout"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
 
-      android:clipChildren="false"
-      android:clipToPadding="false"
-      android:orientation="vertical"
-      android:padding="8dp">
+      app:layoutDescription="@xml/display_banner_motion"
+      tools:progress="0">
+
+    <drewhamilton.material.banner.Banner
+        android:id="@+id/errorBanner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:theme="?errorTheme"
+
+        app:bannerMessage="This is an example error banner."
+        app:bannerPrimaryButtonText="Try again"
+        app:bannerSecondaryButtonText="Dismiss" />
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/buttonsSwitch"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/marginSides_mainText"
+
+        android:checked="true"
+        android:text="Buttons"
+        android:textAppearance="?textAppearanceSubtitle1"
+
+        app:layout_constraintBottom_toTopOf="@+id/elevatedButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/errorBanner" />
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/elevatedButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/marginSides_mainText"
+        android:layout_marginLeft="@dimen/marginSides_mainText"
+        android:layout_marginBottom="@dimen/marginSides_mainText"
+
+        android:text="Bottom sheet"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textButton"
+        app:layout_constraintTop_toBottomOf="@+id/buttonsSwitch"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+
+        style="@style/Widget.MaterialComponents.Button" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/textButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:text="ProminentButton"
+        android:text="Error"
 
-        style="@style/Skylight.ProminentButton" />
+        app:layout_constraintStart_toEndOf="@+id/elevatedButton"
+        app:layout_constraintEnd_toStartOf="@+id/outlinedButton"
+        app:layout_constraintTop_toTopOf="@+id/elevatedButton"
+        app:layout_constraintBottom_toBottomOf="@+id/elevatedButton"
 
-    <com.google.android.material.button.MaterialButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:enabled="false"
-        android:text="ProminentButton (disabled)"
-
-        style="@style/Skylight.ProminentButton" />
+        style="@style/Widget.MaterialComponents.Button.TextButton" />
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/outlinedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/marginSides_mainText"
+        android:layout_marginRight="@dimen/marginSides_mainText"
 
-        android:text="ProminentButton.Unelevated"
+        android:text="Nothing"
 
-        style="@style/Skylight.ProminentButton.Unelevated" />
+        app:layout_constraintStart_toEndOf="@+id/textButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/elevatedButton"
+        app:layout_constraintBottom_toBottomOf="@+id/elevatedButton"
 
-    <com.google.android.material.button.MaterialButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton" />
 
-        android:enabled="false"
-        android:text="ProminentButton.Unelevated (disabled)"
-
-        style="@style/Skylight.ProminentButton.Unelevated" />
-
-    <com.google.android.material.button.MaterialButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:text="TextButton"
-
-        style="@style/Skylight.TextButton" />
-
-    <com.google.android.material.button.MaterialButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:enabled="false"
-        android:text="TextButton (disabled)"
-
-        style="@style/Skylight.TextButton" />
-
-  </LinearLayout>
+  </androidx.constraintlayout.motion.widget.MotionLayout>
 
 </LinearLayout>
