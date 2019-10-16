@@ -64,6 +64,15 @@ subprojects.each { subproject ->
                 }
             }
         }
+        // Add "skylight-" prefix to local module artifacts in POM:
+        def installer = install.repositories.mavenInstaller
+        installer*.pom*.whenConfigured { pom ->
+            pom.dependencies.each { dep ->
+                if (dep.groupId == publishedGroupId) {
+                    dep.artifactId = "skylight-" + dep.artifactId
+                }
+            }
+        }
 
         task sourcesJar(type: Jar) {
             archiveClassifier = 'sources'
@@ -111,15 +120,5 @@ subprojects.each { subproject ->
             }
         }
         return
-    }
-}
-
-// Add "skylight-" prefix to local module artifacts in POM:
-def installer = install.repositories.mavenInstaller
-installer*.pom*.whenConfigured { pom ->
-    pom.dependencies.each { dep ->
-        if (dep.groupId == publishedGroupId) {
-            dep.artifactId = "skylight-" + dep.artifactId
-        }
     }
 }

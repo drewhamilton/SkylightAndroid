@@ -1,6 +1,15 @@
 apply plugin: 'com.android.library'
 
-ext.artifact = 'skylight-themes'
+ext {
+    artifact = 'skylight-themes'
+    bintrayName = 'SkylightAndroid-themes'
+    libraryName = 'Skylight Themes'
+    libraryDescription = 'Custom Android themes for Skylight branding.'
+    compatibility = [
+            ignoreMissingClasses: true,
+            excludedModules: []
+    ]
+}
 
 android {
     compileSdkVersion projectVersions.targetSdk
