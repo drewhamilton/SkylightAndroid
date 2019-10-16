@@ -2,8 +2,12 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
-ext.artifact = 'skylight-views'
-apply from: 'publish.gradle'
+ext {
+    artifact = 'skylight-views'
+    bintrayName = 'SkylightAndroid-views'
+    libraryName = 'Skylight Views'
+    libraryDescription = 'Custom Android views that useful in displaying Skylight information.'
+}
 
 android {
     compileSdkVersion projectVersions.targetSdk
@@ -75,7 +79,7 @@ configurations {
 }
 
 dependencies {
-    baseline("$publishedGroupId:$artifact:$compatibleVersion") {
+    baseline("$group:$artifact:$compatibleVersion") {
         transitive false
         force true
     }

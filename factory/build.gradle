@@ -2,8 +2,12 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
-ext.artifact = 'skylight-factory'
-apply from: 'publish.gradle'
+ext {
+    artifact = 'skylight-factory'
+    bintrayName = 'SkylightAndroid-factory'
+    libraryName = 'Skylight Android Factory'
+    libraryDescription = 'A simple factory for creating Skylight instances on Android.'
+}
 
 android {
     compileSdkVersion projectVersions.targetSdk
@@ -75,7 +79,7 @@ configurations {
 }
 
 dependencies {
-    baseline("$publishedGroupId:$artifact:$compatibleVersion") {
+    baseline("$group:$artifact:$compatibleVersion") {
         transitive false
         force true
     }

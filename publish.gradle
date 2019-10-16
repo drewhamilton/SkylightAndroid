@@ -21,20 +21,97 @@ ext {
     bintrayKey = project.hasProperty('personalBintrayApiKey') ? personalBintrayApiKey : 'x'
 }
 
-version = projectVersions.versionName
+subprojects.each { subproject ->
+    afterEvaluate {
+        if (!subproject.hasProperty('artifact'))
+            return
 
-apply plugin: 'org.jetbrains.dokka'
-def javadocDestinationDir = "$buildDir/docs/javadoc"
+        subproject.group = publishedGroupId
+        subproject.version = projectVersions.versionName
 
-task dokkaJavadoc(type: dokka.class) {
-    outputFormat = 'javadoc'
-    outputDirectory = javadocDestinationDir
-    inputs.dir 'src/main/java'
-}
+        def javadocDestinationDir = "$buildDir/docs/javadoc"
 
-task javadocJar(type: Jar, dependsOn: dokkaJavadoc) {
-    archiveClassifier = 'javadoc'
-    from javadocDestinationDir
+        subproject.apply plugin: 'com.github.dcendents.android-maven'
+        install {
+            repositories.mavenInstaller {
+                pom.project {
+                    packaging 'aar'
+                    groupId publishedGroupId
+                    artifactId artifact
+
+                    name libraryName
+                    description libraryDescription
+                    url siteUrl
+
+                    licenses {
+                        license {
+                            name licenseName
+                            url licenseUrl
+                        }
+                    }
+                    developers {
+                        developer {
+                            id developerId
+                            name developerName
+                            email developerEmail
+                        }
+                    }
+                    scm {
+                        connection gitUrl
+                        developerConnection gitUrl
+                        url siteUrl
+                    }
+                }
+            }
+        }
+
+        task sourcesJar(type: Jar) {
+            archiveClassifier = 'sources'
+            from android.sourceSets.main.java.srcDirs
+        }
+
+        subproject.apply plugin: 'org.jetbrains.dokka'
+        task dokkaJavadoc(type: dokka.class) {
+            outputFormat = 'javadoc'
+            outputDirectory = javadocDestinationDir
+            inputs.dir 'src/main/java'
+        }
+
+        task javadocJar(type: Jar, dependsOn: dokkaJavadoc) {
+            archiveClassifier = 'javadoc'
+            from javadocDestinationDir
+        }
+
+        subproject.apply plugin: 'com.jfrog.bintray'
+        artifacts {
+            archives javadocJar
+            archives sourcesJar
+        }
+
+        bintray {
+            user = bintrayUser
+            key = bintrayKey
+
+            configurations = ['archives']
+
+            dryRun = false
+            publish = true
+            override = false
+            pkg {
+                repo = bintrayRepo
+                name = bintrayName
+                desc = libraryDescription
+                websiteUrl = siteUrl
+                vcsUrl = gitUrl
+                licenses = allLicenses
+                publicDownloadNumbers = true
+                version {
+                    desc = libraryDescription
+                }
+            }
+        }
+        return
+    }
 }
 
 // Add "skylight-" prefix to local module artifacts in POM:

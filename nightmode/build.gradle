@@ -2,8 +2,12 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
-ext.artifact = 'skylight-nightmode'
-apply from: 'publish.gradle'
+ext {
+    artifact = 'skylight-nightmode'
+    bintrayName = 'SkylightAndroid-nightmode'
+    libraryName = 'Skylight Android Night Mode'
+    libraryDescription = 'A delegate supporting automatic switching between night and notnight resources based at dawn and dusk.'
+}
 
 android {
     compileSdkVersion projectVersions.targetSdk
@@ -76,7 +80,7 @@ configurations {
 }
 
 dependencies {
-    baseline("$publishedGroupId:$artifact:$compatibleVersion") {
+    baseline("$group:$artifact:$compatibleVersion") {
         transitive false
         force true
         exclude module: 'factory'
