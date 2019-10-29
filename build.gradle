@@ -34,7 +34,7 @@ buildscript {
             skylightDummy: "drewhamilton.skylight.backport:skylight-backport-dummy:$versions.skylight",
             skylightRx: "drewhamilton.skylight.backport:skylight-backport-rx:$versions.skylight",
             testRules: 'androidx.test:rules:1.2.0',
-            testRunner: 'androidx.test:runner:1.2.0',
+            testRunner: 'androidx.test:runner:1.3.0-alpha02',
             threeTenBp: 'org.threeten:threetenbp:1.4.0',
             threeTenBpNoTzDb: "org.threeten:threetenbp:$versions.threeTenBp:no-tzdb",
             threeTenAbp: 'com.jakewharton.threetenabp:threetenabp:1.2.1',
