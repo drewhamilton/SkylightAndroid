@@ -1,5 +1,7 @@
 ext {
     bintrayRepo = 'SkylightAndroid'
+    bintrayUser = project.hasProperty('personalBintrayUsername') ? personalBintrayUsername : 'x'
+    bintrayKey = project.hasProperty('personalBintrayApiKey') ? personalBintrayApiKey : 'x'
 
     publishedGroupId = 'drewhamilton.skylight.android'
 
@@ -13,12 +15,9 @@ ext {
     licenseName = 'The Apache Software License, Version 2.0'
     licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
     allLicenses = ["Apache-2.0"]
-
-    bintrayUser = project.hasProperty('personalBintrayUsername') ? personalBintrayUsername : 'x'
-    bintrayKey = project.hasProperty('personalBintrayApiKey') ? personalBintrayApiKey : 'x'
 }
 
-subprojects.each { subproject ->
+subprojects { subproject ->
     afterEvaluate {
         if (!subproject.hasProperty('artifact'))
             return
@@ -26,7 +25,7 @@ subprojects.each { subproject ->
         subproject.group = publishedGroupId
         subproject.version = projectVersions.versionName
 
-        def javadocDestinationDir = "$buildDir/docs/javadoc"
+        def javadocDestinationDir = "$subproject.buildDir/docs/javadoc"
 
         subproject.apply plugin: 'com.github.dcendents.android-maven'
         install {
