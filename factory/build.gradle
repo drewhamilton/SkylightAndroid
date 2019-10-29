@@ -2,16 +2,25 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
-ext.artifact = 'skylight-factory'
-apply from: 'publish.gradle'
+ext {
+    artifact = 'skylight-factory'
+    bintrayName = 'SkylightAndroid-factory'
+    libraryName = 'Skylight Android Factory'
+    libraryDescription = 'A simple factory for creating Skylight instances on Android.'
+
+    compatibility = [
+            ignoreMissingClasses: true,
+            excludedModules: []
+    ]
+}
 
 android {
-    compileSdkVersion targetSdk
+    compileSdkVersion projectVersions.targetSdk
 
     defaultConfig {
-        minSdkVersion minSdk
-        targetSdkVersion targetSdk
-        versionName libraryVersion
+        minSdkVersion projectVersions.minSdk
+        targetSdkVersion projectVersions.targetSdk
+        versionName projectVersions.versionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
@@ -51,60 +60,18 @@ android {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation deps.kotlinStdLib
 
-    api "drewhamilton.skylight.backport:skylight-backport:$skylightVersion"
-    implementation "drewhamilton.skylight.backport:skylight-backport-calculator:$skylightVersion"
-    implementation "drewhamilton.skylight.backport:skylight-backport-dummy:$skylightVersion"
+    api deps.skylight
+    implementation deps.skylightCalculator
+    implementation deps.skylightDummy
 
-    implementation 'androidx.core:core-ktx:1.1.0'
+    implementation deps.coreKtx
 
-    testImplementation 'junit:junit:4.12'
-    testImplementation 'org.mockito:mockito-inline:2.28.2'
-    testImplementation 'org.threeten:threetenbp:1.4.0'
+    testImplementation deps.junit
+    testImplementation deps.mockito
+    testImplementation deps.threeTenBp
 
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    androidTestImplementation deps.junitExt
+    androidTestImplementation deps.espresso
 }
-
-// TODO WORKAROUND: Get this to work in its own file
-//region Compatibility
-configurations {
-    baseline
-    latest
-}
-
-dependencies {
-    baseline("$publishedGroupId:$artifact:$compatibleVersion") {
-        transitive false
-        force true
-    }
-    latest project(path: ":$project.name", configuration: 'releaseRuntimeElements')
-}
-
-apply plugin: 'me.champeau.gradle.japicmp'
-//noinspection UnnecessaryQualifiedReference
-task japicmp(type: me.champeau.gradle.japicmp.JapicmpTask) {
-    oldClasspath = configurations.baseline.incoming.artifactView { config ->
-        config.attributes { container ->
-            container.attribute(Attribute.of("artifactType", String.class), "jar")
-        }
-    }.artifacts.artifactFiles
-
-    newClasspath = configurations.latest.incoming.artifactView { config ->
-        config.attributes { container ->
-            container.attribute(Attribute.of("artifactType", String.class), "jar")
-        }
-    }.artifacts.artifactFiles
-
-    onlyBinaryIncompatibleModified true
-    failOnModification failIfIncompatible
-    txtOutputFile = file("$buildDir/reports/japi.txt")
-
-    // TODO WORKAROUND: JApiCmp can't find Android classes
-    ignoreMissingClasses true
-}
-
-check.dependsOn(japicmp)
-build.dependsOn(check)
-//endregion

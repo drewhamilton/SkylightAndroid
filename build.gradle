@@ -1,5 +1,57 @@
 buildscript {
-    ext.kotlin_version = '1.3.50'
+    //region Dependencies
+    ext.versions = [
+            dagger: '2.24',
+            jApiCmp: '0.2.8',
+            kotlin: '1.3.50',
+            rxPreferences: '2.0.0',
+            skylight: '0.10.0',
+            threeTenBp: '1.4.0'
+    ]
+    ext.deps = [
+            appCompat: 'androidx.appcompat:appcompat:1.1.0',
+            constraintLayout: 'androidx.constraintlayout:constraintlayout:2.0.0-beta2',
+            coreKtx: 'androidx.core:core-ktx:1.1.0',
+            dagger: "com.google.dagger:dagger:$versions.dagger",
+            daggerCompiler: "com.google.dagger:dagger-compiler:$versions.dagger",
+            espresso: 'com.android.support.test.espresso:espresso-intents:3.2.0',
+            inlineDimens: 'drewhamilton.inlinedimens:inlinedimens:0.5.3',
+            junit: 'junit:junit:4.12',
+            junitExt: 'androidx.test.ext:junit:1.1.1',
+            kotlinStdLib: "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin",
+            lifecycle: 'androidx.lifecycle:lifecycle-common-java8:2.1.0',
+            materialComponents: 'com.google.android.material:material:1.1.0-beta01',
+            mockito: 'org.mockito:mockito-inline:2.28.2',
+            mockitoKotlin: 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0',
+            multidex: 'androidx.multidex:multidex:2.0.1',
+            rxAndroid: 'io.reactivex.rxjava2:rxandroid:2.1.1',
+            rxPreferences: "drewhamilton.rxpreferences:rxpreferences:$versions.rxPreferences",
+            rxPreferencesKtx: "drewhamilton.rxpreferences:rxpreferences-ktx:$versions.rxPreferences",
+            rxPreferencesDagger: "drewhamilton.rxpreferences:rxpreferences-dagger:$versions.rxPreferences",
+            skylight: "drewhamilton.skylight.backport:skylight-backport:$versions.skylight",
+            skylightSso: "drewhamilton.skylight.backport:skylight-backport-sso:$versions.skylight",
+            skylightCalculator: "drewhamilton.skylight.backport:skylight-backport-calculator:$versions.skylight",
+            skylightDummy: "drewhamilton.skylight.backport:skylight-backport-dummy:$versions.skylight",
+            skylightRx: "drewhamilton.skylight.backport:skylight-backport-rx:$versions.skylight",
+            testRules: 'androidx.test:rules:1.2.0',
+            testRunner: 'androidx.test:runner:1.3.0-alpha02',
+            threeTenBp: 'org.threeten:threetenbp:1.4.0',
+            threeTenBpNoTzDb: "org.threeten:threetenbp:$versions.threeTenBp:no-tzdb",
+            threeTenAbp: 'com.jakewharton.threetenabp:threetenabp:1.2.1',
+    ]
+    //endregion
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.6.0-beta01'
+
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
+        classpath "org.jetbrains.dokka:dokka-android-gradle-plugin:0.9.18"
+
+        classpath "me.champeau.gradle:japicmp-gradle-plugin:$versions.jApiCmp"
+
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
+    }
 
     repositories {
         google()
@@ -7,18 +59,22 @@ buildscript {
         gradlePluginPortal()
         jcenter()
     }
+}
 
-    dependencies {
-        classpath 'com.android.tools.build:gradle:3.6.0-beta01'
+ext.projectVersions = [
+        minSdk: 15,
+        targetSdk: 28,
+        versionName: '0.11.1',
+]
 
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "org.jetbrains.dokka:dokka-android-gradle-plugin:0.9.18"
+apply from: 'publish.gradle'
+apply from: 'compatibility.gradle'
 
-        classpath 'me.champeau.gradle:japicmp-gradle-plugin:0.2.8'
-
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
-    }
+ext {
+    keystore = project.hasProperty('personalKeystore') ? personalKeystore : 'x'
+    keystorePassword = project.hasProperty('personalKeystorePassword') ? personalKeystorePassword : 'x'
+    keyAlias = project.hasProperty('personalKeyAlias') ? personalKeyAlias : 'x'
+    keyPassword = project.hasProperty('personalKeyPassword') ? personalKeyPassword : 'x'
 }
 
 allprojects { project ->
@@ -31,27 +87,10 @@ allprojects { project ->
     //noinspection UnnecessaryQualifiedReference
     project.plugins.withType(com.android.build.gradle.LibraryPlugin) {
         project.android.libraryVariants.all { variant ->
-            // TODO replace with https://issuetracker.google.com/issues/72050365 once released.
+            // TODO WORKAROUND: replace with https://issuetracker.google.com/issues/72050365 once released.
             variant.generateBuildConfigProvider.get().enabled = false
         }
     }
-}
-
-ext {
-    libraryVersion = '0.11.1'
-    compatibleVersion = '0.11.0'
-    failIfIncompatible = false
-
-    targetSdk = 28
-    minSdk = 15
-
-    skylightVersion = '0.10.0'
-    daggerVersion = '2.24'
-
-    keystore = project.hasProperty('personalKeystore') ? personalKeystore : 'dummy'
-    keystorePassword = project.hasProperty('personalKeystorePassword') ? personalKeystorePassword : 'dummy'
-    keyAlias = project.hasProperty('personalKeyAlias') ? personalKeyAlias : 'dummy'
-    keyPassword = project.hasProperty('personalKeyPassword') ? personalKeyPassword : 'dummy'
 }
 
 task clean(type: Delete) {

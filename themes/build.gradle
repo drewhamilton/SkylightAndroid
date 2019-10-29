@@ -1,14 +1,23 @@
 apply plugin: 'com.android.library'
 
-ext.artifact = 'skylight-themes'
+ext {
+    artifact = 'skylight-themes'
+    bintrayName = 'SkylightAndroid-themes'
+    libraryName = 'Skylight Themes'
+    libraryDescription = 'Custom Android themes for Skylight branding.'
+    compatibility = [
+            ignoreMissingClasses: true,
+            excludedModules: []
+    ]
+}
 
 android {
-    compileSdkVersion targetSdk
+    compileSdkVersion projectVersions.targetSdk
 
     defaultConfig {
-        minSdkVersion minSdk
-        targetSdkVersion targetSdk
-        versionName libraryVersion
+        minSdkVersion projectVersions.minSdk
+        targetSdkVersion projectVersions.targetSdk
+        versionName projectVersions.versionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -37,5 +46,5 @@ android {
 }
 
 dependencies {
-    implementation 'com.google.android.material:material:1.1.0-beta01'
+    implementation deps.materialComponents
 }
