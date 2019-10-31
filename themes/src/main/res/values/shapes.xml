@@ -14,6 +14,6 @@
   <!--Shape Appearance for large components like side and bottom navigation drawers-->
   <style name="ShapeAppearance.Skylight.LargeComponent" parent="ShapeAppearance.MaterialComponents.LargeComponent">
     <item name="cornerFamily">rounded</item>
-    <item name="cornerSize">32dp</item>
+    <item name="cornerSize">24dp</item>
   </style>
 </resources>
