@@ -12,7 +12,12 @@
   </style>
 
   <style name="Widget.Skylight.BottomSheet.Modal" parent="Widget.MaterialComponents.BottomSheet.Modal">
-    <item name="shapeAppearanceOverlay">?shapeAppearanceLargeComponent</item>
+    <item name="shapeAppearanceOverlay">@style/ShapeAppearance.Skylight.BottomSheet</item>
+  </style>
+
+  <style name="ShapeAppearance.Skylight.BottomSheet" parent="ShapeAppearance.Skylight.LargeComponent">
+    <item name="cornerSizeBottomLeft">0dp</item>
+    <item name="cornerSizeBottomRight">0dp</item>
   </style>
 
   <!--Navigation Drawer-->
