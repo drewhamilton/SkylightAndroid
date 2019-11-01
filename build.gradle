@@ -64,7 +64,7 @@ buildscript {
 ext.projectVersions = [
         minSdk: 15,
         targetSdk: 28,
-        versionName: '0.12.0',
+        versionName: '0.13.0',
 ]
 
 apply from: 'compatibility.gradle'
