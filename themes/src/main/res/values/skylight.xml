@@ -4,8 +4,8 @@
   <public name="Theme.Skylight.DayNight" type="style" />
   <style name="Theme.Skylight.DayNight" parent="Theme.Skylight.Light" />
 
-  <public name="Theme.Skylight" type="style" />
-  <style name="Theme.Skylight" parent="Base15.Theme.Skylight" />
+  <public name="Theme.Skylight.Dark" type="style" />
+  <style name="Theme.Skylight.Dark" parent="Base15.Theme.Skylight" />
 
   <public name="Theme.Skylight.Light" type="style" />
   <style name="Theme.Skylight.Light" parent="Base15.Theme.Skylight.Light" />
@@ -29,7 +29,7 @@
   </style>
 
   <public name="Theme.Skylight.Light.Error" type="style" />
-  <style name="Theme.Skylight.Light.Error" parent="Theme.Skylight">
+  <style name="Theme.Skylight.Light.Error" parent="Theme.Skylight.Dark">
     <!--Color attributes -->
     <item name="colorPrimary">?colorOnBackground</item>
     <item name="colorPrimaryVariant">?colorPrimary</item>
