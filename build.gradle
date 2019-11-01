@@ -67,7 +67,6 @@ ext.projectVersions = [
         versionName: '0.12.0',
 ]
 
-apply from: 'publish.gradle'
 apply from: 'compatibility.gradle'
 
 ext {

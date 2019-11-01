@@ -13,6 +13,7 @@ ext {
             excludedModules: []
     ]
 }
+apply from: '../publish.gradle'
 
 android {
     compileSdkVersion projectVersions.targetSdk
