@@ -1,11 +1,13 @@
 package drewhamilton.skylight.android.nightmode;
 
 import androidx.appcompat.app.AppCompatDelegate;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.threeten.bp.OffsetTime;
+
+import java.time.OffsetTime;
 
 import static org.junit.Assert.assertNotNull;
 

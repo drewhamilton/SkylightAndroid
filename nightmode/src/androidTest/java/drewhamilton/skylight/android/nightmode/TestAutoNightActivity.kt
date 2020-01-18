@@ -1,9 +1,9 @@
 package drewhamilton.skylight.android.nightmode
 
 import android.os.Bundle
-import org.threeten.bp.Instant
-import org.threeten.bp.OffsetTime
-import org.threeten.bp.ZoneId
+import java.time.Instant
+import java.time.OffsetTime
+import java.time.ZoneId
 
 class TestAutoNightActivity : AutoNightActivity() {
 

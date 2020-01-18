@@ -4,19 +4,19 @@ import android.os.CountDownTimer
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
-import drewhamilton.skylight.backport.Coordinates
-import drewhamilton.skylight.backport.SkylightDay
-import drewhamilton.skylight.backport.SkylightForCoordinates
-import drewhamilton.skylight.backport.calculator.CalculatorSkylight
-import drewhamilton.skylight.backport.dummy.DummySkylight
-import drewhamilton.skylight.backport.forCoordinates
-import drewhamilton.skylight.backport.isDark
-import org.threeten.bp.Instant
-import org.threeten.bp.LocalDate
-import org.threeten.bp.OffsetTime
-import org.threeten.bp.ZoneId
-import org.threeten.bp.ZonedDateTime
-import org.threeten.bp.temporal.ChronoUnit
+import drewhamilton.skylight.Coordinates
+import drewhamilton.skylight.SkylightDay
+import drewhamilton.skylight.SkylightForCoordinates
+import drewhamilton.skylight.calculator.CalculatorSkylight
+import drewhamilton.skylight.dummy.DummySkylight
+import drewhamilton.skylight.forCoordinates
+import drewhamilton.skylight.isDark
+import java.time.Instant
+import java.time.LocalDate
+import java.time.OffsetTime
+import java.time.ZoneId
+import java.time.ZonedDateTime
+import java.time.temporal.ChronoUnit
 
 /**
  * A [androidx.lifecycle.FullLifecycleObserver] that updates the [AppCompatDelegate]'s default night mode. The night
@@ -31,7 +31,7 @@ class AutoNightDelegate(
     /*
      * Counts down to a night mode change while the LifecycleOwner is started
      *
-     * TODO: Use coroutines?
+     * TODO? Use coroutines
      */
     private var darkModeTimer: CountDownTimer? = null
 
@@ -107,13 +107,8 @@ class AutoNightDelegate(
         val now = ZonedDateTime.now()
         return when(this) {
             is SkylightDay.Typical -> when {
-                dawn.isAfter(now) -> dawn
-                dusk.isAfter(now) -> dusk
-                else -> null
-            }
-            is SkylightDay.NeverDaytime -> when {
-                dawn.isAfter(now) -> dawn
-                dusk.isAfter(now) -> dusk
+                dawn?.isAfter(now) == true -> dawn
+                dusk?.isAfter(now) == true -> dusk
                 else -> null
             }
             else -> null
@@ -146,7 +141,12 @@ class AutoNightDelegate(
             dawn: OffsetTime,
             dusk: OffsetTime
         ): AutoNightDelegate {
-            val dummySkylightDay = SkylightDay.NeverDaytime(dawn.today(), dusk.today())
+            val today = LocalDate.now()
+            val dummySkylightDay = SkylightDay.Typical {
+                this.date = today
+                this.dawn = ZonedDateTime.of(today, dawn.toLocalTime(), dawn.offset)
+                this.dusk = ZonedDateTime.of(today, dusk.toLocalTime(), dusk.offset)
+            }
             val skylight = DummySkylight(dummySkylightDay).forCoordinates(Coordinates(0.0, 0.0))
             return AutoNightDelegate(appCompatDelegate, skylight)
         }
@@ -163,7 +163,5 @@ class AutoNightDelegate(
             val skylight = CalculatorSkylight().forCoordinates(Coordinates(latitude, longitude))
             return AutoNightDelegate(appCompatDelegate, skylight)
         }
-
-        private fun OffsetTime.today() = ZonedDateTime.of(LocalDate.now(), this.toLocalTime(), this.offset)
     }
 }
