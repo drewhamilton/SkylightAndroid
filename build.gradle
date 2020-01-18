@@ -5,9 +5,7 @@ buildscript {
             jApiCmp: '0.2.8',
             kotlin: '1.3.61',
             rxPreferences: '2.0.0',
-            skylight: '0.11.0',
-            skylightBackport: '0.10.0',
-            threeTenBp: '1.4.0'
+            skylight: '0.11.0'
     ]
     ext.deps = [
             appCompat: 'androidx.appcompat:appcompat:1.1.0',
@@ -34,16 +32,8 @@ buildscript {
             skylightSso: "drewhamilton.skylight:skylight-sso:$versions.skylight",
             skylightCalculator: "drewhamilton.skylight:skylight-calculator:$versions.skylight",
             skylightDummy: "drewhamilton.skylight:skylight-dummy:$versions.skylight",
-            skylightBackport: "drewhamilton.skylight.backport:skylight-backport:$versions.skylightBackport",
-            skylightBackportSso: "drewhamilton.skylight.backport:skylight-backport-sso:$versions.skylightBackport",
-            skylightBackportCalculator: "drewhamilton.skylight.backport:skylight-backport-calculator:$versions.skylightBackport",
-            skylightBackportDummy: "drewhamilton.skylight.backport:skylight-backport-dummy:$versions.skylightBackport",
-            skylightBackportRx: "drewhamilton.skylight.backport:skylight-backport-rx:$versions.skylightBackport",
             testRules: 'androidx.test:rules:1.2.0',
             testRunner: 'androidx.test:runner:1.3.0-alpha02',
-            threeTenBp: 'org.threeten:threetenbp:1.4.0',
-            threeTenBpNoTzDb: "org.threeten:threetenbp:$versions.threeTenBp:no-tzdb",
-            threeTenAbp: 'com.jakewharton.threetenabp:threetenabp:1.2.1',
     ]
     //endregion
 
