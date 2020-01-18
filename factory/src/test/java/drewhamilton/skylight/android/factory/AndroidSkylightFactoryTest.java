@@ -6,6 +6,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,6 +18,8 @@ import java.time.LocalTime;
 import java.time.Month;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.SimpleTimeZone;
+import java.util.TimeZone;
 
 import drewhamilton.skylight.SkylightDay;
 import drewhamilton.skylight.SkylightForCoordinates;
@@ -32,12 +35,27 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class AndroidSkylightFactoryTest {
 
+    private static final int MILLIS_PER_HOUR = 60 * 60 * 1000;
+
     @Mock private Context mockContext;
     @Mock private LocationManager mockLocationManager;
+
+    private TimeZone systemTimeZone;
 
     @Before
     public void mockContext() {
         when(mockContext.getSystemService(Context.LOCATION_SERVICE)).thenReturn(mockLocationManager);
+    }
+
+    @Before
+    public void setSystemTimeZone() {
+        systemTimeZone = TimeZone.getDefault();
+        TimeZone.setDefault(new SimpleTimeZone(MILLIS_PER_HOUR, "CET"));
+    }
+
+    @After
+    public void restoreSystemTimeZone() {
+        TimeZone.setDefault(systemTimeZone);
     }
 
     @Test
