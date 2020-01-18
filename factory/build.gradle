@@ -25,6 +25,9 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
+
+        // Support core library desugaring:
+        multiDexEnabled true
     }
 
     signingConfigs {
@@ -47,6 +50,7 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+        coreLibraryDesugaringEnabled = true
     }
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8
@@ -63,15 +67,16 @@ android {
 dependencies {
     implementation deps.kotlinStdLib
 
-    api deps.skylightBackport
-    implementation deps.skylightBackportCalculator
-    implementation deps.skylightBackportDummy
+    api deps.skylight
+    implementation deps.skylightCalculator
+    implementation deps.skylightDummy
 
     implementation deps.coreKtx
 
+    coreLibraryDesugaring deps.coreLibraryDesugaring
+
     testImplementation deps.junit
     testImplementation deps.mockito
-    testImplementation deps.threeTenBp
 
     androidTestImplementation deps.junitExt
     androidTestImplementation deps.espresso

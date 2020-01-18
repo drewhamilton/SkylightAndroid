@@ -5,6 +5,7 @@ buildscript {
             jApiCmp: '0.2.8',
             kotlin: '1.3.50',
             rxPreferences: '2.0.0',
+            skylight: '0.11.0',
             skylightBackport: '0.10.0',
             threeTenBp: '1.4.0'
     ]
@@ -12,6 +13,7 @@ buildscript {
             appCompat: 'androidx.appcompat:appcompat:1.1.0',
             constraintLayout: 'androidx.constraintlayout:constraintlayout:2.0.0-beta2',
             coreKtx: 'androidx.core:core-ktx:1.1.0',
+            coreLibraryDesugaring: 'com.android.tools:desugar_jdk_libs:1.0.4',
             dagger: "com.google.dagger:dagger:$versions.dagger",
             daggerCompiler: "com.google.dagger:dagger-compiler:$versions.dagger",
             espresso: 'com.android.support.test.espresso:espresso-intents:3.2.0',
@@ -28,6 +30,10 @@ buildscript {
             rxPreferences: "drewhamilton.rxpreferences:rxpreferences:$versions.rxPreferences",
             rxPreferencesKtx: "drewhamilton.rxpreferences:rxpreferences-ktx:$versions.rxPreferences",
             rxPreferencesDagger: "drewhamilton.rxpreferences:rxpreferences-dagger:$versions.rxPreferences",
+            skylight: "drewhamilton.skylight:skylight:$versions.skylight",
+            skylightSso: "drewhamilton.skylight:skylight-sso:$versions.skylight",
+            skylightCalculator: "drewhamilton.skylight:skylight-calculator:$versions.skylight",
+            skylightDummy: "drewhamilton.skylight:skylight-dummy:$versions.skylight",
             skylightBackport: "drewhamilton.skylight.backport:skylight-backport:$versions.skylightBackport",
             skylightBackportSso: "drewhamilton.skylight.backport:skylight-backport-sso:$versions.skylightBackport",
             skylightBackportCalculator: "drewhamilton.skylight.backport:skylight-backport-calculator:$versions.skylightBackport",
