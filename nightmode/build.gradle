@@ -64,9 +64,9 @@ dependencies {
     implementation deps.appCompat
     api deps.lifecycle
 
-    api deps.skylight
-    implementation deps.skylightCalculator
-    implementation deps.skylightDummy
+    api deps.skylightBackport
+    implementation deps.skylightBackportCalculator
+    implementation deps.skylightBackportDummy
     implementation project(':factory')
 
     testImplementation deps.junit

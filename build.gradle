@@ -5,7 +5,7 @@ buildscript {
             jApiCmp: '0.2.8',
             kotlin: '1.3.50',
             rxPreferences: '2.0.0',
-            skylight: '0.10.0',
+            skylightBackport: '0.10.0',
             threeTenBp: '1.4.0'
     ]
     ext.deps = [
@@ -28,11 +28,11 @@ buildscript {
             rxPreferences: "drewhamilton.rxpreferences:rxpreferences:$versions.rxPreferences",
             rxPreferencesKtx: "drewhamilton.rxpreferences:rxpreferences-ktx:$versions.rxPreferences",
             rxPreferencesDagger: "drewhamilton.rxpreferences:rxpreferences-dagger:$versions.rxPreferences",
-            skylight: "drewhamilton.skylight.backport:skylight-backport:$versions.skylight",
-            skylightSso: "drewhamilton.skylight.backport:skylight-backport-sso:$versions.skylight",
-            skylightCalculator: "drewhamilton.skylight.backport:skylight-backport-calculator:$versions.skylight",
-            skylightDummy: "drewhamilton.skylight.backport:skylight-backport-dummy:$versions.skylight",
-            skylightRx: "drewhamilton.skylight.backport:skylight-backport-rx:$versions.skylight",
+            skylightBackport: "drewhamilton.skylight.backport:skylight-backport:$versions.skylightBackport",
+            skylightBackportSso: "drewhamilton.skylight.backport:skylight-backport-sso:$versions.skylightBackport",
+            skylightBackportCalculator: "drewhamilton.skylight.backport:skylight-backport-calculator:$versions.skylightBackport",
+            skylightBackportDummy: "drewhamilton.skylight.backport:skylight-backport-dummy:$versions.skylightBackport",
+            skylightBackportRx: "drewhamilton.skylight.backport:skylight-backport-rx:$versions.skylightBackport",
             testRules: 'androidx.test:rules:1.2.0',
             testRunner: 'androidx.test:runner:1.3.0-alpha02',
             threeTenBp: 'org.threeten:threetenbp:1.4.0',

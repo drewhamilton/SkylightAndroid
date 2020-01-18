@@ -37,11 +37,11 @@ dependencies {
 
     implementation deps.threeTenAbp
 
-    implementation deps.skylight
-    implementation deps.skylightSso
-    implementation deps.skylightCalculator
-    implementation deps.skylightDummy
-    implementation deps.skylightRx
+    implementation deps.skylightBackport
+    implementation deps.skylightBackportSso
+    implementation deps.skylightBackportCalculator
+    implementation deps.skylightBackportDummy
+    implementation deps.skylightBackportRx
 
     implementation deps.coreKtx
     implementation deps.appCompat
