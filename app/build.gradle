@@ -13,7 +13,7 @@ android {
         multiDexEnabled true
         versionCode 1
         versionName projectVersions.versionName
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         // Support core library desugaring:
         multiDexEnabled true
