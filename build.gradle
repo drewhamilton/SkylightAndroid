@@ -19,7 +19,7 @@ buildscript {
             junit: 'junit:junit:4.12',
             junitExt: 'androidx.test.ext:junit:1.1.1',
             kotlinStdLib: "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin",
-            lifecycle: 'androidx.lifecycle:lifecycle-common-java8:2.1.0',
+            lifecycle: 'androidx.lifecycle:lifecycle-common-java8:2.2.0',
             materialComponents: 'com.google.android.material:material:1.1.0-rc02',
             mockito: 'org.mockito:mockito-inline:2.28.2',
             mockitoKotlin: 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.1.0',
