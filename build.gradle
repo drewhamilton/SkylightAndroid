@@ -42,6 +42,7 @@ buildscript {
 
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
         classpath "org.jetbrains.dokka:dokka-android-gradle-plugin:0.9.18"
+        classpath 'org.jetbrains.kotlinx:binary-compatibility-validator:0.2.3'
 
         classpath "me.champeau.gradle:japicmp-gradle-plugin:$versions.jApiCmp"
 
@@ -63,7 +64,10 @@ ext.projectVersions = [
         versionName: '0.13.0',
 ]
 
-apply from: 'compatibility.gradle'
+apply plugin: 'binary-compatibility-validator'
+apiValidation {
+    ignoredProjects += ['test', 'app', 'banner']
+}
 
 ext {
     keystore = project.hasProperty('personalKeystore') ? personalKeystore : 'x'
