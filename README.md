@@ -1,4 +1,4 @@
-[![Build Status](https://drewhamilton.visualstudio.com/Skylight%20Android/_apis/build/status/drewhamilton.SkylightAndroid?branchName=master)](https://drewhamilton.visualstudio.com/Skylight%20Android/_build/latest?definitionId=2&branchName=master)
+![](https://github.com/drewhamilton/SkylightAndroid/workflows/CI/badge.svg?branch=master)
 
 # Skylight Android
 
