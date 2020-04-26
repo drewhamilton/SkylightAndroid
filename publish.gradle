@@ -77,7 +77,10 @@ apply plugin: 'org.jetbrains.dokka'
 task dokkaJavadoc(type: dokka.class) {
     outputFormat = 'javadoc'
     outputDirectory = javadocDestinationDir
-    inputs.dir 'src/main/java'
+    if (project.hasProperty('javadocInputsDir'))
+        inputs.dir javadocInputsDir
+    else
+        inputs.dir 'src/main/java'
 }
 
 task javadocJar(type: Jar, dependsOn: dokkaJavadoc) {
