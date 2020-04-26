@@ -9,6 +9,9 @@ ext {
             ignoreMissingClasses: true,
             excludedModules: []
     ]
+
+    // Avoid build failure from no 'src/main/java' dir:
+    javadocInputsDir = 'src/main'
 }
 apply from: '../publish.gradle'
 
