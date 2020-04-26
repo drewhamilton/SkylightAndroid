@@ -174,19 +174,19 @@ public class AndroidSkylightFactoryTest {
         assertTrue(skylightDay instanceof SkylightDay.Typical);
         SkylightDay.Typical typicalSkylightDay = (SkylightDay.Typical) skylightDay;
         assertEquals(
-                ZonedDateTime.of(february2(), LocalTime.of(7, 45, 8, 841_000_000), ZoneId.systemDefault()),
+                ZonedDateTime.of(february2(), LocalTime.of(7, 45, 12, 508_000_000), ZoneId.systemDefault()),
                 typicalSkylightDay.getDawn()
         );
         assertEquals(
-                ZonedDateTime.of(february2(), LocalTime.of(8, 24, 2, 641_000_000), ZoneId.systemDefault()),
+                ZonedDateTime.of(february2(), LocalTime.of(8, 24, 6, 680_000_000), ZoneId.systemDefault()),
                 typicalSkylightDay.getSunrise()
         );
         assertEquals(
-                ZonedDateTime.of(february2(), LocalTime.of(17, 26, 33, 815_000_000), ZoneId.systemDefault()),
+                ZonedDateTime.of(february2(), LocalTime.of(17, 26, 29, 76_000_000), ZoneId.systemDefault()),
                 typicalSkylightDay.getSunset()
         );
         assertEquals(
-                ZonedDateTime.of(february2(), LocalTime.of(18, 5, 27, 615_000_000), ZoneId.systemDefault()),
+                ZonedDateTime.of(february2(), LocalTime.of(18, 5, 23, 248_000_000), ZoneId.systemDefault()),
                 typicalSkylightDay.getDusk()
         );
     }
