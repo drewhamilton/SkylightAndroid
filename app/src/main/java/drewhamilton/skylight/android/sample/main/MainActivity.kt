@@ -5,6 +5,9 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import drewhamilton.skylight.Coordinates
+import drewhamilton.skylight.Skylight
+import drewhamilton.skylight.SkylightDay
 import drewhamilton.skylight.android.nightmode.AutoNightDelegate
 import drewhamilton.skylight.android.sample.AppComponent
 import drewhamilton.skylight.android.sample.BuildConfig
@@ -16,9 +19,7 @@ import drewhamilton.skylight.android.sample.settings.SettingsActivity
 import drewhamilton.skylight.android.sample.styles.StylesActivity
 import drewhamilton.skylight.android.views.event.SkylightEventView
 import drewhamilton.skylight.android.views.event.setTime
-import drewhamilton.skylight.backport.Skylight
-import drewhamilton.skylight.backport.SkylightDay
-import drewhamilton.skylight.backport.rx.getSkylightDaySingle
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
@@ -29,10 +30,10 @@ import kotlinx.android.synthetic.main.main_destination.sunrise
 import kotlinx.android.synthetic.main.main_destination.sunset
 import kotlinx.android.synthetic.main.main_destination.toolbar
 import kotlinx.android.synthetic.main.main_destination.version
-import org.threeten.bp.LocalDate
-import org.threeten.bp.ZoneId
-import org.threeten.bp.ZonedDateTime
-import org.threeten.bp.format.TextStyle
+import java.time.LocalDate
+import java.time.ZoneId
+import java.time.ZonedDateTime
+import java.time.format.TextStyle
 import java.util.Locale
 import javax.inject.Inject
 
@@ -90,6 +91,10 @@ class MainActivity : RxActivity() {
             .untilDestroy()
     }
 
+    private fun Skylight.getSkylightDaySingle(coordinates: Coordinates, date: LocalDate) = Single.fromCallable {
+        getSkylightDay(coordinates, date)
+    }
+
     private fun SkylightDay.display(timeZone: ZoneId) {
         var dawnDateTime: ZonedDateTime? = null
         var sunriseDateTime: ZonedDateTime? = null
@@ -98,18 +103,10 @@ class MainActivity : RxActivity() {
 
         when (this) {
             is SkylightDay.Typical -> {
-                dawnDateTime = dawn.withZoneSameInstant(timeZone)
-                sunriseDateTime = sunrise.withZoneSameInstant(timeZone)
-                sunsetDateTime = sunset.withZoneSameInstant(timeZone)
-                duskDateTime = dusk.withZoneSameInstant(timeZone)
-            }
-            is SkylightDay.AlwaysLight -> {
-                sunriseDateTime = sunrise.withZoneSameInstant(timeZone)
-                sunsetDateTime = sunset.withZoneSameInstant(timeZone)
-            }
-            is SkylightDay.NeverDaytime -> {
-                dawnDateTime = dawn.withZoneSameInstant(timeZone)
-                duskDateTime = dusk.withZoneSameInstant(timeZone)
+                dawnDateTime = dawn?.withZoneSameInstant(timeZone)
+                sunriseDateTime = sunrise?.withZoneSameInstant(timeZone)
+                sunsetDateTime = sunset?.withZoneSameInstant(timeZone)
+                duskDateTime = dusk?.withZoneSameInstant(timeZone)
             }
         }
 

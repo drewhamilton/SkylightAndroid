@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
+apply plugin: 'org.jetbrains.kotlin.android'
+apply plugin: 'org.jetbrains.kotlin.android.extensions'
+apply plugin: 'org.jetbrains.kotlin.kapt'
 
 android {
     compileSdkVersion projectVersions.targetSdk
@@ -13,7 +13,10 @@ android {
         multiDexEnabled true
         versionCode 1
         versionName projectVersions.versionName
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        // Support core library desugaring:
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -26,6 +29,7 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+        coreLibraryDesugaringEnabled = true
     }
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8
@@ -35,13 +39,10 @@ android {
 dependencies {
     implementation deps.kotlinStdLib
 
-    implementation deps.threeTenAbp
-
     implementation deps.skylight
     implementation deps.skylightSso
     implementation deps.skylightCalculator
     implementation deps.skylightDummy
-    implementation deps.skylightRx
 
     implementation deps.coreKtx
     implementation deps.appCompat
@@ -57,6 +58,8 @@ dependencies {
     implementation deps.rxPreferencesKtx
     implementation deps.rxPreferencesDagger
     implementation deps.rxAndroid
+
+    coreLibraryDesugaring deps.coreLibraryDesugaring
 
     implementation deps.dagger
     kapt deps.daggerCompiler

@@ -30,7 +30,7 @@
   <androidx.constraintlayout.motion.widget.MotionLayout
       android:id="@+id/motionLayout"
       android:layout_width="match_parent"
-      android:layout_height="wrap_content"
+      android:layout_height="match_parent"
 
       app:layoutDescription="@xml/display_banner_motion"
       tools:progress="0">
@@ -41,6 +41,10 @@
         android:layout_height="wrap_content"
 
         android:theme="?errorTheme"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="parent"
 
         app:bannerMessage="This is an example error banner."
         app:bannerPrimaryButtonText="Try again"

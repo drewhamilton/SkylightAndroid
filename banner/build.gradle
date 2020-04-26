@@ -1,7 +1,5 @@
 apply plugin: 'com.android.library'
-
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+apply plugin: 'org.jetbrains.kotlin.android'
 
 // NOTE: This module is intentionally not published. It has nothing to do with Skylight and its API as a component is
 //  incomplete. It only lives here for now because it is used in the demo app.
@@ -43,7 +41,9 @@ android {
         jvmTarget = JavaVersion.VERSION_1_8
     }
 
-    viewBinding.enabled = true
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {

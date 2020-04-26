@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+apply plugin: 'org.jetbrains.kotlin.android'
+apply plugin: 'org.jetbrains.kotlin.android.extensions'
 
 ext {
     artifact = 'skylight-views'
@@ -23,6 +23,10 @@ android {
         versionName projectVersions.versionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+
+        // Support core library desugaring:
+        multiDexEnabled true
     }
 
     signingConfigs {
@@ -45,6 +49,7 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+        coreLibraryDesugaringEnabled = true
     }
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8
@@ -57,13 +62,12 @@ android {
 dependencies {
     implementation deps.kotlinStdLib
 
-    // TODO: Should this be api or compileOnly? If api, should it be ThreeTenABP instead?
-    api deps.threeTenBpNoTzDb
-
     implementation deps.appCompat
     implementation deps.constraintLayout
 
     implementation deps.materialComponents
+
+    coreLibraryDesugaring deps.coreLibraryDesugaring
 
     testImplementation deps.junit
     testImplementation deps.mockito

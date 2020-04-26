@@ -1,8 +1,8 @@
 package drewhamilton.skylight.android.sample.location
 
 import android.content.Context
-import drewhamilton.skylight.backport.Coordinates
-import org.threeten.bp.ZoneId
+import drewhamilton.skylight.Coordinates
+import java.time.ZoneId
 import javax.inject.Inject
 
 class LocationRepository @Inject constructor(private val context: Context) {

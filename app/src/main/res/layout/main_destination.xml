@@ -62,6 +62,7 @@
       app:cardBackgroundColor="@color/skylight_dawn"
       app:skylightEventLabelText="@string/dawn"
 
+      tools:ignore="MissingClass"
       tools:skylightEventTimeText="7:38 AM" />
 
   <drewhamilton.skylight.android.views.event.SkylightEventView
@@ -81,6 +82,7 @@
       app:cardBackgroundColor="@color/skylight_sunrise"
       app:skylightEventLabelText="@string/sunrise"
 
+      tools:ignore="MissingClass"
       tools:skylightEventTimeText="7:38 AM" />
 
   <drewhamilton.skylight.android.views.event.SkylightEventView
@@ -100,6 +102,7 @@
       app:cardBackgroundColor="@color/skylight_sunset"
       app:skylightEventLabelText="@string/sunset"
 
+      tools:ignore="MissingClass"
       tools:skylightEventTimeText="7:38 AM" />
 
   <drewhamilton.skylight.android.views.event.SkylightEventView
@@ -119,6 +122,7 @@
       app:cardBackgroundColor="@color/skylight_dusk"
       app:skylightEventLabelText="@string/dusk"
 
+      tools:ignore="MissingClass"
       tools:skylightEventTimeText="7:38 AM" />
 
   <TextView

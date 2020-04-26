@@ -2,9 +2,9 @@ package drewhamilton.skylight.android.sample.location
 
 import android.content.Context
 import androidx.annotation.StringRes
+import drewhamilton.skylight.Coordinates
 import drewhamilton.skylight.android.sample.R
-import drewhamilton.skylight.backport.Coordinates
-import org.threeten.bp.ZoneId
+import java.time.ZoneId
 
 data class Location(
     val longDisplayName: String,

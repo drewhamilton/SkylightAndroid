@@ -6,16 +6,16 @@ import android.content.Context
 import android.location.Location
 import android.location.LocationManager
 import androidx.core.content.PermissionChecker
-import drewhamilton.skylight.backport.Coordinates
-import drewhamilton.skylight.backport.SkylightDay
-import drewhamilton.skylight.backport.SkylightForCoordinates
-import drewhamilton.skylight.backport.calculator.CalculatorSkylight
-import drewhamilton.skylight.backport.dummy.DummySkylight
-import drewhamilton.skylight.backport.forCoordinates
-import org.threeten.bp.LocalDate
-import org.threeten.bp.LocalTime
-import org.threeten.bp.ZoneId
-import org.threeten.bp.ZonedDateTime
+import drewhamilton.skylight.Coordinates
+import drewhamilton.skylight.SkylightDay
+import drewhamilton.skylight.SkylightForCoordinates
+import drewhamilton.skylight.calculator.CalculatorSkylight
+import drewhamilton.skylight.dummy.DummySkylight
+import drewhamilton.skylight.forCoordinates
+import java.time.LocalDate
+import java.time.LocalTime
+import java.time.ZoneId
+import java.time.ZonedDateTime
 
 object AndroidSkylightFactory {
 
@@ -67,10 +67,12 @@ object AndroidSkylightFactory {
 
     @JvmStatic private fun createDummy(): SkylightForCoordinates {
         val currentZoneId = ZoneId.systemDefault()
-        val dummySkylightDay = SkylightDay.NeverDaytime(
-            dawn = ZonedDateTime.of(LocalDate.now(), LocalTime.of(7, 0, 0, 0), currentZoneId),
-            dusk = ZonedDateTime.of(LocalDate.now(), LocalTime.of(22, 0, 0, 0), currentZoneId)
-        )
+        val today = LocalDate.now()
+        val dummySkylightDay = SkylightDay.Typical {
+            date = today
+            dawn = ZonedDateTime.of(today, LocalTime.of(7, 0, 0, 0), currentZoneId)
+            dusk = ZonedDateTime.of(today, LocalTime.of(22, 0, 0, 0), currentZoneId)
+        }
         return DummySkylight(dummySkylightDay).forCoordinates(Coordinates(0.0, 0.0))
     }
 

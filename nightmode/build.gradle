@@ -1,6 +1,5 @@
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+apply plugin: 'org.jetbrains.kotlin.android'
 
 ext {
     artifact = 'skylight-nightmode'
@@ -27,6 +26,9 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
+
+        // Support core library desugaring:
+        multiDexEnabled true
     }
 
     signingConfigs {
@@ -49,6 +51,7 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+        coreLibraryDesugaringEnabled = true
     }
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8
@@ -69,13 +72,13 @@ dependencies {
     implementation deps.skylightDummy
     implementation project(':factory')
 
+    coreLibraryDesugaring deps.coreLibraryDesugaring
+
     testImplementation deps.junit
     testImplementation deps.mockito
-    testImplementation deps.threeTenBp
 
     androidTestImplementation deps.junitExt
     androidTestImplementation deps.espresso
     androidTestImplementation project(':test')
-    androidTestImplementation deps.threeTenAbp
     androidTestImplementation deps.materialComponents
 }

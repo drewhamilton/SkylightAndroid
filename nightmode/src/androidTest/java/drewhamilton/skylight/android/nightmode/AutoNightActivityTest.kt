@@ -5,11 +5,8 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withText
-import androidx.test.platform.app.InstrumentationRegistry
-import com.jakewharton.threetenabp.AndroidThreeTen
 import drewhamilton.android.test.CustomActions
 import drewhamilton.android.test.UiTest
-import org.junit.Before
 import org.junit.Ignore
 import org.junit.Test
 import java.util.concurrent.TimeUnit
@@ -18,9 +15,6 @@ class AutoNightActivityTest : UiTest<TestAutoNightActivity>(TestAutoNightActivit
 
     // The smallest number of milliseconds needed for test devices to reliably apply the night theme on launch
     private val shortDelayMillis = 200
-
-    @Before fun initializeThreeTenAbp() =
-        AndroidThreeTen.init(InstrumentationRegistry.getInstrumentation().targetContext)
 
     @Test fun createdAtDay_launchesInDayMode() {
         val now = System.currentTimeMillis()

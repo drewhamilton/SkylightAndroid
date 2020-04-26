@@ -3,13 +3,13 @@ package drewhamilton.skylight.android.sample
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable
-import drewhamilton.skylight.backport.Skylight
-import drewhamilton.skylight.backport.calculator.CalculatorSkylight
-import drewhamilton.skylight.backport.dummy.DummySkylight
-import drewhamilton.skylight.backport.dummy.dagger.DummySkylightComponent
-import drewhamilton.skylight.backport.sso.SsoSkylight
-import drewhamilton.skylight.backport.sso.dagger.SsoSkylightComponent
+import drewhamilton.skylight.Skylight
 import drewhamilton.skylight.android.sample.source.SkylightRepository
+import drewhamilton.skylight.calculator.CalculatorSkylight
+import drewhamilton.skylight.dummy.DummySkylight
+import drewhamilton.skylight.dummy.dagger.DummySkylightComponent
+import drewhamilton.skylight.sso.SsoSkylight
+import drewhamilton.skylight.sso.dagger.SsoSkylightComponent
 
 @Module
 object SkylightModule {
