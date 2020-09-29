@@ -9,7 +9,7 @@ buildscript {
     ]
     ext.deps = [
             appCompat: 'androidx.appcompat:appcompat:1.1.0',
-            constraintLayout: 'androidx.constraintlayout:constraintlayout:2.0.0-beta4',
+            constraintLayout: 'androidx.constraintlayout:constraintlayout:2.0.0',
             coreKtx: 'androidx.core:core-ktx:1.2.0',
             coreLibraryDesugaring: 'com.android.tools:desugar_jdk_libs:1.0.5',
             dagger: "com.google.dagger:dagger:$versions.dagger",
