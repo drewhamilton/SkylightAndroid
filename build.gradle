@@ -1,7 +1,7 @@
 buildscript {
     //region Dependencies
     ext.versions = [
-            dagger: '2.27',
+            dagger: '2.29.1',
             jApiCmp: '0.2.8',
             kotlin: '1.4.10',
             rxPreferences: '2.0.0',
