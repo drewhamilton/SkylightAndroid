@@ -32,7 +32,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class AndroidSkylightFactoryTest {
+public class SkylightForMostRecentCoordinatesFactoryTest {
 
     private static final int MILLIS_PER_HOUR = 60 * 60 * 1000;
 
@@ -40,6 +40,8 @@ public class AndroidSkylightFactoryTest {
     @Mock private LocationManager mockLocationManager;
 
     private TimeZone systemTimeZone;
+
+    private final SkylightForMostRecentCoordinatesFactory factory = new SkylightForMostRecentCoordinatesFactory();
 
     @Before
     public void mockContext() {
@@ -69,7 +71,7 @@ public class AndroidSkylightFactoryTest {
         when(bogus.getTime()).thenReturn(0L);
         when(mockLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)).thenReturn(bogus);
 
-        SkylightForCoordinates skylight = AndroidSkylightFactory.createForLocation(mockContext);
+        SkylightForCoordinates skylight = factory.createForLocation(mockContext);
         SkylightDay february2 = skylight.getSkylightDay(february2());
 
         assertAmsterdamFebruary2(february2);
@@ -88,7 +90,7 @@ public class AndroidSkylightFactoryTest {
         when(bogus.getTime()).thenReturn(0L);
         when(mockLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)).thenReturn(bogus);
 
-        SkylightForCoordinates skylight = AndroidSkylightFactory.createForLocation(mockContext);
+        SkylightForCoordinates skylight = factory.createForLocation(mockContext);
         SkylightDay february2 = skylight.getSkylightDay(february2());
 
         assertAmsterdamFebruary2(february2);
@@ -102,7 +104,7 @@ public class AndroidSkylightFactoryTest {
         Location amsterdam = amsterdam();
         when(mockLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)).thenReturn(amsterdam);
 
-        SkylightForCoordinates skylight = AndroidSkylightFactory.createForLocation(mockContext);
+        SkylightForCoordinates skylight = factory.createForLocation(mockContext);
         SkylightDay february2 = skylight.getSkylightDay(february2());
 
         assertAmsterdamFebruary2(february2);
@@ -116,7 +118,7 @@ public class AndroidSkylightFactoryTest {
         Location amsterdam = amsterdam();
         when(mockLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)).thenReturn(amsterdam);
 
-        SkylightForCoordinates skylight = AndroidSkylightFactory.createForLocation(mockContext);
+        SkylightForCoordinates skylight = factory.createForLocation(mockContext);
         SkylightDay february2 = skylight.getSkylightDay(february2());
 
         assertAmsterdamFebruary2(february2);
@@ -127,7 +129,7 @@ public class AndroidSkylightFactoryTest {
         mockPermission(mockContext, Manifest.permission.ACCESS_COARSE_LOCATION, true);
         mockPermission(mockContext, Manifest.permission.ACCESS_FINE_LOCATION, false);
 
-        SkylightForCoordinates skylight = AndroidSkylightFactory.createForLocation(mockContext);
+        SkylightForCoordinates skylight = factory.createForLocation(mockContext);
         SkylightDay february2 = skylight.getSkylightDay(february2());
 
         assertFake(february2);
@@ -138,18 +140,10 @@ public class AndroidSkylightFactoryTest {
         mockPermission(mockContext, Manifest.permission.ACCESS_COARSE_LOCATION, false);
         mockPermission(mockContext, Manifest.permission.ACCESS_FINE_LOCATION, false);
 
-        SkylightForCoordinates skylight = AndroidSkylightFactory.createForLocation(mockContext);
+        SkylightForCoordinates skylight = factory.createForLocation(mockContext);
         SkylightDay february2 = skylight.getSkylightDay(february2());
 
         assertFake(february2);
-    }
-
-    @Test
-    public void createForLocationWithLocation_calculatesByCoordinates() {
-        SkylightForCoordinates skylightForAmsterdam = AndroidSkylightFactory.createForLocation(amsterdam());
-        SkylightDay february2 = skylightForAmsterdam.getSkylightDay(february2());
-
-        assertAmsterdamFebruary2(february2);
     }
 
     private static Location amsterdam() {

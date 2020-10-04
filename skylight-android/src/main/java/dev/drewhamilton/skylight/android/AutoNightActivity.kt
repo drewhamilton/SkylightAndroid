@@ -15,7 +15,7 @@ abstract class AutoNightActivity : AppCompatActivity() {
      * required.
      */
     protected open val autoNightDelegate: AutoNightDelegate by lazy {
-        AutoNightDelegate(delegate, AndroidSkylightFactory.createForLocation(this))
+        AutoNightDelegate(delegate, SkylightForMostRecentCoordinatesFactory().createForLocation(this))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

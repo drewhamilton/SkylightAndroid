@@ -7,6 +7,7 @@ import android.location.Location
 import android.location.LocationManager
 import androidx.core.content.PermissionChecker
 import dev.drewhamilton.skylight.Coordinates
+import dev.drewhamilton.skylight.Skylight
 import dev.drewhamilton.skylight.SkylightForCoordinates
 import dev.drewhamilton.skylight.calculator.CalculatorSkylight
 import dev.drewhamilton.skylight.fake.FakeSkylight
@@ -14,16 +15,32 @@ import dev.drewhamilton.skylight.forCoordinates
 import java.time.LocalTime
 import java.time.ZoneId
 
-object AndroidSkylightFactory {
+/**
+ * An implementation of [SkylightForCoordinatesFactory] which uses the most recent known location if available, or a
+ * location-agnostic fallback otherwise. This implementation does not query the device for its current location.
+ *
+ * @param preferredSkylight The Skylight instance to use if a valid most recent known location is found.
+ * @param fallbackSkylight The FakeSkylight instance to use if no valid location can be determined.
+ */
+class SkylightForMostRecentCoordinatesFactory(
+    private val preferredSkylight: Skylight = CalculatorSkylight(),
+    private val fallbackSkylight: FakeSkylight = FakeSkylight.Typical(
+        zone = ZoneId.systemDefault(),
+        dawn = LocalTime.of(7, 0),
+        sunrise = LocalTime.of(8, 0),
+        sunset = LocalTime.of(21, 0),
+        dusk = LocalTime.of(22, 0),
+    )
+) : SkylightForCoordinatesFactory {
 
     /**
      * Create a [SkylightForCoordinates] using the most recent location available via [context].
      *
-     * If [context] does not have location permissions, a dummy [SkylightForCoordinates] is created that assumes dawn at
-     * 7am and dusk at 10pm in the device's current time zone.
+     * If [context] does not have location permissions, the fallback [FakeSkylight] is used because it is
+     * location-agnostic.
      */
     @SuppressLint("MissingPermission") // Location permissions are explicitly checked
-    @JvmStatic fun createForLocation(context: Context): SkylightForCoordinates {
+    override fun createForLocation(context: Context): SkylightForCoordinates {
         val hasCoarseLocationPermission = context.hasCoarseLocationPermission
         val hasFineLocationPermission = context.hasFineLocationPermission
 
@@ -44,39 +61,23 @@ object AndroidSkylightFactory {
             } else
                 coarseLocation ?: fineLocation
 
-            return if (mostRecentLocation == null)
-                createFake()
-            else
-                createForLocation(mostRecentLocation)
-        } else {
-            return createFake()
+            if (mostRecentLocation != null)
+                return preferredSkylight.forLocation(mostRecentLocation)
         }
+
+        return fallbackSkylight.forCoordinates(Coordinates(0.0, 0.0))
     }
 
-    /**
-     * Create a [SkylightForCoordinates] using the given [location].
-     */
-    @JvmStatic fun createForLocation(location: Location) =
-        createForCoordinates(Coordinates(location.latitude, location.longitude))
+    private fun Skylight.forLocation(location: Location) =
+        forCoordinates(Coordinates(location.latitude, location.longitude))
 
-    @JvmStatic private fun createForCoordinates(coordinates: Coordinates): SkylightForCoordinates =
-        CalculatorSkylight().forCoordinates(coordinates)
-
-    @JvmStatic private fun createFake(): SkylightForCoordinates = FakeSkylight.Typical(
-        zone = ZoneId.systemDefault(),
-        dawn = LocalTime.of(7, 0),
-        sunrise = LocalTime.of(8, 0),
-        sunset = LocalTime.of(21, 0),
-        dusk = LocalTime.of(22, 0),
-    ).forCoordinates(Coordinates(0.0, 0.0))
-
-    @JvmStatic private val Context.hasCoarseLocationPermission
+    private val Context.hasCoarseLocationPermission
         get() = isPermissionGranted(Manifest.permission.ACCESS_COARSE_LOCATION)
 
-    @JvmStatic private val Context.hasFineLocationPermission
+    private val Context.hasFineLocationPermission
         get() = isPermissionGranted(Manifest.permission.ACCESS_FINE_LOCATION)
 
-    @JvmStatic private fun Context.isPermissionGranted(permission: String): Boolean {
+    private fun Context.isPermissionGranted(permission: String): Boolean {
         val result = PermissionChecker.checkSelfPermission(this, permission)
         return result == PermissionChecker.PERMISSION_GRANTED
     }
