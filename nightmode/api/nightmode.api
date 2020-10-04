@@ -6,7 +6,7 @@ public abstract class drewhamilton/skylight/android/nightmode/AutoNightActivity 
 
 public final class drewhamilton/skylight/android/nightmode/AutoNightDelegate : androidx/lifecycle/DefaultLifecycleObserver {
 	public static final field Companion Ldrewhamilton/skylight/android/nightmode/AutoNightDelegate$Companion;
-	public fun <init> (Landroidx/appcompat/app/AppCompatDelegate;Ldrewhamilton/skylight/SkylightForCoordinates;)V
+	public fun <init> (Landroidx/appcompat/app/AppCompatDelegate;Ldev/drewhamilton/skylight/SkylightForCoordinates;)V
 	public static final fun fallback (Landroidx/appcompat/app/AppCompatDelegate;)Ldrewhamilton/skylight/android/nightmode/AutoNightDelegate;
 	public static final fun ofCoordinates (Landroidx/appcompat/app/AppCompatDelegate;DD)Ldrewhamilton/skylight/android/nightmode/AutoNightDelegate;
 	public static final fun ofTimes (Landroidx/appcompat/app/AppCompatDelegate;Ljava/time/OffsetTime;Ljava/time/OffsetTime;)Ldrewhamilton/skylight/android/nightmode/AutoNightDelegate;
