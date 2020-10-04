@@ -1,0 +1,28 @@
+public final class dev/drewhamilton/skylight/android/AndroidSkylightFactory {
+	public static final field INSTANCE Ldev/drewhamilton/skylight/android/AndroidSkylightFactory;
+	public static final fun createForLocation (Landroid/content/Context;)Ldev/drewhamilton/skylight/SkylightForCoordinates;
+	public static final fun createForLocation (Landroid/location/Location;)Ldev/drewhamilton/skylight/SkylightForCoordinates;
+}
+
+public abstract class dev/drewhamilton/skylight/android/AutoNightActivity : androidx/appcompat/app/AppCompatActivity {
+	public fun <init> ()V
+	protected fun getAutoNightDelegate ()Ldev/drewhamilton/skylight/android/AutoNightDelegate;
+	protected fun onCreate (Landroid/os/Bundle;)V
+}
+
+public final class dev/drewhamilton/skylight/android/AutoNightDelegate : androidx/lifecycle/DefaultLifecycleObserver {
+	public static final field Companion Ldev/drewhamilton/skylight/android/AutoNightDelegate$Companion;
+	public fun <init> (Landroidx/appcompat/app/AppCompatDelegate;Ldev/drewhamilton/skylight/SkylightForCoordinates;)V
+	public static final fun fallback (Landroidx/appcompat/app/AppCompatDelegate;)Ldev/drewhamilton/skylight/android/AutoNightDelegate;
+	public static final fun ofCoordinates (Landroidx/appcompat/app/AppCompatDelegate;DD)Ldev/drewhamilton/skylight/android/AutoNightDelegate;
+	public static final fun ofTimes (Landroidx/appcompat/app/AppCompatDelegate;Ljava/time/OffsetTime;Ljava/time/OffsetTime;)Ldev/drewhamilton/skylight/android/AutoNightDelegate;
+	public fun onStart (Landroidx/lifecycle/LifecycleOwner;)V
+	public fun onStop (Landroidx/lifecycle/LifecycleOwner;)V
+}
+
+public final class dev/drewhamilton/skylight/android/AutoNightDelegate$Companion {
+	public final fun fallback (Landroidx/appcompat/app/AppCompatDelegate;)Ldev/drewhamilton/skylight/android/AutoNightDelegate;
+	public final fun ofCoordinates (Landroidx/appcompat/app/AppCompatDelegate;DD)Ldev/drewhamilton/skylight/android/AutoNightDelegate;
+	public final fun ofTimes (Landroidx/appcompat/app/AppCompatDelegate;Ljava/time/OffsetTime;Ljava/time/OffsetTime;)Ldev/drewhamilton/skylight/android/AutoNightDelegate;
+}
+

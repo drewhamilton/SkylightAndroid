@@ -16,7 +16,7 @@ import dev.drewhamilton.skylight.android.demo.location.LocationRepository
 import dev.drewhamilton.skylight.android.demo.rx.ui.RxActivity
 import dev.drewhamilton.skylight.android.demo.settings.SettingsActivity
 import dev.drewhamilton.skylight.android.demo.styles.StylesActivity
-import dev.drewhamilton.skylight.android.nightmode.AutoNightDelegate
+import dev.drewhamilton.skylight.android.AutoNightDelegate
 import dev.drewhamilton.skylight.android.views.event.SkylightEventView
 import dev.drewhamilton.skylight.android.views.event.setTime
 import io.reactivex.Single

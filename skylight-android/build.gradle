@@ -1,28 +1,41 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 apply plugin: 'org.jetbrains.kotlin.android'
-apply plugin: 'org.jetbrains.kotlin.android.extensions'
-apply plugin: 'org.jetbrains.kotlin.kapt'
+
+ext {
+    artifactName = 'skylight-android'
+    publishedDescription = 'Conveniences for using Skylight on Android.'
+}
+apply from: '../publish.gradle'
 
 android {
     compileSdkVersion projectVersions.targetSdk
 
     defaultConfig {
-        applicationId "dev.drewhamilton.skylight.android.demo"
-        minSdkVersion 16
+        minSdkVersion projectVersions.minSdk
         targetSdkVersion projectVersions.targetSdk
-        multiDexEnabled true
-        versionCode 1
         versionName projectVersions.versionName
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
 
         // Support core library desugaring:
         multiDexEnabled true
     }
 
+    signingConfigs {
+        release {
+            storeFile file(keystore)
+            storePassword keystorePassword
+            keyAlias keyAlias
+            keyPassword keyPassword
+        }
+    }
+
     buildTypes {
         release {
+            signingConfig signingConfigs.release
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt')
         }
     }
 
@@ -34,15 +47,18 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8
     }
+    lintOptions {
+        lintConfig file('../lint.xml')
+    }
 }
 
 dependencies {
     implementation deps.kotlinStdLib
 
-    implementation(deps.skylight) {
-        changing = versions.skylight.contains('SNAPSHOT')
-    }
-    implementation(deps.skylightSunriseSunsetOrg) {
+    implementation deps.appCompat
+    api deps.lifecycle
+
+    api(deps.skylight) {
         changing = versions.skylight.contains('SNAPSHOT')
     }
     implementation(deps.skylightCalculator) {
@@ -52,32 +68,13 @@ dependencies {
         changing = versions.skylight.contains('SNAPSHOT')
     }
 
-    implementation deps.coreKtx
-    implementation deps.appCompat
-    implementation deps.constraintLayout
-
-    implementation project(':views')
-    implementation project(':themes')
-    implementation project(':banner')
-    implementation project(':skylight-android')
-    implementation deps.materialComponents
-
-    implementation deps.rxPreferences
-    implementation deps.rxPreferencesKtx
-    implementation deps.rxPreferencesDagger
-    implementation deps.rxAndroid
-
-    implementation deps.okHttp
-
     coreLibraryDesugaring deps.coreLibraryDesugaring
 
-    implementation deps.dagger
-    kapt deps.daggerCompiler
-
-    implementation deps.multidex
-
     testImplementation deps.junit
+    testImplementation deps.mockito
 
-    androidTestImplementation deps.testRunner
+    androidTestImplementation deps.junitExt
     androidTestImplementation deps.espresso
+    androidTestImplementation project(':test')
+    androidTestImplementation deps.materialComponents
 }
