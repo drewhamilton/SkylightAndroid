@@ -1,10 +1,9 @@
-package drewhamilton.skylight.android.nightmode
+package dev.drewhamilton.skylight.android.nightmode
 
 import android.content.Intent
-import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
-import androidx.test.espresso.matcher.ViewMatchers.withText
+import androidx.test.espresso.Espresso
+import androidx.test.espresso.assertion.ViewAssertions
+import androidx.test.espresso.matcher.ViewMatchers
 import drewhamilton.android.test.CustomActions
 import drewhamilton.android.test.UiTest
 import java.util.concurrent.TimeUnit
@@ -19,14 +18,14 @@ class AutoNightActivityTest : UiTest<TestAutoNightActivity>(TestAutoNightActivit
         val now = System.currentTimeMillis()
         launchActivity(testIntent(dawnMilli = now - 100_000, duskMilli = now + 100_000))
 
-        onView(withText("Day")).check(matches(isDisplayed()))
+        Espresso.onView(ViewMatchers.withText("Day")).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     }
 
     @Test fun createdAtNight_launchesInNightMode() {
         val now = System.currentTimeMillis()
         launchActivity(testIntent(dawnMilli = now + 100_000, duskMilli = now + 200_000))
 
-        onView(withText("Night")).check(matches(isDisplayed()))
+        Espresso.onView(ViewMatchers.withText("Night")).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     }
 
     @Test fun reachesDawn_changesToDayMode() {
@@ -34,18 +33,18 @@ class AutoNightActivityTest : UiTest<TestAutoNightActivity>(TestAutoNightActivit
         launchActivity(testIntent(dawnMilli = now + 500, duskMilli = now + 100_000))
 
         CustomActions.waitForUiThread(shortDelayMillis, TimeUnit.MILLISECONDS)
-        onView(withText("Night")).check(matches(isDisplayed()))
+        Espresso.onView(ViewMatchers.withText("Night")).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
         CustomActions.waitForUiThread(1500, TimeUnit.MILLISECONDS)
-        onView(withText("Day")).check(matches(isDisplayed()))
+        Espresso.onView(ViewMatchers.withText("Day")).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     }
 
     @Test fun reachesDusk_changesToNightMode() {
         val now = System.currentTimeMillis()
         launchActivity(testIntent(dawnMilli = now - 500, duskMilli = now + 500))
 
-        onView(withText("Day")).check(matches(isDisplayed()))
+        Espresso.onView(ViewMatchers.withText("Day")).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
         CustomActions.waitForUiThread(1500, TimeUnit.MILLISECONDS)
-        onView(withText("Night")).check(matches(isDisplayed()))
+        Espresso.onView(ViewMatchers.withText("Night")).check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     }
 
     private fun testIntent(dawnMilli: Long, duskMilli: Long) =  Intent().apply {

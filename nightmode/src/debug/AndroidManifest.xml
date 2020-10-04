@@ -1,6 +1,6 @@
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
-    package="drewhamilton.skylight.android.nightmode">
+    package="dev.drewhamilton.skylight.android.nightmode">
 
   <application
       android:theme="@style/Theme.AppCompat">

@@ -8,7 +8,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dev.drewhamilton.skylight.Coordinates
 import dev.drewhamilton.skylight.Skylight
 import dev.drewhamilton.skylight.SkylightDay
-import drewhamilton.skylight.android.nightmode.AutoNightDelegate
+import dev.drewhamilton.skylight.android.nightmode.AutoNightDelegate
 import drewhamilton.skylight.android.sample.AppComponent
 import drewhamilton.skylight.android.sample.BuildConfig
 import drewhamilton.skylight.android.sample.R

@@ -1,4 +1,4 @@
-package drewhamilton.skylight.android.nightmode
+package dev.drewhamilton.skylight.android.nightmode
 
 import android.os.Bundle
 import java.time.Instant
