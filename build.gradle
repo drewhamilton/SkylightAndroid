@@ -5,7 +5,7 @@ buildscript {
             jApiCmp: '0.2.8',
             kotlin: '1.4.10',
             rxPreferences: '2.0.0',
-            skylight: '0.11.0'
+            skylight: '0.12.0-SNAPSHOT'
     ]
     ext.deps = [
             appCompat: 'androidx.appcompat:appcompat:1.1.0',
@@ -28,10 +28,10 @@ buildscript {
             rxPreferences: "drewhamilton.rxpreferences:rxpreferences:$versions.rxPreferences",
             rxPreferencesKtx: "drewhamilton.rxpreferences:rxpreferences-ktx:$versions.rxPreferences",
             rxPreferencesDagger: "drewhamilton.rxpreferences:rxpreferences-dagger:$versions.rxPreferences",
-            skylight: "drewhamilton.skylight:skylight:$versions.skylight",
-            skylightSso: "drewhamilton.skylight:skylight-sso:$versions.skylight",
-            skylightCalculator: "drewhamilton.skylight:skylight-calculator:$versions.skylight",
-            skylightDummy: "drewhamilton.skylight:skylight-dummy:$versions.skylight",
+            skylight: "dev.drewhamilton.skylight:skylight:$versions.skylight",
+            skylightSunriseSunsetOrg: "dev.drewhamilton.skylight:skylight-sunrise-sunset-org:$versions.skylight",
+            skylightCalculator: "dev.drewhamilton.skylight:skylight-calculator:$versions.skylight",
+            skylightFake: "dev.drewhamilton.skylight:skylight-fake:$versions.skylight",
             testRules: 'androidx.test:rules:1.2.0',
             testRunner: 'androidx.test:runner:1.2.0',
     ]
@@ -79,9 +79,14 @@ allprojects { project ->
         google()
         mavenCentral()
         jcenter()
+        maven { url = 'https://oss.sonatype.org/content/repositories/snapshots' }
     }
 
-    //noinspection UnnecessaryQualifiedReference
+    project.configurations.all {
+        // Don't cache snapshots:
+        resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+    }
+
     project.plugins.withType(com.android.build.gradle.LibraryPlugin) {
         project.android.libraryVariants.all { variant ->
             // TODO WORKAROUND: replace with https://issuetracker.google.com/issues/72050365 once released.

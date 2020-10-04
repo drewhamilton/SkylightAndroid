@@ -67,9 +67,15 @@ dependencies {
     implementation deps.appCompat
     api deps.lifecycle
 
-    api deps.skylight
-    implementation deps.skylightCalculator
-    implementation deps.skylightDummy
+    api(deps.skylight) {
+        changing = versions.skylight.contains('SNAPSHOT')
+    }
+    implementation(deps.skylightCalculator) {
+        changing = versions.skylight.contains('SNAPSHOT')
+    }
+    implementation(deps.skylightFake) {
+        changing = versions.skylight.contains('SNAPSHOT')
+    }
     implementation project(':factory')
 
     coreLibraryDesugaring deps.coreLibraryDesugaring
