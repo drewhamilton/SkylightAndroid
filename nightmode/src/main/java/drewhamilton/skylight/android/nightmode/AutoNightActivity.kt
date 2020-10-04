@@ -2,7 +2,7 @@ package drewhamilton.skylight.android.nightmode
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import drewhamilton.skylight.android.factory.AndroidSkylightFactory
+import dev.drewhamilton.skylight.android.factory.AndroidSkylightFactory
 
 /**
  * A base Activity that sets the current night mode using an [AutoNightDelegate].

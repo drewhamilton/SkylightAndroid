@@ -1,4 +1,4 @@
-package drewhamilton.skylight.android.factory;
+package dev.drewhamilton.skylight.android.factory;
 
 import android.Manifest;
 import android.content.Context;
