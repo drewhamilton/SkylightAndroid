@@ -1,9 +1,3 @@
-public final class dev/drewhamilton/skylight/android/AndroidSkylightFactory {
-	public static final field INSTANCE Ldev/drewhamilton/skylight/android/AndroidSkylightFactory;
-	public static final fun createForLocation (Landroid/content/Context;)Ldev/drewhamilton/skylight/SkylightForCoordinates;
-	public static final fun createForLocation (Landroid/location/Location;)Ldev/drewhamilton/skylight/SkylightForCoordinates;
-}
-
 public abstract class dev/drewhamilton/skylight/android/AutoNightActivity : androidx/appcompat/app/AppCompatActivity {
 	public fun <init> ()V
 	protected fun getAutoNightDelegate ()Ldev/drewhamilton/skylight/android/AutoNightDelegate;
@@ -24,5 +18,19 @@ public final class dev/drewhamilton/skylight/android/AutoNightDelegate$Companion
 	public final fun fallback (Landroidx/appcompat/app/AppCompatDelegate;)Ldev/drewhamilton/skylight/android/AutoNightDelegate;
 	public final fun ofCoordinates (Landroidx/appcompat/app/AppCompatDelegate;DD)Ldev/drewhamilton/skylight/android/AutoNightDelegate;
 	public final fun ofTimes (Landroidx/appcompat/app/AppCompatDelegate;Ljava/time/OffsetTime;Ljava/time/OffsetTime;)Ldev/drewhamilton/skylight/android/AutoNightDelegate;
+}
+
+public abstract interface class dev/drewhamilton/skylight/android/SkylightForCoordinatesFactory {
+	public abstract fun createForLocation (Landroid/content/Context;)Ldev/drewhamilton/skylight/SkylightForCoordinates;
+}
+
+public final class dev/drewhamilton/skylight/android/SkylightForMostRecentCoordinatesFactory : dev/drewhamilton/skylight/android/SkylightForCoordinatesFactory {
+	public fun <init> ()V
+	public fun <init> (Ldev/drewhamilton/skylight/Skylight;)V
+	public fun <init> (Ldev/drewhamilton/skylight/Skylight;Ldev/drewhamilton/skylight/fake/FakeSkylight;)V
+	public synthetic fun <init> (Ldev/drewhamilton/skylight/Skylight;Ldev/drewhamilton/skylight/fake/FakeSkylight;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun <init> (Lkotlin/jvm/functions/Function2;)V
+	public fun <init> (Lkotlin/jvm/functions/Function2;Ldev/drewhamilton/skylight/Skylight;)V
+	public fun createForLocation (Landroid/content/Context;)Ldev/drewhamilton/skylight/SkylightForCoordinates;
 }
 

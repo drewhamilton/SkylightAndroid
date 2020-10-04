@@ -18,11 +18,9 @@ import java.time.ZoneId
 /**
  * An implementation of [SkylightForCoordinatesFactory] which uses the most recent known location if available, or a
  * location-agnostic fallback otherwise. This implementation does not query the device for its current location.
- *
- * @param preferredSkylight The Skylight instance to use if a valid most recent known location is found.
- * @param fallbackSkylight The FakeSkylight instance to use if no valid location can be determined.
  */
-class SkylightForMostRecentCoordinatesFactory(
+class SkylightForMostRecentCoordinatesFactory @JvmOverloads internal constructor(
+    private val isPermissionGranted: Context.(permission: String) -> Boolean,
     private val preferredSkylight: Skylight = CalculatorSkylight(),
     private val fallbackSkylight: FakeSkylight = FakeSkylight.Typical(
         zone = ZoneId.systemDefault(),
@@ -30,8 +28,31 @@ class SkylightForMostRecentCoordinatesFactory(
         sunrise = LocalTime.of(8, 0),
         sunset = LocalTime.of(21, 0),
         dusk = LocalTime.of(22, 0),
-    )
+    ),
 ) : SkylightForCoordinatesFactory {
+
+    /**
+     * Instantiate a [SkylightForMostRecentCoordinatesFactory] which creates instances of [SkylightForCoordinates] using
+     * [preferredSkylight] when a location can be determined and using [fallbackSkylight] when a location cannot be
+     * determined.
+     */
+    @JvmOverloads constructor(
+        preferredSkylight: Skylight = CalculatorSkylight(),
+        fallbackSkylight: FakeSkylight = FakeSkylight.Typical(
+            zone = ZoneId.systemDefault(),
+            dawn = LocalTime.of(7, 0),
+            sunrise = LocalTime.of(8, 0),
+            sunset = LocalTime.of(21, 0),
+            dusk = LocalTime.of(22, 0),
+        ),
+    ) : this(
+        isPermissionGranted = { permission ->
+            val result = PermissionChecker.checkSelfPermission(this, permission)
+            result == PermissionChecker.PERMISSION_GRANTED
+        },
+        preferredSkylight = preferredSkylight,
+        fallbackSkylight = fallbackSkylight,
+    )
 
     /**
      * Create a [SkylightForCoordinates] using the most recent location available via [context].
@@ -76,9 +97,4 @@ class SkylightForMostRecentCoordinatesFactory(
 
     private val Context.hasFineLocationPermission
         get() = isPermissionGranted(Manifest.permission.ACCESS_FINE_LOCATION)
-
-    private fun Context.isPermissionGranted(permission: String): Boolean {
-        val result = PermissionChecker.checkSelfPermission(this, permission)
-        return result == PermissionChecker.PERMISSION_GRANTED
-    }
 }

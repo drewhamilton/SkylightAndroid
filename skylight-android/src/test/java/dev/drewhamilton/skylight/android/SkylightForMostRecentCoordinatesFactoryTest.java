@@ -2,7 +2,6 @@ package dev.drewhamilton.skylight.android;
 
 import android.Manifest;
 import android.content.Context;
-import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 
@@ -23,11 +22,10 @@ import java.util.TimeZone;
 
 import dev.drewhamilton.skylight.SkylightDay;
 import dev.drewhamilton.skylight.SkylightForCoordinates;
+import kotlin.jvm.functions.Function2;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -40,8 +38,6 @@ public class SkylightForMostRecentCoordinatesFactoryTest {
     @Mock private LocationManager mockLocationManager;
 
     private TimeZone systemTimeZone;
-
-    private final SkylightForMostRecentCoordinatesFactory factory = new SkylightForMostRecentCoordinatesFactory();
 
     @Before
     public void mockContext() {
@@ -61,8 +57,11 @@ public class SkylightForMostRecentCoordinatesFactoryTest {
 
     @Test
     public void createForLocationWithContext_bothPermissionsNetworkRecent_calculatesByCoordinatesOfNetworkLocation() {
-        mockPermission(mockContext, Manifest.permission.ACCESS_COARSE_LOCATION, true);
-        mockPermission(mockContext, Manifest.permission.ACCESS_FINE_LOCATION, true);
+        SkylightForMostRecentCoordinatesFactory factory = new SkylightForMostRecentCoordinatesFactory(
+                (Function2<Context, String, Boolean>) (context, permission) ->
+                        permission.equals(Manifest.permission.ACCESS_COARSE_LOCATION)
+                                || permission.equals(Manifest.permission.ACCESS_FINE_LOCATION)
+        );
 
         Location amsterdam = amsterdam();
         when(amsterdam.getTime()).thenReturn(1000L);
@@ -80,8 +79,11 @@ public class SkylightForMostRecentCoordinatesFactoryTest {
 
     @Test
     public void createForLocationWithContext_bothPermissionsGpsRecent_calculatesByCoordinatesOfGpsLocation() {
-        mockPermission(mockContext, Manifest.permission.ACCESS_COARSE_LOCATION, true);
-        mockPermission(mockContext, Manifest.permission.ACCESS_FINE_LOCATION, true);
+        SkylightForMostRecentCoordinatesFactory factory = new SkylightForMostRecentCoordinatesFactory(
+                (Function2<Context, String, Boolean>) (context, permission) ->
+                        permission.equals(Manifest.permission.ACCESS_COARSE_LOCATION)
+                                || permission.equals(Manifest.permission.ACCESS_FINE_LOCATION)
+        );
 
         Location amsterdam = amsterdam();
         when(amsterdam.getTime()).thenReturn(1000L);
@@ -98,8 +100,10 @@ public class SkylightForMostRecentCoordinatesFactoryTest {
 
     @Test
     public void createForLocationWithContext_coarsePermissionOnly_calculatesByCoordinatesOfNetworkLocation() {
-        mockPermission(mockContext, Manifest.permission.ACCESS_COARSE_LOCATION, true);
-        mockPermission(mockContext, Manifest.permission.ACCESS_FINE_LOCATION, false);
+        SkylightForMostRecentCoordinatesFactory factory = new SkylightForMostRecentCoordinatesFactory(
+                (Function2<Context, String, Boolean>) (context, permission) ->
+                        permission.equals(Manifest.permission.ACCESS_COARSE_LOCATION)
+        );
 
         Location amsterdam = amsterdam();
         when(mockLocationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)).thenReturn(amsterdam);
@@ -112,8 +116,10 @@ public class SkylightForMostRecentCoordinatesFactoryTest {
 
     @Test
     public void createForLocationWithContext_finePermissionOnly_calculatesByCoordinatesOfGpsLocation() {
-        mockPermission(mockContext, Manifest.permission.ACCESS_COARSE_LOCATION, false);
-        mockPermission(mockContext, Manifest.permission.ACCESS_FINE_LOCATION, true);
+        SkylightForMostRecentCoordinatesFactory factory = new SkylightForMostRecentCoordinatesFactory(
+                (Function2<Context, String, Boolean>) (context, permission) ->
+                        permission.equals(Manifest.permission.ACCESS_FINE_LOCATION)
+        );
 
         Location amsterdam = amsterdam();
         when(mockLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)).thenReturn(amsterdam);
@@ -126,8 +132,10 @@ public class SkylightForMostRecentCoordinatesFactoryTest {
 
     @Test
     public void createForLocationWithContext_permissionButNoLocation_calculatesByDummy() {
-        mockPermission(mockContext, Manifest.permission.ACCESS_COARSE_LOCATION, true);
-        mockPermission(mockContext, Manifest.permission.ACCESS_FINE_LOCATION, false);
+        SkylightForMostRecentCoordinatesFactory factory = new SkylightForMostRecentCoordinatesFactory(
+                (Function2<Context, String, Boolean>) (context, permission) ->
+                        permission.equals(Manifest.permission.ACCESS_COARSE_LOCATION)
+        );
 
         SkylightForCoordinates skylight = factory.createForLocation(mockContext);
         SkylightDay february2 = skylight.getSkylightDay(february2());
@@ -137,8 +145,9 @@ public class SkylightForMostRecentCoordinatesFactoryTest {
 
     @Test
     public void createForLocationWithContext_noPermission_calculatesByDummy() {
-        mockPermission(mockContext, Manifest.permission.ACCESS_COARSE_LOCATION, false);
-        mockPermission(mockContext, Manifest.permission.ACCESS_FINE_LOCATION, false);
+        SkylightForMostRecentCoordinatesFactory factory = new SkylightForMostRecentCoordinatesFactory(
+                (Function2<Context, String, Boolean>) (context, permission) -> false
+        );
 
         SkylightForCoordinates skylight = factory.createForLocation(mockContext);
         SkylightDay february2 = skylight.getSkylightDay(february2());
@@ -155,11 +164,6 @@ public class SkylightForMostRecentCoordinatesFactoryTest {
 
     private static LocalDate february2() {
         return LocalDate.of(2019, Month.FEBRUARY, 2);
-    }
-
-    private static void mockPermission(Context mockContext, String permission, boolean granted) {
-        int permissionResult = granted ? PackageManager.PERMISSION_GRANTED : PackageManager.PERMISSION_DENIED;
-        when(mockContext.checkPermission(eq(permission), anyInt(), anyInt())).thenReturn(permissionResult);
     }
 
     private static void assertAmsterdamFebruary2(SkylightDay skylightDay) {
