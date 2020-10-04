@@ -2,12 +2,6 @@ apply plugin: 'com.android.library'
 apply plugin: 'org.jetbrains.kotlin.android'
 apply plugin: 'org.jetbrains.kotlin.android.extensions'
 
-ext {
-    artifactName = 'skylight-views'
-    publishedDescription = 'Custom Android views that useful in displaying Skylight information.'
-}
-apply from: '../publish.gradle'
-
 android {
     compileSdkVersion projectVersions.targetSdk
 
