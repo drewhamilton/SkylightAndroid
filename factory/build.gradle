@@ -2,15 +2,8 @@ apply plugin: 'com.android.library'
 apply plugin: 'org.jetbrains.kotlin.android'
 
 ext {
-    artifact = 'skylight-factory'
-    bintrayName = 'SkylightAndroid-factory'
-    libraryName = 'Skylight Android Factory'
-    libraryDescription = 'A simple factory for creating Skylight instances on Android.'
-
-    compatibility = [
-            ignoreMissingClasses: true,
-            excludedModules: []
-    ]
+    artifactName = 'skylight-factory'
+    publishedDescription = 'A simple factory for creating Skylight instances on Android.'
 }
 apply from: '../publish.gradle'
 

@@ -44,9 +44,6 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin"
         classpath "org.jetbrains.dokka:dokka-android-gradle-plugin:0.9.18"
         classpath 'org.jetbrains.kotlinx:binary-compatibility-validator:0.2.3'
-
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
     }
 
     repositories {
@@ -60,7 +57,6 @@ buildscript {
 ext.projectVersions = [
         minSdk: 15,
         targetSdk: 28,
-        versionName: '0.14.0-SNAPSHOT',
 ]
 
 apply plugin: 'binary-compatibility-validator'

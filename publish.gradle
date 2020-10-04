@@ -1,78 +1,14 @@
-// Applied *per published project* (rather than at the root project level)
+// Applied per published module. The module must define ext.artifactName and ext.publishedDescription
 
-ext {
-    bintrayRepo = 'SkylightAndroid'
-    bintrayUser = project.hasProperty('personalBintrayUsername') ? personalBintrayUsername : 'x'
-    bintrayKey = project.hasProperty('personalBintrayApiKey') ? personalBintrayApiKey : 'x'
-
-    publishedGroupId = 'drewhamilton.skylight.android'
-
-    siteUrl = 'https://github.com/drewhamilton/SkylightAndroid'
-    gitUrl = 'https://github.com/drewhamilton/SkylightAndroid'
-
-    developerId = 'drewhamilton'
-    developerName = 'Drew Hamilton'
-    developerEmail = 'drew.hamilton.0+android@gmail.com'
-
-    licenseName = 'The Apache Software License, Version 2.0'
-    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-    allLicenses = ["Apache-2.0"]
-}
-
-group = publishedGroupId
-version = projectVersions.versionName
-
-def javadocDestinationDir = "$buildDir/docs/javadoc"
-
-apply plugin: 'com.github.dcendents.android-maven'
-install {
-    repositories.mavenInstaller {
-        pom.project {
-            packaging 'aar'
-            groupId publishedGroupId
-            artifactId artifact
-
-            name libraryName
-            description libraryDescription
-            url siteUrl
-
-            licenses {
-                license {
-                    name licenseName
-                    url licenseUrl
-                }
-            }
-            developers {
-                developer {
-                    id developerId
-                    name developerName
-                    email developerEmail
-                }
-            }
-            scm {
-                connection gitUrl
-                developerConnection gitUrl
-                url siteUrl
-            }
-        }
-    }
-}
-
-// Add "skylight-" prefix to local module artifacts in POM:
-def installer = install.repositories.mavenInstaller
-installer*.pom*.whenConfigured { pom ->
-    pom.dependencies.each { dep ->
-        if (dep.groupId == publishedGroupId) {
-            dep.artifactId = "skylight-" + dep.artifactId
-        }
-    }
-}
+group = 'dev.drewhamilton.skylight.android'
+version = VERSION_NAME
 
 task sourcesJar(type: Jar) {
     archiveClassifier.set 'sources'
     from android.sourceSets.main.java.srcDirs
 }
 
+def javadocDestinationDir = "$buildDir/docs/javadoc"
 apply plugin: 'org.jetbrains.dokka'
 task dokkaJavadoc(type: dokka.class) {
     outputFormat = 'javadoc'
@@ -88,31 +24,77 @@ task javadocJar(type: Jar, dependsOn: dokkaJavadoc) {
     from javadocDestinationDir
 }
 
-apply plugin: 'com.jfrog.bintray'
 artifacts {
     archives javadocJar
     archives sourcesJar
 }
 
-bintray {
-    user = bintrayUser
-    key = bintrayKey
+apply plugin: 'maven-publish'
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                groupId groupId
+                artifactId artifactName
+                version version
 
-    configurations = ['archives']
+                from components.release
+                artifact sourcesJar
+                artifact javadocJar
 
-    dryRun = false
-    publish = true
-    override = false
-    pkg {
-        repo = bintrayRepo
-        name = bintrayName
-        desc = libraryDescription
-        websiteUrl = siteUrl
-        vcsUrl = gitUrl
-        licenses = allLicenses
-        publicDownloadNumbers = true
-        version {
-            desc = libraryDescription
+                pom {
+                    name = artifactName
+                    description = publishedDescription
+
+                    url = 'https://github.com/drewhamilton/SkylightAndroid'
+
+                    licenses {
+                        license {
+                            name = 'The Apache Software License, Version 2.0'
+                            url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        }
+                    }
+
+                    developers {
+                        developer {
+                            id = 'drewhamilton'
+                            name = 'Drew Hamilton'
+                            email = 'software@drewhamilton.dev'
+                        }
+                    }
+
+                    scm {
+                        connection = 'scm:git:github.com/drewhamilton/SkylightAndroid.git'
+                        developerConnection = 'scm:git:ssh://github.com/drewhamilton/SkylightAndroid.git'
+                        url = 'https://github.com/drewhamilton/SkylightAndroid/tree/master'
+                    }
+                }
+            }
+        }
+
+        repositories {
+            maven {
+                name = "MavenCentral"
+
+                def releasesRepoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+                def snapshotsRepoUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
+                url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+
+                def sonatypeIssuesUsername = project.findProperty('personalSonatypeIssuesUsername')
+                def sonatypeIssuesPassword = project.findProperty('personalSonatypeIssuesPassword')
+                credentials {
+                    username sonatypeIssuesUsername
+                    password sonatypeIssuesPassword
+                }
+            }
         }
     }
+}
+
+apply plugin: 'signing'
+signing {
+    def key = findProperty('personalGpgKey')
+    def password = findProperty('personalGpgPassword')
+    useInMemoryPgpKeys(key, password)
+    sign publishing.publications
 }

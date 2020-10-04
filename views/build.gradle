@@ -3,14 +3,8 @@ apply plugin: 'org.jetbrains.kotlin.android'
 apply plugin: 'org.jetbrains.kotlin.android.extensions'
 
 ext {
-    artifact = 'skylight-views'
-    bintrayName = 'SkylightAndroid-views'
-    libraryName = 'Skylight Views'
-    libraryDescription = 'Custom Android views that useful in displaying Skylight information.'
-    compatibility = [
-            ignoreMissingClasses: true,
-            excludedModules: []
-    ]
+    artifactName = 'skylight-views'
+    publishedDescription = 'Custom Android views that useful in displaying Skylight information.'
 }
 apply from: '../publish.gradle'
 
