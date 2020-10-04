@@ -7,9 +7,8 @@ import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import drewhamilton.android.test.CustomActions
 import drewhamilton.android.test.UiTest
-import org.junit.Ignore
-import org.junit.Test
 import java.util.concurrent.TimeUnit
+import org.junit.Test
 
 class AutoNightActivityTest : UiTest<TestAutoNightActivity>(TestAutoNightActivity::class.java) {
 
@@ -30,7 +29,6 @@ class AutoNightActivityTest : UiTest<TestAutoNightActivity>(TestAutoNightActivit
         onView(withText("Night")).check(matches(isDisplayed()))
     }
 
-    @Ignore("Azure doesn't like this test for some reason")
     @Test fun reachesDawn_changesToDayMode() {
         val now = System.currentTimeMillis()
         launchActivity(testIntent(dawnMilli = now + 500, duskMilli = now + 100_000))
@@ -41,7 +39,6 @@ class AutoNightActivityTest : UiTest<TestAutoNightActivity>(TestAutoNightActivit
         onView(withText("Day")).check(matches(isDisplayed()))
     }
 
-    @Ignore("Azure doesn't like this test for some reason")
     @Test fun reachesDusk_changesToNightMode() {
         val now = System.currentTimeMillis()
         launchActivity(testIntent(dawnMilli = now - 500, duskMilli = now + 500))

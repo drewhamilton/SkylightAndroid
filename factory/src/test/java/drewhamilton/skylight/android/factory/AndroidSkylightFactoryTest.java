@@ -21,11 +21,10 @@ import java.time.ZonedDateTime;
 import java.util.SimpleTimeZone;
 import java.util.TimeZone;
 
-import drewhamilton.skylight.SkylightDay;
-import drewhamilton.skylight.SkylightForCoordinates;
+import dev.drewhamilton.skylight.SkylightDay;
+import dev.drewhamilton.skylight.SkylightForCoordinates;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.eq;
@@ -131,7 +130,7 @@ public class AndroidSkylightFactoryTest {
         SkylightForCoordinates skylight = AndroidSkylightFactory.createForLocation(mockContext);
         SkylightDay february2 = skylight.getSkylightDay(february2());
 
-        assertDummy(february2);
+        assertFake(february2);
     }
 
     @Test
@@ -142,7 +141,7 @@ public class AndroidSkylightFactoryTest {
         SkylightForCoordinates skylight = AndroidSkylightFactory.createForLocation(mockContext);
         SkylightDay february2 = skylight.getSkylightDay(february2());
 
-        assertDummy(february2);
+        assertFake(february2);
     }
 
     @Test
@@ -174,37 +173,43 @@ public class AndroidSkylightFactoryTest {
         assertTrue(skylightDay instanceof SkylightDay.Typical);
         SkylightDay.Typical typicalSkylightDay = (SkylightDay.Typical) skylightDay;
         assertEquals(
-                ZonedDateTime.of(february2(), LocalTime.of(7, 45, 12, 508_000_000), ZoneId.systemDefault()),
+                ZonedDateTime.of(february2(), LocalTime.of(7, 45, 5, 170_000_000), ZoneId.systemDefault()).toInstant(),
                 typicalSkylightDay.getDawn()
         );
         assertEquals(
-                ZonedDateTime.of(february2(), LocalTime.of(8, 24, 6, 680_000_000), ZoneId.systemDefault()),
+                ZonedDateTime.of(february2(), LocalTime.of(8, 23, 58, 598_000_000), ZoneId.systemDefault()).toInstant(),
                 typicalSkylightDay.getSunrise()
         );
         assertEquals(
-                ZonedDateTime.of(february2(), LocalTime.of(17, 26, 29, 76_000_000), ZoneId.systemDefault()),
+                ZonedDateTime.of(february2(), LocalTime.of(17, 26, 38, 555_000_000), ZoneId.systemDefault()).toInstant(),
                 typicalSkylightDay.getSunset()
         );
         assertEquals(
-                ZonedDateTime.of(february2(), LocalTime.of(18, 5, 23, 248_000_000), ZoneId.systemDefault()),
+                ZonedDateTime.of(february2(), LocalTime.of(18, 5, 31, 982_000_000), ZoneId.systemDefault()).toInstant(),
                 typicalSkylightDay.getDusk()
         );
     }
 
-    private static void assertDummy(SkylightDay skylightDay) {
+    private static void assertFake(SkylightDay skylightDay) {
         assertEquals(february2(), skylightDay.getDate());
         assertTrue(skylightDay instanceof SkylightDay.Typical);
         SkylightDay.Typical castSkylightDay = (SkylightDay.Typical) skylightDay;
         ZoneId zoneId = ZoneId.systemDefault();
         assertEquals(
-                ZonedDateTime.of(february2(), LocalTime.of(7, 0, 0, 0), zoneId),
+                ZonedDateTime.of(february2(), LocalTime.of(7, 0, 0, 0), zoneId).toInstant(),
                 castSkylightDay.getDawn()
         );
         assertEquals(
-                ZonedDateTime.of(february2(), LocalTime.of(22, 0, 0, 0), zoneId),
+                ZonedDateTime.of(february2(), LocalTime.of(8, 0, 0, 0), zoneId).toInstant(),
+                castSkylightDay.getSunrise()
+        );
+        assertEquals(
+                ZonedDateTime.of(february2(), LocalTime.of(21, 0, 0, 0), zoneId).toInstant(),
+                castSkylightDay.getSunset()
+        );
+        assertEquals(
+                ZonedDateTime.of(february2(), LocalTime.of(22, 0, 0, 0), zoneId).toInstant(),
                 castSkylightDay.getDusk()
         );
-        assertNull(castSkylightDay.getSunrise());
-        assertNull(castSkylightDay.getSunset());
     }
 }

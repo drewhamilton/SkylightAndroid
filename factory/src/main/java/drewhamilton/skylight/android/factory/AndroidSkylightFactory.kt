@@ -6,16 +6,13 @@ import android.content.Context
 import android.location.Location
 import android.location.LocationManager
 import androidx.core.content.PermissionChecker
-import drewhamilton.skylight.Coordinates
-import drewhamilton.skylight.SkylightDay
-import drewhamilton.skylight.SkylightForCoordinates
-import drewhamilton.skylight.calculator.CalculatorSkylight
-import drewhamilton.skylight.dummy.DummySkylight
-import drewhamilton.skylight.forCoordinates
-import java.time.LocalDate
+import dev.drewhamilton.skylight.Coordinates
+import dev.drewhamilton.skylight.SkylightForCoordinates
+import dev.drewhamilton.skylight.calculator.CalculatorSkylight
+import dev.drewhamilton.skylight.fake.FakeSkylight
+import dev.drewhamilton.skylight.forCoordinates
 import java.time.LocalTime
 import java.time.ZoneId
-import java.time.ZonedDateTime
 
 object AndroidSkylightFactory {
 
@@ -48,11 +45,11 @@ object AndroidSkylightFactory {
                 coarseLocation ?: fineLocation
 
             return if (mostRecentLocation == null)
-                createDummy()
+                createFake()
             else
                 createForLocation(mostRecentLocation)
         } else {
-            return createDummy()
+            return createFake()
         }
     }
 
@@ -62,25 +59,22 @@ object AndroidSkylightFactory {
     @JvmStatic fun createForLocation(location: Location) =
         createForCoordinates(Coordinates(location.latitude, location.longitude))
 
-    @JvmStatic private fun createForCoordinates(coordinates: Coordinates) : SkylightForCoordinates =
+    @JvmStatic private fun createForCoordinates(coordinates: Coordinates): SkylightForCoordinates =
         CalculatorSkylight().forCoordinates(coordinates)
 
-    @JvmStatic private fun createDummy(): SkylightForCoordinates {
-        val currentZoneId = ZoneId.systemDefault()
-        val today = LocalDate.now()
-        val dummySkylightDay = SkylightDay.Typical {
-            date = today
-            dawn = ZonedDateTime.of(today, LocalTime.of(7, 0, 0, 0), currentZoneId)
-            dusk = ZonedDateTime.of(today, LocalTime.of(22, 0, 0, 0), currentZoneId)
-        }
-        return DummySkylight(dummySkylightDay).forCoordinates(Coordinates(0.0, 0.0))
-    }
+    @JvmStatic private fun createFake(): SkylightForCoordinates = FakeSkylight.Typical(
+        zone = ZoneId.systemDefault(),
+        dawn = LocalTime.of(7, 0),
+        sunrise = LocalTime.of(8, 0),
+        sunset = LocalTime.of(21, 0),
+        dusk = LocalTime.of(22, 0),
+    ).forCoordinates(Coordinates(0.0, 0.0))
 
-    @JvmStatic private val Context.hasCoarseLocationPermission get() =
-        isPermissionGranted(Manifest.permission.ACCESS_COARSE_LOCATION)
+    @JvmStatic private val Context.hasCoarseLocationPermission
+        get() = isPermissionGranted(Manifest.permission.ACCESS_COARSE_LOCATION)
 
-    @JvmStatic private val Context.hasFineLocationPermission get() =
-        isPermissionGranted(Manifest.permission.ACCESS_FINE_LOCATION)
+    @JvmStatic private val Context.hasFineLocationPermission
+        get() = isPermissionGranted(Manifest.permission.ACCESS_FINE_LOCATION)
 
     @JvmStatic private fun Context.isPermissionGranted(permission: String): Boolean {
         val result = PermissionChecker.checkSelfPermission(this, permission)

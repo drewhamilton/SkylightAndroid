@@ -5,9 +5,9 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import drewhamilton.skylight.Coordinates
-import drewhamilton.skylight.Skylight
-import drewhamilton.skylight.SkylightDay
+import dev.drewhamilton.skylight.Coordinates
+import dev.drewhamilton.skylight.Skylight
+import dev.drewhamilton.skylight.SkylightDay
 import drewhamilton.skylight.android.nightmode.AutoNightDelegate
 import drewhamilton.skylight.android.sample.AppComponent
 import drewhamilton.skylight.android.sample.BuildConfig
@@ -23,6 +23,12 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Consumer
 import io.reactivex.schedulers.Schedulers
+import java.time.LocalDate
+import java.time.ZoneId
+import java.time.ZonedDateTime
+import java.time.format.TextStyle
+import java.util.Locale
+import javax.inject.Inject
 import kotlinx.android.synthetic.main.main_destination.dawn
 import kotlinx.android.synthetic.main.main_destination.dusk
 import kotlinx.android.synthetic.main.main_destination.locationSelector
@@ -30,12 +36,6 @@ import kotlinx.android.synthetic.main.main_destination.sunrise
 import kotlinx.android.synthetic.main.main_destination.sunset
 import kotlinx.android.synthetic.main.main_destination.toolbar
 import kotlinx.android.synthetic.main.main_destination.version
-import java.time.LocalDate
-import java.time.ZoneId
-import java.time.ZonedDateTime
-import java.time.format.TextStyle
-import java.util.Locale
-import javax.inject.Inject
 
 class MainActivity : RxActivity() {
 
@@ -103,10 +103,10 @@ class MainActivity : RxActivity() {
 
         when (this) {
             is SkylightDay.Typical -> {
-                dawnDateTime = dawn?.withZoneSameInstant(timeZone)
-                sunriseDateTime = sunrise?.withZoneSameInstant(timeZone)
-                sunsetDateTime = sunset?.withZoneSameInstant(timeZone)
-                duskDateTime = dusk?.withZoneSameInstant(timeZone)
+                dawnDateTime = dawn?.atZone(timeZone)
+                sunriseDateTime = sunrise?.atZone(timeZone)
+                sunsetDateTime = sunset?.atZone(timeZone)
+                duskDateTime = dusk?.atZone(timeZone)
             }
         }
 

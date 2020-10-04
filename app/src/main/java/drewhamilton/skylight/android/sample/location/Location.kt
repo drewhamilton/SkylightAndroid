@@ -2,7 +2,7 @@ package drewhamilton.skylight.android.sample.location
 
 import android.content.Context
 import androidx.annotation.StringRes
-import drewhamilton.skylight.Coordinates
+import dev.drewhamilton.skylight.Coordinates
 import drewhamilton.skylight.android.sample.R
 import java.time.ZoneId
 

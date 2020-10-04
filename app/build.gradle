@@ -39,10 +39,18 @@ android {
 dependencies {
     implementation deps.kotlinStdLib
 
-    implementation deps.skylight
-    implementation deps.skylightSso
-    implementation deps.skylightCalculator
-    implementation deps.skylightDummy
+    implementation(deps.skylight) {
+        changing = versions.skylight.contains('SNAPSHOT')
+    }
+    implementation(deps.skylightSunriseSunsetOrg) {
+        changing = versions.skylight.contains('SNAPSHOT')
+    }
+    implementation(deps.skylightCalculator) {
+        changing = versions.skylight.contains('SNAPSHOT')
+    }
+    implementation(deps.skylightFake) {
+        changing = versions.skylight.contains('SNAPSHOT')
+    }
 
     implementation deps.coreKtx
     implementation deps.appCompat
@@ -58,6 +66,8 @@ dependencies {
     implementation deps.rxPreferencesKtx
     implementation deps.rxPreferencesDagger
     implementation deps.rxAndroid
+
+    implementation deps.okHttp
 
     coreLibraryDesugaring deps.coreLibraryDesugaring
 

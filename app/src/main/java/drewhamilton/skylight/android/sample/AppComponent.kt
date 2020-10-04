@@ -6,8 +6,6 @@ import dagger.Component
 import drewhamilton.skylight.android.sample.main.MainActivity
 import drewhamilton.skylight.android.sample.settings.SettingsActivity
 import drewhamilton.skylight.android.sample.theme.MutableThemeRepository
-import drewhamilton.skylight.dummy.dagger.DummySkylightComponent
-import drewhamilton.skylight.sso.dagger.SsoSkylightComponent
 import javax.inject.Singleton
 
 @Singleton
@@ -26,8 +24,6 @@ interface AppComponent {
     @Component.Factory interface Factory {
         fun create(
             @BindsInstance application: Application,
-            @BindsInstance ssoSkylightComponent: SsoSkylightComponent,
-            @BindsInstance dummySkylightComponent: DummySkylightComponent
         ): AppComponent
     }
 
@@ -39,10 +35,8 @@ interface AppComponent {
 
         fun create(
             application: Application,
-            ssoSkylightComponent: SsoSkylightComponent,
-            dummySkylightComponent: DummySkylightComponent
         ) {
-            _instance = DaggerAppComponent.factory().create(application, ssoSkylightComponent, dummySkylightComponent)
+            _instance = DaggerAppComponent.factory().create(application)
         }
     }
 }

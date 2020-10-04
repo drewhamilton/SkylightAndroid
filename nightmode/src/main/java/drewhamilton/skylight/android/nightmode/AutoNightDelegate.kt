@@ -4,13 +4,13 @@ import android.os.CountDownTimer
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
-import drewhamilton.skylight.Coordinates
-import drewhamilton.skylight.SkylightDay
-import drewhamilton.skylight.SkylightForCoordinates
-import drewhamilton.skylight.calculator.CalculatorSkylight
-import drewhamilton.skylight.dummy.DummySkylight
-import drewhamilton.skylight.forCoordinates
-import drewhamilton.skylight.isDark
+import dev.drewhamilton.skylight.Coordinates
+import dev.drewhamilton.skylight.SkylightDay
+import dev.drewhamilton.skylight.SkylightForCoordinates
+import dev.drewhamilton.skylight.calculator.CalculatorSkylight
+import dev.drewhamilton.skylight.fake.FakeSkylight
+import dev.drewhamilton.skylight.forCoordinates
+import dev.drewhamilton.skylight.isDark
 import java.time.Instant
 import java.time.LocalDate
 import java.time.OffsetTime
@@ -72,7 +72,7 @@ class AutoNightDelegate(
             stopTimer()
         } else {
             // Count down to the next dawn/dusk event
-            val millisUntil = ChronoUnit.MILLIS.between(ZonedDateTime.now(), nextEvent) + 1000
+            val millisUntil = ChronoUnit.MILLIS.between(Instant.now(), nextEvent) + 1000
             darkModeTimer = object : OneOffCountDownTimer(millisUntil) {
                 override fun onFinish() {
                     // A dawn/dusk event has happened; update night mode again
@@ -103,8 +103,8 @@ class AutoNightDelegate(
         darkModeTimer = null
     }
 
-    private val SkylightDay.nextEvent get(): ZonedDateTime? {
-        val now = ZonedDateTime.now()
+    private val SkylightDay.nextEvent get(): Instant? {
+        val now = Instant.now()
         return when(this) {
             is SkylightDay.Typical -> when {
                 dawn?.isAfter(now) == true -> dawn
@@ -141,13 +141,14 @@ class AutoNightDelegate(
             dawn: OffsetTime,
             dusk: OffsetTime
         ): AutoNightDelegate {
-            val today = LocalDate.now()
-            val dummySkylightDay = SkylightDay.Typical {
-                this.date = today
-                this.dawn = ZonedDateTime.of(today, dawn.toLocalTime(), dawn.offset)
-                this.dusk = ZonedDateTime.of(today, dusk.toLocalTime(), dusk.offset)
-            }
-            val skylight = DummySkylight(dummySkylightDay).forCoordinates(Coordinates(0.0, 0.0))
+            val offset = dawn.offset
+            val alignedDusk = dusk.withOffsetSameInstant(offset)
+            val skylight = FakeSkylight.Typical(
+                offset,
+                dawn = dawn.toLocalTime(),
+                sunrise = null, sunset = null,
+                dusk = alignedDusk.toLocalTime()
+            ).forCoordinates(Coordinates(0.0, 0.0))
             return AutoNightDelegate(appCompatDelegate, skylight)
         }
 

@@ -1,6 +1,6 @@
 public final class drewhamilton/skylight/android/factory/AndroidSkylightFactory {
 	public static final field INSTANCE Ldrewhamilton/skylight/android/factory/AndroidSkylightFactory;
-	public static final fun createForLocation (Landroid/content/Context;)Ldrewhamilton/skylight/SkylightForCoordinates;
-	public static final fun createForLocation (Landroid/location/Location;)Ldrewhamilton/skylight/SkylightForCoordinates;
+	public static final fun createForLocation (Landroid/content/Context;)Ldev/drewhamilton/skylight/SkylightForCoordinates;
+	public static final fun createForLocation (Landroid/location/Location;)Ldev/drewhamilton/skylight/SkylightForCoordinates;
 }
 

@@ -1,7 +1,7 @@
 package drewhamilton.skylight.android.sample.location
 
 import android.content.Context
-import drewhamilton.skylight.Coordinates
+import dev.drewhamilton.skylight.Coordinates
 import java.time.ZoneId
 import javax.inject.Inject
 
