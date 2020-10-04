@@ -15,7 +15,7 @@ buildscript {
             dagger: "com.google.dagger:dagger:$versions.dagger",
             daggerCompiler: "com.google.dagger:dagger-compiler:$versions.dagger",
             espresso: 'androidx.test.espresso:espresso-intents:3.2.0',
-            inlineDimens: 'drewhamilton.inlinedimens:inlinedimens:0.5.3',
+            inlineDimens: 'dev.drewhamilton.inlinedimens:inlinedimens:0.6.2',
             junit: 'junit:junit:4.13',
             junitExt: 'androidx.test.ext:junit:1.1.1',
             kotlinStdLib: "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$versions.kotlin",
