@@ -3,37 +3,37 @@ package drewhamilton.skylight.android.sample
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable
-import drewhamilton.skylight.Skylight
+import dev.drewhamilton.skylight.Skylight
+import dev.drewhamilton.skylight.calculator.CalculatorSkylight
+import dev.drewhamilton.skylight.fake.FakeSkylight
+import dev.drewhamilton.skylight.sunrise_sunset_org.SunriseSunsetOrgSkylight
 import drewhamilton.skylight.android.sample.source.SkylightRepository
-import drewhamilton.skylight.calculator.CalculatorSkylight
-import drewhamilton.skylight.dummy.DummySkylight
-import drewhamilton.skylight.dummy.dagger.DummySkylightComponent
-import drewhamilton.skylight.sso.SsoSkylight
-import drewhamilton.skylight.sso.dagger.SsoSkylightComponent
+import okhttp3.OkHttpClient
 
 @Module
 object SkylightModule {
 
-    @JvmStatic
     @Provides
     @Reusable
-    fun ssoSkylight(ssoSkylightComponent: SsoSkylightComponent) = ssoSkylightComponent.skylight()
+    fun sunriseSunsetOrgSkylight(): SunriseSunsetOrgSkylight = SunriseSunsetOrgSkylight(OkHttpClient())
 
-    @JvmStatic
     @Provides
     @Reusable
-    fun dummySkylight(dummySkylightComponent: DummySkylightComponent) = dummySkylightComponent.skylight()
+    fun fakeSkylight(): FakeSkylight = FakeSkylight.Atypical(FakeSkylight.Atypical.Type.NeverLight)
 
-    @JvmStatic
+    @Provides
+    @Reusable
+    fun calculatorSkylight(): CalculatorSkylight = CalculatorSkylight()
+
     @Provides
     fun skylight(
         skylightRepository: SkylightRepository,
-        ssoSkylight: SsoSkylight,
+        ssoSkylight: SunriseSunsetOrgSkylight,
         calculatorSkylight: CalculatorSkylight,
-        dummySkylight: DummySkylight
+        fakeSkylight: FakeSkylight
     ): Skylight = when (skylightRepository.getSelectedSkylightTypeOnce().blockingGet()!!) {
         SkylightRepository.SkylightType.SSO -> ssoSkylight
         SkylightRepository.SkylightType.CALCULATOR -> calculatorSkylight
-        SkylightRepository.SkylightType.DUMMY -> dummySkylight
+        SkylightRepository.SkylightType.DUMMY -> fakeSkylight
     }
 }

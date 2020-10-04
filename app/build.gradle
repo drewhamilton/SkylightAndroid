@@ -67,6 +67,8 @@ dependencies {
     implementation deps.rxPreferencesDagger
     implementation deps.rxAndroid
 
+    implementation deps.okHttp
+
     coreLibraryDesugaring deps.coreLibraryDesugaring
 
     implementation deps.dagger
