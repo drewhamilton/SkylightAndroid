@@ -1,11 +1,11 @@
-package drewhamilton.android.test.view
+package dev.drewhamilton.android.test.view
 
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
-import drewhamilton.android.test.CustomActions
-import drewhamilton.android.test.UiTest
-import org.junit.Assert.fail
+import dev.drewhamilton.android.test.CustomActions
+import dev.drewhamilton.android.test.UiTest
+import org.junit.Assert
 
 abstract class ViewTest<V : View> : UiTest<ViewTestActivity>(ViewTestActivity::class.java) {
 
@@ -27,7 +27,7 @@ abstract class ViewTest<V : View> : UiTest<ViewTestActivity>(ViewTestActivity::c
             try {
                 getView()
             } catch (castException: ClassCastException) {
-                fail("View inflated from layout res <$layout> was not an instance of V")
+                Assert.fail("View inflated from layout res <$layout> was not an instance of V")
             }
         }
         CustomActions.waitForUiThread()

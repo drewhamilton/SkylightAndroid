@@ -1,9 +1,9 @@
-package drewhamilton.android.test
+package dev.drewhamilton.android.test
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.test.espresso.intent.rule.IntentsTestRule
-import org.junit.Assert.fail
+import org.junit.Assert
 import org.junit.Rule
 
 abstract class UiTest<A : AppCompatActivity>(activityClass: Class<A> ) {
@@ -24,7 +24,7 @@ abstract class UiTest<A : AppCompatActivity>(activityClass: Class<A> ) {
         try {
             testRule.runOnUiThread(runnable)
         } catch (exception: Exception) {
-            fail("${exception.javaClass.simpleName} while running on UI thread: ${exception.message}")
+            Assert.fail("${exception.javaClass.simpleName} while running on UI thread: ${exception.message}")
         }
 
     protected fun simulateConfigurationChange() {

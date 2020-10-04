@@ -1,17 +1,17 @@
-package drewhamilton.android.test
+package dev.drewhamilton.android.test
 
 import android.view.View
 import android.widget.TextView
 import androidx.test.espresso.matcher.BoundedMatcher
 import org.hamcrest.Description
 import org.hamcrest.Matcher
-import org.hamcrest.Matchers.`is`
+import org.hamcrest.Matchers
 
 object CustomViewMatchers {
 
     fun withTextSize(textSizePx: Float) = object : BoundedMatcher<View, TextView>(TextView::class.java) {
 
-        private val floatMatcher: Matcher<Float> = `is`(textSizePx)
+        private val floatMatcher: Matcher<Float> = Matchers.`is`(textSizePx)
 
         override fun describeTo(description: Description?) {
             description?.appendText("with text size: ")

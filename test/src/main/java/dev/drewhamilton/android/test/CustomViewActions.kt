@@ -1,10 +1,10 @@
-package drewhamilton.android.test
+package dev.drewhamilton.android.test
 
 import android.view.View
 import androidx.test.espresso.UiController
 import androidx.test.espresso.ViewAction
-import org.hamcrest.Matchers
 import java.util.concurrent.TimeUnit
+import org.hamcrest.Matchers
 
 object CustomViewActions {
 

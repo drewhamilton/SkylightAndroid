@@ -4,8 +4,8 @@ import android.content.Intent
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers
-import drewhamilton.android.test.CustomActions
-import drewhamilton.android.test.UiTest
+import dev.drewhamilton.android.test.CustomActions
+import dev.drewhamilton.android.test.UiTest
 import java.util.concurrent.TimeUnit
 import org.junit.Test
 

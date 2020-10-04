@@ -1,4 +1,4 @@
-package drewhamilton.android.test
+package dev.drewhamilton.android.test
 
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.ViewInteraction

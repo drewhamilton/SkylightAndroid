@@ -1,4 +1,4 @@
-package drewhamilton.android.test.view
+package dev.drewhamilton.android.test.view
 
 import androidx.appcompat.app.AppCompatActivity
 

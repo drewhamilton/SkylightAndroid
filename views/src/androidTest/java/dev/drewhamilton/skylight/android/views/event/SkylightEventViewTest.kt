@@ -8,8 +8,8 @@ import dev.drewhamilton.inlinedimens.sp
 import dev.drewhamilton.inlinedimens.toPx
 import dev.drewhamilton.inlinedimens.toSize
 import dev.drewhamilton.skylight.android.views.R
-import drewhamilton.android.test.CustomViewMatchers
-import drewhamilton.android.test.view.ViewTest
+import dev.drewhamilton.android.test.CustomViewMatchers
+import dev.drewhamilton.android.test.view.ViewTest
 import org.hamcrest.Matchers
 import org.junit.Assert
 import org.junit.Before

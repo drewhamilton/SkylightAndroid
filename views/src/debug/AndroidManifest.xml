@@ -8,7 +8,7 @@
 
     <!-- region test activities -->
     <activity
-        android:name="drewhamilton.android.test.view.ViewTestActivity"
+        android:name="dev.drewhamilton.android.test.view.ViewTestActivity"
         tools:ignore="MissingClass" />
     <!-- endregion -->
 
