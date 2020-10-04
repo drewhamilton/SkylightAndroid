@@ -1,8 +1,8 @@
-package drewhamilton.skylight.android.views.event
+package dev.drewhamilton.skylight.android.views.event
 
+import java.util.TimeZone
 import org.junit.After
 import org.junit.Before
-import java.util.TimeZone
 
 /**
  * A base test class that alters the system default time zone to a specified time zone before each test, and restores

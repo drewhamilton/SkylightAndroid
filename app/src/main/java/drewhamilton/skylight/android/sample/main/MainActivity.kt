@@ -17,8 +17,8 @@ import drewhamilton.skylight.android.sample.location.LocationRepository
 import drewhamilton.skylight.android.sample.rx.ui.RxActivity
 import drewhamilton.skylight.android.sample.settings.SettingsActivity
 import drewhamilton.skylight.android.sample.styles.StylesActivity
-import drewhamilton.skylight.android.views.event.SkylightEventView
-import drewhamilton.skylight.android.views.event.setTime
+import dev.drewhamilton.skylight.android.views.event.SkylightEventView
+import dev.drewhamilton.skylight.android.views.event.setTime
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Consumer

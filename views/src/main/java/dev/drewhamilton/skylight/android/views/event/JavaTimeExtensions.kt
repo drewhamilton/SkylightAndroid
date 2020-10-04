@@ -1,6 +1,5 @@
-package drewhamilton.skylight.android.views.event
+package dev.drewhamilton.skylight.android.views.event
 
-import androidx.annotation.RequiresApi
 import androidx.annotation.StringRes
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter

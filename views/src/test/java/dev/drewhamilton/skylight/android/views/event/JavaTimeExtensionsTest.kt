@@ -1,17 +1,17 @@
-package drewhamilton.skylight.android.views.event
+package dev.drewhamilton.skylight.android.views.event
 
 import android.content.Context
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
-import org.junit.Before
-import org.junit.Test
 import java.time.ZoneId
 import java.time.ZoneOffset
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
+import org.junit.Before
+import org.junit.Test
 
 class JavaTimeExtensionsTest : AlteredTimeZoneTest() {
 
