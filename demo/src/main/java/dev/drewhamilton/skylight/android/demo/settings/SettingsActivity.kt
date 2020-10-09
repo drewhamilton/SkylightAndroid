@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.settings_destination.dummyButton
 import kotlinx.android.synthetic.main.settings_destination.lightButton
 import kotlinx.android.synthetic.main.settings_destination.localButton
 import kotlinx.android.synthetic.main.settings_destination.networkButton
+import kotlinx.android.synthetic.main.settings_destination.skylightButton
 import kotlinx.android.synthetic.main.settings_destination.sourceSelection
 import kotlinx.android.synthetic.main.settings_destination.systemButton
 import kotlinx.android.synthetic.main.settings_destination.themeSelection
@@ -53,23 +54,26 @@ class SettingsActivity : RxActivity() {
                 .subscribe()
         }
 
-        themeRepository.getSelectedDarkMode()
+        themeRepository.getSelectedThemeMode()
             .subscribe {
                 when (it!!) {
-                    MutableThemeRepository.DarkMode.SYSTEM -> systemButton.isChecked = true
-                    MutableThemeRepository.DarkMode.LIGHT -> lightButton.isChecked = true
-                    MutableThemeRepository.DarkMode.DARK -> darkButton.isChecked = true
+                    MutableThemeRepository.ThemeMode.SYSTEM -> systemButton.isChecked = true
+                    MutableThemeRepository.ThemeMode.SKYLIGHT -> skylightButton.isChecked = true
+                    MutableThemeRepository.ThemeMode.LIGHT -> lightButton.isChecked = true
+                    MutableThemeRepository.ThemeMode.DARK -> darkButton.isChecked = true
                 }
             }
             .untilDestroy()
 
         themeSelection.setOnCheckedChangeListener { _, checkedId ->
             val selectedDarkMode = when (checkedId) {
-                R.id.lightButton -> MutableThemeRepository.DarkMode.LIGHT
-                R.id.darkButton -> MutableThemeRepository.DarkMode.DARK
-                else -> MutableThemeRepository.DarkMode.SYSTEM
+                R.id.systemButton -> MutableThemeRepository.ThemeMode.SYSTEM
+                R.id.skylightButton -> MutableThemeRepository.ThemeMode.SKYLIGHT
+                R.id.lightButton -> MutableThemeRepository.ThemeMode.LIGHT
+                R.id.darkButton -> MutableThemeRepository.ThemeMode.DARK
+                else -> throw IllegalArgumentException("Unknown checkedId $checkedId")
             }
-            themeRepository.selectDarkMode(selectedDarkMode)
+            themeRepository.selectThemeMode(selectedDarkMode)
                 .subscribe()
         }
     }

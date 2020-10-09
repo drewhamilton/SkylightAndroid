@@ -13,19 +13,23 @@ import javax.inject.Inject
 @Reusable
 class MutableThemeRepository @Inject constructor(private val preferences: RxPreferences) {
 
-    fun getSelectedDarkMode(): Observable<DarkMode> =
+    fun getSelectedThemeMode(): Observable<ThemeMode> =
         preferences.getEnumStream(Keys.DARK_MODE, Defaults.DARK_MODE)
 
-    fun selectDarkMode(darkMode: DarkMode): Completable = preferences.edit {
-        putEnum(Keys.DARK_MODE, darkMode)
-    }.andThen { AppCompatDelegate.setDefaultNightMode(darkMode.appCompatValue) }
+    fun selectThemeMode(themeMode: ThemeMode): Completable = preferences.edit {
+        putEnum(Keys.DARK_MODE, themeMode)
+    }.andThen {
+        val appCompatNightMode = when (themeMode) {
+            ThemeMode.SYSTEM -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+            ThemeMode.LIGHT -> AppCompatDelegate.MODE_NIGHT_NO
+            ThemeMode.DARK -> AppCompatDelegate.MODE_NIGHT_YES
+            else -> null
+        }
+        appCompatNightMode?.let { AppCompatDelegate.setDefaultNightMode(it) }
+    }
 
-    enum class DarkMode(
-        val appCompatValue: Int
-    ) {
-        SYSTEM(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM),
-        LIGHT(AppCompatDelegate.MODE_NIGHT_NO),
-        DARK(AppCompatDelegate.MODE_NIGHT_YES)
+    enum class ThemeMode {
+        SYSTEM, SKYLIGHT, LIGHT, DARK
     }
 
     private object Keys {
@@ -33,6 +37,6 @@ class MutableThemeRepository @Inject constructor(private val preferences: RxPref
     }
 
     private object Defaults {
-        val DARK_MODE = DarkMode.SYSTEM
+        val DARK_MODE = ThemeMode.SYSTEM
     }
 }

@@ -1,13 +1,20 @@
 package dev.drewhamilton.skylight.android.demo.main
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
+import androidx.core.app.ActivityCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dev.drewhamilton.skylight.Coordinates
 import dev.drewhamilton.skylight.Skylight
 import dev.drewhamilton.skylight.SkylightDay
+import dev.drewhamilton.skylight.android.AppCompatDelegateDarkModeApplicator
+import dev.drewhamilton.skylight.android.DarkModeApplicator
+import dev.drewhamilton.skylight.android.DarkModeLifecycleObserver
+import dev.drewhamilton.skylight.android.SkylightForCoordinatesFactory
 import dev.drewhamilton.skylight.android.demo.AppComponent
 import dev.drewhamilton.skylight.android.demo.BuildConfig
 import dev.drewhamilton.skylight.android.demo.R
@@ -16,7 +23,7 @@ import dev.drewhamilton.skylight.android.demo.location.LocationRepository
 import dev.drewhamilton.skylight.android.demo.rx.ui.RxActivity
 import dev.drewhamilton.skylight.android.demo.settings.SettingsActivity
 import dev.drewhamilton.skylight.android.demo.styles.StylesActivity
-import dev.drewhamilton.skylight.android.AutoNightDelegate
+import dev.drewhamilton.skylight.android.demo.theme.MutableThemeRepository
 import dev.drewhamilton.skylight.android.views.event.SkylightEventView
 import dev.drewhamilton.skylight.android.views.event.setTime
 import io.reactivex.Single
@@ -37,28 +44,47 @@ import kotlinx.android.synthetic.main.main_destination.sunset
 import kotlinx.android.synthetic.main.main_destination.toolbar
 import kotlinx.android.synthetic.main.main_destination.version
 
+@Suppress("ProtectedInFinal")
 class MainActivity : RxActivity() {
 
-    @Suppress("ProtectedInFinal")
     @Inject protected lateinit var locationRepository: LocationRepository
 
-    private val autoNightDelegate: AutoNightDelegate by lazy {
-        AutoNightDelegate.fallback(delegate)
+    @Inject protected lateinit var themeRepository: MutableThemeRepository
+
+    @Inject protected lateinit var skylight: Skylight
+
+    @Inject protected lateinit var skylightForCoordinatesFactory: SkylightForCoordinatesFactory
+
+    private val darkModeApplicator: DarkModeApplicator by lazy(LazyThreadSafetyMode.NONE) {
+        AppCompatDelegateDarkModeApplicator(delegate)
     }
 
-    @Suppress("ProtectedInFinal")
-    @Inject protected lateinit var skylight: Skylight
+    private lateinit var themeMode: MutableThemeRepository.ThemeMode
+    private var darkModeLifecycleObserver: DarkModeLifecycleObserver? = null
+        private set(value) {
+            field?.let { lifecycle.removeObserver(it) }
+            field = value
+            value?.let { lifecycle.addObserver(it) }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // TODO: Restore use of autoNightDelegate
-//        lifecycle.addObserver(autoNightDelegate)
+        AppComponent.instance.inject(this)
+
         setContentView(R.layout.main_destination)
         version.text = getString(R.string.version_info, BuildConfig.VERSION_NAME)
         initializeMenu()
-
-        AppComponent.instance.inject(this)
         initializeLocationOptions()
+
+        themeRepository.getSelectedThemeMode()
+            .subscribe { themeMode: MutableThemeRepository.ThemeMode -> applyThemeMode(themeMode) }
+            .untilDestroy()
+
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION),
+            LOCATION_REQUEST
+        )
     }
 
     override fun onResume() {
@@ -68,6 +94,29 @@ class MainActivity : RxActivity() {
 
         // Re-display selected item in case something has changed:
         (locationSelector.selectedItem as Location).display()
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        when (requestCode) {
+            LOCATION_REQUEST -> {
+                if (
+                    permissions.containsAny(
+                        Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION
+                    ) && grantResults.contains(PackageManager.PERMISSION_GRANTED)
+                ) {
+                    applyThemeMode(themeMode)
+                }
+            }
+            else -> super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        }
+    }
+
+    private fun <T> Array<out T>.containsAny(vararg elements: T): Boolean {
+        elements.forEach {
+            if (this.contains(it))
+                return true
+        }
+        return false
     }
 
     private fun initializeLocationOptions() {
@@ -91,6 +140,7 @@ class MainActivity : RxActivity() {
             .untilDestroy()
     }
 
+    // FIXME: This crashes if the Activity is destroyed while the network call is in progress
     private fun Skylight.getSkylightDaySingle(coordinates: Coordinates, date: LocalDate) = Single.fromCallable {
         getSkylightDay(coordinates, date)
     }
@@ -147,5 +197,31 @@ class MainActivity : RxActivity() {
             startActivity(Intent(this, SettingsActivity::class.java))
             true
         }
+    }
+
+    private fun applyThemeMode(mode: MutableThemeRepository.ThemeMode) {
+        themeMode = mode
+        darkModeLifecycleObserver = when (mode) {
+            MutableThemeRepository.ThemeMode.SKYLIGHT -> DarkModeLifecycleObserver.Skylight(
+                darkModeApplicator,
+                skylightForCoordinatesFactory.createForLocation(this)
+            )
+            MutableThemeRepository.ThemeMode.SYSTEM -> DarkModeLifecycleObserver.Constant(
+                darkModeApplicator,
+                DarkModeApplicator.DarkMode.FOLLOW_SYSTEM
+            )
+            MutableThemeRepository.ThemeMode.LIGHT -> DarkModeLifecycleObserver.Constant(
+                darkModeApplicator,
+                DarkModeApplicator.DarkMode.LIGHT
+            )
+            MutableThemeRepository.ThemeMode.DARK -> DarkModeLifecycleObserver.Constant(
+                darkModeApplicator,
+                DarkModeApplicator.DarkMode.DARK
+            )
+        }
+    }
+
+    private companion object {
+        const val LOCATION_REQUEST = 9
     }
 }

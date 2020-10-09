@@ -4,6 +4,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.Reusable
 import dev.drewhamilton.skylight.Skylight
+import dev.drewhamilton.skylight.android.SkylightForCoordinatesFactory
+import dev.drewhamilton.skylight.android.SkylightForMostRecentCoordinatesFactory
 import dev.drewhamilton.skylight.android.demo.source.SkylightRepository
 import dev.drewhamilton.skylight.calculator.CalculatorSkylight
 import dev.drewhamilton.skylight.fake.FakeSkylight
@@ -36,4 +38,10 @@ object SkylightModule {
         SkylightRepository.SkylightType.CALCULATOR -> calculatorSkylight
         SkylightRepository.SkylightType.DUMMY -> fakeSkylight
     }
+
+    @Provides
+    fun skylightForCoordinatesFactory(
+        skylight: Skylight,
+        fallbackSkylight: FakeSkylight
+    ): SkylightForCoordinatesFactory = SkylightForMostRecentCoordinatesFactory(skylight, fallbackSkylight)
 }
