@@ -12,8 +12,6 @@ import dev.drewhamilton.skylight.SkylightForCoordinates
 import dev.drewhamilton.skylight.calculator.CalculatorSkylight
 import dev.drewhamilton.skylight.fake.FakeSkylight
 import dev.drewhamilton.skylight.forCoordinates
-import java.time.LocalTime
-import java.time.ZoneId
 
 /**
  * An implementation of [SkylightForCoordinatesFactory] which uses the most recent known location if available, or a
@@ -22,13 +20,7 @@ import java.time.ZoneId
 class SkylightForMostRecentCoordinatesFactory @JvmOverloads internal constructor(
     private val isPermissionGranted: Context.(permission: String) -> Boolean,
     private val preferredSkylight: Skylight = CalculatorSkylight(),
-    private val fallbackSkylight: FakeSkylight = FakeSkylight.Typical(
-        zone = ZoneId.systemDefault(),
-        dawn = LocalTime.of(7, 0),
-        sunrise = LocalTime.of(8, 0),
-        sunset = LocalTime.of(21, 0),
-        dusk = LocalTime.of(22, 0),
-    ),
+    private val fallbackSkylight: FakeSkylight = DefaultFakeSkylight(),
 ) : SkylightForCoordinatesFactory {
 
     /**
@@ -38,13 +30,7 @@ class SkylightForMostRecentCoordinatesFactory @JvmOverloads internal constructor
      */
     @JvmOverloads constructor(
         preferredSkylight: Skylight = CalculatorSkylight(),
-        fallbackSkylight: FakeSkylight = FakeSkylight.Typical(
-            zone = ZoneId.systemDefault(),
-            dawn = LocalTime.of(7, 0),
-            sunrise = LocalTime.of(8, 0),
-            sunset = LocalTime.of(21, 0),
-            dusk = LocalTime.of(22, 0),
-        ),
+        fallbackSkylight: FakeSkylight = DefaultFakeSkylight(),
     ) : this(
         isPermissionGranted = { permission ->
             val result = PermissionChecker.checkSelfPermission(this, permission)

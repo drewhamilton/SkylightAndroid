@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 /**
  * A base Activity that sets the current night mode using an [AutoNightDelegate].
  */
+@Deprecated("TODO: Remove")
 abstract class AutoNightActivity : AppCompatActivity() {
 
     /**

@@ -57,6 +57,7 @@ dependencies {
 
     implementation deps.appCompat
     api deps.lifecycle
+    implementation deps.lifecycleRuntime
 
     api(deps.skylight) {
         changing = versions.skylight.contains('SNAPSHOT')

@@ -23,6 +23,7 @@ import java.time.temporal.ChronoUnit
  * is updated when the given [LifecycleOwner] is started, and again at the next dawn/dusk event if the [LifecycleOwner]
  * has not stopped.
  */
+@Deprecated("TODO: Remove")
 class AutoNightDelegate(
     private val appCompatDelegate: AppCompatDelegate,
     private val skylight: SkylightForCoordinates
