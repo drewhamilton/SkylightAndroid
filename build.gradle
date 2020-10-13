@@ -31,9 +31,10 @@ buildscript {
             rxPreferencesKtx: "drewhamilton.rxpreferences:rxpreferences-ktx:$versions.rxPreferences",
             rxPreferencesDagger: "drewhamilton.rxpreferences:rxpreferences-dagger:$versions.rxPreferences",
             skylight: "dev.drewhamilton.skylight:skylight:$versions.skylight",
-            skylightSunriseSunsetOrg: "dev.drewhamilton.skylight:skylight-sunrise-sunset-org:$versions.skylight",
+            skylightBrand: 'dev.drewhamilton.skylight.android.brand:skylight-brand-xml-theme:0.14.0-SNAPSHOT',
             skylightCalculator: "dev.drewhamilton.skylight:skylight-calculator:$versions.skylight",
             skylightFake: "dev.drewhamilton.skylight:skylight-fake:$versions.skylight",
+            skylightSunriseSunsetOrg: "dev.drewhamilton.skylight:skylight-sunrise-sunset-org:$versions.skylight",
             testRules: 'androidx.test:rules:1.3.0',
             testRunner: 'androidx.test:runner:1.3.0',
     ]
@@ -56,7 +57,7 @@ buildscript {
 }
 
 ext.projectVersions = [
-        minSdk: 15,
+        minSdk: 21,
         targetSdk: 28,
 ]
 

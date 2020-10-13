@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "dev.drewhamilton.skylight.android.demo"
-        minSdkVersion 16
+        minSdkVersion projectVersions.minSdk
         targetSdkVersion projectVersions.targetSdk
         multiDexEnabled true
         versionCode 1
@@ -52,15 +52,15 @@ dependencies {
         changing = versions.skylight.contains('SNAPSHOT')
     }
 
+    implementation deps.skylightBrand
+
     implementation deps.coreKtx
     implementation deps.appCompat
     implementation deps.constraintLayout
 
     implementation project(':views')
-    implementation project(':themes')
     implementation project(':banner')
     implementation project(':skylight-android')
-    implementation deps.materialComponents
 
     implementation deps.rxPreferences
     implementation deps.rxPreferencesKtx
