@@ -27,8 +27,6 @@
 
     <activity android:name=".settings.SettingsActivity" />
 
-    <activity android:name=".styles.StylesActivity" />
-
   </application>
 
 </manifest>

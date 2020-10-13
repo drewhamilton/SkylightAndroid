@@ -52,14 +52,15 @@ dependencies {
         changing = versions.skylight.contains('SNAPSHOT')
     }
 
-    implementation deps.skylightBrand
+    implementation(deps.skylightBrand) {
+        changing = versions.skylight.contains('SNAPSHOT')
+    }
 
     implementation deps.coreKtx
     implementation deps.appCompat
     implementation deps.constraintLayout
 
     implementation project(':views')
-    implementation project(':banner')
     implementation project(':skylight-android')
 
     implementation deps.rxPreferences
