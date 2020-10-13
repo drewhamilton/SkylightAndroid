@@ -1,4 +1,4 @@
 include ':skylight-android'
-include ':themes', ':views'
+include ':views'
 include ':test', ':demo', ':banner'
 rootProject.name='Skylight Android'
