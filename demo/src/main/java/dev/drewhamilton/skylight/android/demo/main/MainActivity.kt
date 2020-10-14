@@ -3,11 +3,19 @@ package dev.drewhamilton.skylight.android.demo.main
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.drawable.GradientDrawable
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
+import android.widget.TextView
+import androidx.annotation.StringRes
 import androidx.core.app.ActivityCompat
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import dev.drewhamilton.skylight.Coordinates
 import dev.drewhamilton.skylight.Skylight
 import dev.drewhamilton.skylight.SkylightDay
@@ -18,13 +26,12 @@ import dev.drewhamilton.skylight.android.SkylightForCoordinatesFactory
 import dev.drewhamilton.skylight.android.demo.AppComponent
 import dev.drewhamilton.skylight.android.demo.BuildConfig
 import dev.drewhamilton.skylight.android.demo.R
+import dev.drewhamilton.skylight.android.demo.databinding.MainDestinationBinding
 import dev.drewhamilton.skylight.android.demo.location.Location
 import dev.drewhamilton.skylight.android.demo.location.LocationRepository
 import dev.drewhamilton.skylight.android.demo.rx.ui.RxActivity
 import dev.drewhamilton.skylight.android.demo.settings.SettingsActivity
 import dev.drewhamilton.skylight.android.demo.theme.MutableThemeRepository
-import dev.drewhamilton.skylight.android.views.event.SkylightEventView
-import dev.drewhamilton.skylight.android.views.event.setTime
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Consumer
@@ -32,19 +39,16 @@ import io.reactivex.schedulers.Schedulers
 import java.time.LocalDate
 import java.time.ZoneId
 import java.time.ZonedDateTime
-import java.time.format.TextStyle
-import java.util.Locale
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
 import javax.inject.Inject
-import kotlinx.android.synthetic.main.main_destination.dawn
-import kotlinx.android.synthetic.main.main_destination.dusk
-import kotlinx.android.synthetic.main.main_destination.locationSelector
-import kotlinx.android.synthetic.main.main_destination.sunrise
-import kotlinx.android.synthetic.main.main_destination.sunset
-import kotlinx.android.synthetic.main.main_destination.toolbar
-import kotlinx.android.synthetic.main.main_destination.version
 
 @Suppress("ProtectedInFinal")
 class MainActivity : RxActivity() {
+
+    private val binding: MainDestinationBinding by lazy(mode = LazyThreadSafetyMode.NONE) {
+        MainDestinationBinding.inflate(layoutInflater)
+    }
 
     @Inject protected lateinit var locationRepository: LocationRepository
 
@@ -67,11 +71,37 @@ class MainActivity : RxActivity() {
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        if (Build.VERSION.SDK_INT >= 29) {
+            WindowCompat.setDecorFitsSystemWindows(window, false)
+        }
+
         super.onCreate(savedInstanceState)
         AppComponent.instance.inject(this)
 
-        setContentView(R.layout.main_destination)
-        version.text = getString(R.string.version_info, BuildConfig.VERSION_NAME)
+        setContentView(binding.root)
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, windowInsets ->
+            with(windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())) {
+                binding.toolbar.updatePadding(top = top)
+                binding.version.updatePadding(bottom = bottom)
+                binding.root.updatePadding(left = left, right = right)
+            }
+
+            windowInsets
+        }
+
+        val backgroundGradient = GradientDrawable(
+            GradientDrawable.Orientation.TOP_BOTTOM,
+            intArrayOf(
+                ContextCompat.getColor(this, R.color.skylight_dawn),
+                ContextCompat.getColor(this, R.color.skylight_sunrise),
+                ContextCompat.getColor(this, R.color.skylight_sunset),
+                ContextCompat.getColor(this, R.color.skylight_dusk),
+            )
+        )
+        ViewCompat.setBackground(binding.background, backgroundGradient)
+
+        binding.version.text = getString(R.string.version_info, BuildConfig.VERSION_NAME)
         initializeMenu()
         initializeLocationOptions()
 
@@ -92,7 +122,7 @@ class MainActivity : RxActivity() {
         AppComponent.instance.inject(this)
 
         // Re-display selected item in case something has changed:
-        (locationSelector.selectedItem as Location).display()
+        (binding.locationSelector.selectedItem as Location).display()
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -120,15 +150,15 @@ class MainActivity : RxActivity() {
 
     private fun initializeLocationOptions() {
         val locationOptions = locationRepository.getLocationOptions()
-        locationSelector.adapter = LocationSpinnerAdapter(this, locationOptions)
+        binding.locationSelector.adapter = LocationSpinnerAdapter(this, locationOptions)
 
-        locationSelector.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        binding.locationSelector.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) =
                 locationOptions[position].display()
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
-        locationSelector.setSelection(0)
+        binding.locationSelector.setSelection(0)
     }
 
     private fun Location.display() {
@@ -159,33 +189,36 @@ class MainActivity : RxActivity() {
             }
         }
 
-        dawn.setTime(dawnDateTime, R.string.never)
-        sunrise.setTime(sunriseDateTime, R.string.never)
-        sunset.setTime(sunsetDateTime, R.string.never)
-        dusk.setTime(duskDateTime, R.string.never)
+        binding.dawnTime.setTime(dawnDateTime, R.string.never)
+        binding.sunriseTime.setTime(sunriseDateTime, R.string.never)
+        binding.sunsetTime.setTime(sunsetDateTime, R.string.never)
+        binding.duskTime.setTime(duskDateTime, R.string.never)
 
-        dawn.showDetailsOnClick(timeZone)
-        sunrise.showDetailsOnClick(timeZone)
-        sunset.showDetailsOnClick(timeZone)
-        dusk.showDetailsOnClick(timeZone)
+        binding.dawnLabel.visibility = View.VISIBLE
+        binding.sunriseLabel.visibility = View.VISIBLE
+        binding.sunsetLabel.visibility = View.VISIBLE
+        binding.duskLabel.visibility = View.VISIBLE
     }
 
-    private fun SkylightEventView.showDetailsOnClick(timeZone: ZoneId) {
-        val clickListener: View.OnClickListener? = if (timeText.isNotEmpty())
-            View.OnClickListener {
-                MaterialAlertDialogBuilder(this@MainActivity)
-                    .setTitle(labelText)
-                    .setMessage("$timeText, ${timeZone.getDisplayName(TextStyle.FULL, Locale.getDefault())}")
-                    .setPositiveButton(R.string.good_to_know) { _, _ -> }
-                    .show()
-            }
-        else
-            null
-        setOnClickListener(clickListener)
+    private fun TextView.setTime(time: ZonedDateTime?, @StringRes fallback: Int) =
+        setTime(time, fallback = context.getString(fallback))
+
+    private fun TextView.setTime(
+        time: ZonedDateTime?,
+        formatter: DateTimeFormatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT),
+        fallback: CharSequence = ""
+    ) {
+        if (time == null) {
+            hint = fallback
+            text = ""
+        } else {
+            text = formatter.format(time)
+            hint = ""
+        }
     }
 
     private fun initializeMenu() {
-        val settingsItem = toolbar.menu.findItem(R.id.settings)
+        val settingsItem = binding.toolbar.menu.findItem(R.id.settings)
         settingsItem.setOnMenuItemClickListener {
             startActivity(Intent(this, SettingsActivity::class.java))
             true
@@ -215,6 +248,6 @@ class MainActivity : RxActivity() {
     }
 
     private companion object {
-        const val LOCATION_REQUEST = 9
+        private const val LOCATION_REQUEST = 9
     }
 }

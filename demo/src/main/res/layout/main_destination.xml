@@ -10,16 +10,17 @@
   <com.google.android.material.appbar.MaterialToolbar
       android:id="@+id/toolbar"
       android:layout_width="0dp"
-      android:layout_height="?android:attr/actionBarSize"
+      android:layout_height="wrap_content"
 
       app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintBottom_toTopOf="@+id/timeZoneInfo"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
 
       app:menu="@menu/home"
 
-      style="@style/Widget.MaterialComponents.Toolbar.Surface">
+      style="@style/Widget.MaterialComponents.Toolbar.Surface"
+
+      tools:paddingTop="24dp">
 
     <androidx.appcompat.widget.AppCompatSpinner
         android:id="@+id/locationSelector"
@@ -30,104 +31,185 @@
 
   </com.google.android.material.appbar.MaterialToolbar>
 
+  <View
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+
+      android:background="@color/skylight_dawn"
+
+      app:layout_constraintBottom_toTopOf="@+id/background"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+  <View
+      android:id="@+id/background"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+
+      app:layout_constraintBottom_toBottomOf="@+id/duskTime"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="@+id/dawnTime"
+
+      tools:background="@drawable/skylight_event_gradient_3_colors" />
+
+  <View
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+
+      android:background="@color/skylight_dusk"
+
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/background" />
+
   <TextView
       android:id="@+id/timeZoneInfo"
-      android:layout_width="match_parent"
+      android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/divider_list"
       android:layout_marginStart="@dimen/marginSides_mainText"
       android:layout_marginEnd="@dimen/marginSides_mainText"
 
       android:text="@string/all_times_local"
-      android:textAppearance="?android:textAppearanceSmall"
+      android:textAppearance="?textAppearanceBody2"
       android:textColor="?android:textColorHint"
-
-      app:layout_constraintTop_toBottomOf="@+id/toolbar"
-      app:layout_constraintBottom_toTopOf="@+id/dawn" />
-
-  <dev.drewhamilton.skylight.android.views.event.SkylightEventView
-      android:id="@+id/dawn"
-      android:layout_width="match_parent"
-      android:layout_height="0dp"
-      android:layout_marginTop="@dimen/divider_list"
-      android:layout_marginStart="@dimen/marginSides_mainCard"
-      android:layout_marginEnd="@dimen/marginSides_mainCard"
-
       android:theme="@style/Theme.Skylight.Light"
 
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+  <TextView
+      android:id="@+id/dawnTime"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+
+      android:textAppearance="?textAppearanceHeadline2"
+      android:theme="@style/Theme.Skylight.Light"
+
+      app:layout_constraintBottom_toTopOf="@+id/sunriseTime"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/timeZoneInfo"
-      app:layout_constraintBottom_toTopOf="@+id/sunrise"
+      app:layout_constraintVertical_chainStyle="spread_inside"
 
-      app:cardCornerRadius="@dimen/cornerRadius_card"
-      app:cardBackgroundColor="@color/skylight_dawn"
-      app:skylightEventLabelText="@string/dawn"
+      tools:text="7:38 AM" />
 
-      tools:ignore="MissingClass"
-      tools:skylightEventTimeText="7:38 AM" />
+  <TextView
+      android:id="@+id/dawnLabel"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
 
-  <dev.drewhamilton.skylight.android.views.event.SkylightEventView
-      android:id="@+id/sunrise"
-      android:layout_width="match_parent"
-      android:layout_height="0dp"
-      android:layout_marginTop="@dimen/divider_list"
-      android:layout_marginStart="@dimen/marginSides_mainCard"
-      android:layout_marginEnd="@dimen/marginSides_mainCard"
+      android:text="@string/dawn"
+      android:textAppearance="?textAppearanceCaption"
+      android:theme="@style/Theme.Skylight.Light"
+      android:visibility="invisible"
 
+      app:layout_constraintBaseline_toBaselineOf="@+id/dawnTime"
+      app:layout_constraintEnd_toStartOf="@+id/dawnTime"
+      app:layout_constraintHorizontal_bias="1"
+
+      tools:visibility="visible" />
+
+  <TextView
+      android:id="@+id/sunriseTime"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+
+      android:textAppearance="?textAppearanceHeadline2"
       android:theme="@style/Theme.Skylight.Light"
 
-      app:layout_constraintTop_toBottomOf="@+id/dawn"
-      app:layout_constraintBottom_toTopOf="@+id/sunset"
+      app:layout_constraintBottom_toTopOf="@+id/sunsetTime"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/dawnTime"
 
-      app:cardCornerRadius="@dimen/cornerRadius_card"
-      app:cardBackgroundColor="@color/skylight_sunrise"
-      app:skylightEventLabelText="@string/sunrise"
+      tools:text="7:51 AM" />
 
-      tools:ignore="MissingClass"
-      tools:skylightEventTimeText="7:38 AM" />
+  <TextView
+      android:id="@+id/sunriseLabel"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
 
-  <dev.drewhamilton.skylight.android.views.event.SkylightEventView
-      android:id="@+id/sunset"
-      android:layout_width="match_parent"
-      android:layout_height="0dp"
-      android:layout_marginTop="@dimen/divider_list"
-      android:layout_marginStart="@dimen/marginSides_mainCard"
-      android:layout_marginEnd="@dimen/marginSides_mainCard"
+      android:text="@string/sunrise"
+      android:textAppearance="?textAppearanceCaption"
+      android:theme="@style/Theme.Skylight.Light"
+      android:visibility="invisible"
 
+      app:layout_constraintBaseline_toBaselineOf="@+id/sunriseTime"
+      app:layout_constraintEnd_toStartOf="@+id/sunriseTime"
+      app:layout_constraintHorizontal_bias="1"
+
+      tools:visibility="visible" />
+
+  <TextView
+      android:id="@+id/sunsetTime"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+
+      android:textAppearance="?textAppearanceHeadline2"
       android:theme="@style/Theme.Skylight.Dark"
 
-      app:layout_constraintTop_toBottomOf="@+id/sunrise"
-      app:layout_constraintBottom_toTopOf="@+id/dusk"
+      app:layout_constraintBottom_toTopOf="@+id/duskTime"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/sunriseTime"
 
-      app:cardCornerRadius="@dimen/cornerRadius_card"
-      app:cardBackgroundColor="@color/skylight_sunset"
-      app:skylightEventLabelText="@string/sunset"
+      tools:text="7:51 PM" />
 
-      tools:ignore="MissingClass"
-      tools:skylightEventTimeText="7:38 AM" />
+  <TextView
+      android:id="@+id/sunsetLabel"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
 
-  <dev.drewhamilton.skylight.android.views.event.SkylightEventView
-      android:id="@+id/dusk"
-      android:layout_width="match_parent"
-      android:layout_height="0dp"
-      android:layout_marginTop="@dimen/divider_list"
-      android:layout_marginStart="@dimen/marginSides_mainCard"
-      android:layout_marginEnd="@dimen/marginSides_mainCard"
+      android:text="@string/sunset"
+      android:textAppearance="?textAppearanceCaption"
+      android:theme="@style/Theme.Skylight.Dark"
+      android:visibility="invisible"
 
+      app:layout_constraintBaseline_toBaselineOf="@+id/sunsetTime"
+      app:layout_constraintEnd_toStartOf="@+id/sunsetTime"
+      app:layout_constraintHorizontal_bias="1"
+
+      tools:visibility="visible" />
+
+  <TextView
+      android:id="@+id/duskTime"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+
+      android:textAppearance="?textAppearanceHeadline2"
       android:theme="@style/Theme.Skylight.Dark"
 
-      app:layout_constraintTop_toBottomOf="@+id/sunset"
       app:layout_constraintBottom_toTopOf="@+id/version"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/sunsetTime"
 
-      app:cardCornerRadius="@dimen/cornerRadius_card"
-      app:cardBackgroundColor="@color/skylight_dusk"
-      app:skylightEventLabelText="@string/dusk"
+      tools:text="10:00 PM" />
 
-      tools:ignore="MissingClass"
-      tools:skylightEventTimeText="7:38 AM" />
+  <TextView
+      android:id="@+id/duskLabel"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+
+      android:text="@string/dusk"
+      android:textAppearance="?textAppearanceCaption"
+      android:theme="@style/Theme.Skylight.Dark"
+      android:visibility="invisible"
+
+      app:layout_constraintBaseline_toBaselineOf="@+id/duskTime"
+      app:layout_constraintEnd_toStartOf="@+id/duskTime"
+      app:layout_constraintHorizontal_bias="1"
+
+      tools:visibility="visible" />
 
   <TextView
       android:id="@+id/version"
-      android:layout_width="match_parent"
+      android:layout_width="0dp"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/divider_list"
       android:layout_marginBottom="@dimen/divider_list"
@@ -135,11 +217,13 @@
       android:layout_marginEnd="@dimen/marginSides_mainText"
 
       android:gravity="end"
-      android:textAppearance="?android:textAppearanceSmall"
+      android:textAppearance="?textAppearanceBody1"
       android:textColor="?android:textColorSecondary"
+      android:theme="@style/Theme.Skylight.Dark"
 
-      app:layout_constraintTop_toBottomOf="@+id/dusk"
       app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
 
       tools:text="Skylight 1.0.0" />
 
