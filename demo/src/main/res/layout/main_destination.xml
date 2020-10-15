@@ -32,38 +32,16 @@
   </com.google.android.material.appbar.MaterialToolbar>
 
   <View
+      android:id="@+id/dawnBackground"
       android:layout_width="0dp"
       android:layout_height="0dp"
 
       android:background="@color/skylight_dawn"
 
-      app:layout_constraintBottom_toTopOf="@+id/background"
+      app:layout_constraintBottom_toBottomOf="@+id/dawnTime"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/toolbar" />
-
-  <View
-      android:id="@+id/background"
-      android:layout_width="0dp"
-      android:layout_height="0dp"
-
-      app:layout_constraintBottom_toBottomOf="@+id/duskTime"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="@+id/dawnTime"
-
-      tools:background="@drawable/skylight_event_gradient_3_colors" />
-
-  <View
-      android:layout_width="0dp"
-      android:layout_height="0dp"
-
-      android:background="@color/skylight_dusk"
-
-      app:layout_constraintBottom_toBottomOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/background" />
 
   <TextView
       android:id="@+id/timeZoneInfo"
@@ -82,10 +60,34 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
+  <View
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+
+      android:background="@drawable/dawn_to_sunrise"
+
+      app:layout_constraintBottom_toTopOf="@+id/sunriseBackground"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/dawnBackground" />
+
+  <View
+      android:id="@+id/sunriseBackground"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+
+      android:background="@color/skylight_sunrise"
+
+      app:layout_constraintBottom_toBottomOf="@+id/sunriseTime"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="@+id/sunriseTime" />
+
   <TextView
       android:id="@+id/dawnTime"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/times_vertical_surrounding_spacing"
 
       android:textAppearance="?textAppearanceHeadline2"
       android:theme="@style/Theme.Skylight.Light"
@@ -145,6 +147,29 @@
 
       tools:visibility="visible" />
 
+  <View
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+
+      android:background="@drawable/sunrise_to_sunset"
+
+      app:layout_constraintBottom_toTopOf="@+id/sunsetBackground"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/sunriseBackground" />
+
+  <View
+      android:id="@+id/sunsetBackground"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+
+      android:background="@color/skylight_sunset"
+
+      app:layout_constraintBottom_toBottomOf="@+id/sunsetTime"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="@+id/sunsetTime" />
+
   <TextView
       android:id="@+id/sunsetTime"
       android:layout_width="wrap_content"
@@ -176,10 +201,34 @@
 
       tools:visibility="visible" />
 
+  <View
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+
+      android:background="@drawable/sunset_to_dusk"
+
+      app:layout_constraintBottom_toTopOf="@+id/duskBackground"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/sunsetBackground" />
+
+  <View
+      android:id="@+id/duskBackground"
+      android:layout_width="0dp"
+      android:layout_height="0dp"
+
+      android:background="@color/skylight_dusk"
+
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="@+id/duskTime" />
+
   <TextView
       android:id="@+id/duskTime"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+      android:layout_marginBottom="@dimen/times_vertical_surrounding_spacing"
 
       android:textAppearance="?textAppearanceHeadline2"
       android:theme="@style/Theme.Skylight.Dark"
@@ -211,7 +260,6 @@
       android:id="@+id/version"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/divider_list"
       android:layout_marginBottom="@dimen/divider_list"
       android:layout_marginStart="@dimen/marginSides_mainText"
       android:layout_marginEnd="@dimen/marginSides_mainText"

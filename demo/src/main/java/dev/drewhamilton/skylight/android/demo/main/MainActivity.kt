@@ -90,17 +90,6 @@ class MainActivity : RxActivity() {
             windowInsets
         }
 
-        val backgroundGradient = GradientDrawable(
-            GradientDrawable.Orientation.TOP_BOTTOM,
-            intArrayOf(
-                ContextCompat.getColor(this, R.color.skylight_dawn),
-                ContextCompat.getColor(this, R.color.skylight_sunrise),
-                ContextCompat.getColor(this, R.color.skylight_sunset),
-                ContextCompat.getColor(this, R.color.skylight_dusk),
-            )
-        )
-        ViewCompat.setBackground(binding.background, backgroundGradient)
-
         binding.version.text = getString(R.string.version_info, BuildConfig.VERSION_NAME)
         initializeMenu()
         initializeLocationOptions()
