@@ -1,9 +1,7 @@
 package dev.drewhamilton.skylight.android.demo.main
 
 import android.Manifest
-import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -11,11 +9,11 @@ import android.widget.AdapterView
 import android.widget.TextView
 import androidx.annotation.StringRes
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import dev.drewhamilton.skylight.Coordinates
 import dev.drewhamilton.skylight.Skylight
 import dev.drewhamilton.skylight.SkylightDay
@@ -30,7 +28,8 @@ import dev.drewhamilton.skylight.android.demo.databinding.MainDestinationBinding
 import dev.drewhamilton.skylight.android.demo.location.Location
 import dev.drewhamilton.skylight.android.demo.location.LocationRepository
 import dev.drewhamilton.skylight.android.demo.rx.ui.RxActivity
-import dev.drewhamilton.skylight.android.demo.settings.SettingsActivity
+import dev.drewhamilton.skylight.android.demo.settings.SettingsDialogFactory
+import dev.drewhamilton.skylight.android.demo.source.SkylightRepository
 import dev.drewhamilton.skylight.android.demo.theme.MutableThemeRepository
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -50,13 +49,16 @@ class MainActivity : RxActivity() {
         MainDestinationBinding.inflate(layoutInflater)
     }
 
-    @Inject protected lateinit var locationRepository: LocationRepository
-
     @Inject protected lateinit var themeRepository: MutableThemeRepository
-
-    @Inject protected lateinit var skylight: Skylight
-
+    @Inject protected lateinit var skylightRepository: SkylightRepository
+    @Inject protected lateinit var locationRepository: LocationRepository
     @Inject protected lateinit var skylightForCoordinatesFactory: SkylightForCoordinatesFactory
+
+    @Inject protected lateinit var settingsDialogFactory: SettingsDialogFactory
+    private var displayedSettingsDialog: BottomSheetDialog? = null
+
+    private val skylight: Skylight
+        get() = AppComponent.instance.skylight()
 
     private val darkModeApplicator: DarkModeApplicator by lazy(LazyThreadSafetyMode.NONE) {
         AppCompatDelegateDarkModeApplicator(delegate)
@@ -98,20 +100,22 @@ class MainActivity : RxActivity() {
             .subscribe { themeMode: MutableThemeRepository.ThemeMode -> applyThemeMode(themeMode) }
             .untilDestroy()
 
+        skylightRepository.getSelectedSkylightTypeStream()
+            .distinctUntilChanged()
+            .subscribe {
+                (binding.locationSelector.selectedItem as Location).display()
+            }
+            .untilDestroy()
+
         ActivityCompat.requestPermissions(
             this,
             arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION),
             LOCATION_REQUEST
         )
-    }
 
-    override fun onResume() {
-        super.onResume()
-        // Inject again in onResume because settings activity may change what is injected:
-        AppComponent.instance.inject(this)
-
-        // Re-display selected item in case something has changed:
-        (binding.locationSelector.selectedItem as Location).display()
+        if (savedInstanceState?.getBoolean(SETTINGS_DIALOG_DISPLAYED) == true) {
+            displaySettingsDialog()
+        }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -129,6 +133,17 @@ class MainActivity : RxActivity() {
         }
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putBoolean(SETTINGS_DIALOG_DISPLAYED, displayedSettingsDialog != null)
+    }
+
+    override fun onDestroy() {
+        displayedSettingsDialog?.dismiss()
+        super.onDestroy()
+    }
+
+    @Suppress("SameParameterValue")
     private fun <T> Array<out T>.containsAny(vararg elements: T): Boolean {
         elements.forEach {
             if (this.contains(it))
@@ -169,13 +184,11 @@ class MainActivity : RxActivity() {
         var sunsetDateTime: ZonedDateTime? = null
         var duskDateTime: ZonedDateTime? = null
 
-        when (this) {
-            is SkylightDay.Typical -> {
-                dawnDateTime = dawn?.atZone(timeZone)
-                sunriseDateTime = sunrise?.atZone(timeZone)
-                sunsetDateTime = sunset?.atZone(timeZone)
-                duskDateTime = dusk?.atZone(timeZone)
-            }
+        if (this is SkylightDay.Typical) {
+            dawnDateTime = dawn?.atZone(timeZone)
+            sunriseDateTime = sunrise?.atZone(timeZone)
+            sunsetDateTime = sunset?.atZone(timeZone)
+            duskDateTime = dusk?.atZone(timeZone)
         }
 
         binding.dawnTime.setTime(dawnDateTime, R.string.never)
@@ -209,9 +222,17 @@ class MainActivity : RxActivity() {
     private fun initializeMenu() {
         val settingsItem = binding.toolbar.menu.findItem(R.id.settings)
         settingsItem.setOnMenuItemClickListener {
-            startActivity(Intent(this, SettingsActivity::class.java))
+            displaySettingsDialog()
             true
         }
+    }
+
+    private fun displaySettingsDialog() {
+        val settingsDialog = settingsDialogFactory.createSettingsDialog(this) {
+            displayedSettingsDialog = null
+        }
+        settingsDialog.show()
+        displayedSettingsDialog = settingsDialog
     }
 
     private fun applyThemeMode(mode: MutableThemeRepository.ThemeMode) {
@@ -238,5 +259,7 @@ class MainActivity : RxActivity() {
 
     private companion object {
         private const val LOCATION_REQUEST = 9
+
+        private const val SETTINGS_DIALOG_DISPLAYED = "SETTINGS_DIALOG_DISPLAYED"
     }
 }
