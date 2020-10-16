@@ -3,6 +3,7 @@ package dev.drewhamilton.skylight.android.demo.settings
 import android.content.Context
 import android.view.LayoutInflater
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import dev.drewhamilton.skylight.android.demo.BuildConfig
 import dev.drewhamilton.skylight.android.demo.R
 import dev.drewhamilton.skylight.android.demo.databinding.SettingsDestinationBinding
 import dev.drewhamilton.skylight.android.demo.source.MutableSkylightRepository
@@ -68,6 +69,8 @@ class SettingsDialogFactory @Inject constructor(
             themeRepository.selectThemeMode(selectedDarkMode)
                 .subscribe()
         }
+
+        binding.version.text = context.getString(R.string.version_info, BuildConfig.VERSION_NAME)
 
         setOnDismissListener {
             subscriptions.clear()

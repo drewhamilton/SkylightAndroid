@@ -5,11 +5,12 @@
     xmlns:tools="http://schemas.android.com/tools"
 
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
 
     android:paddingTop="16dp"
 
     tools:background="?colorSurface"
+    tools:layout_gravity="bottom"
     tools:ignore="HardcodedText">
 
   <RadioGroup
@@ -74,10 +75,10 @@
       android:paddingEnd="@dimen/marginSides_mainText"
       android:showDividers="beginning|end"
 
-      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintBottom_toTopOf="@+id/version"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/sourceSelection"
-      app:layout_constraintBottom_toBottomOf="parent">
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/sourceSelection">
 
     <TextView
         android:layout_width="match_parent"
@@ -120,5 +121,25 @@
         android:text="Dark" />
 
   </RadioGroup>
+
+  <TextView
+      android:id="@+id/version"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="@dimen/divider_list"
+      android:layout_marginEnd="@dimen/marginSides_mainText"
+      android:layout_marginStart="@dimen/marginSides_mainText"
+      android:layout_marginTop="@dimen/divider_list"
+
+      android:gravity="end"
+      android:textAppearance="?textAppearanceCaption"
+      android:textColor="?android:textColorSecondary"
+
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/themeSelection"
+
+      tools:text="Skylight Android 1.0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

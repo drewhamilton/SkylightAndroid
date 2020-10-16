@@ -85,14 +85,12 @@ class MainActivity : RxActivity() {
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, windowInsets ->
             with(windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())) {
                 binding.toolbar.updatePadding(top = top)
-                binding.version.updatePadding(bottom = bottom)
                 binding.root.updatePadding(left = left, right = right)
             }
 
             windowInsets
         }
 
-        binding.version.text = getString(R.string.version_info, BuildConfig.VERSION_NAME)
         initializeMenu()
         initializeLocationOptions()
 
