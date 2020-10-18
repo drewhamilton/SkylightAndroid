@@ -44,6 +44,7 @@ class SettingsDialogFactory @Inject constructor(
             }
             skylightRepository.selectSkylightType(selectedType)
                 .subscribe()
+            dismiss()
         }
 
         subscriptions.add(
@@ -68,6 +69,7 @@ class SettingsDialogFactory @Inject constructor(
             }
             themeRepository.selectThemeMode(selectedDarkMode)
                 .subscribe()
+            dismiss()
         }
 
         binding.version.text = context.getString(R.string.version_info, BuildConfig.VERSION_NAME)

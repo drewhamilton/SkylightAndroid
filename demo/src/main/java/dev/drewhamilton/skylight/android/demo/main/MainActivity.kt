@@ -91,10 +91,6 @@ class MainActivity : RxActivity() {
             arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION),
             LOCATION_REQUEST
         )
-
-        if (savedInstanceState?.getBoolean(SETTINGS_DIALOG_DISPLAYED) == true) {
-            displaySettingsDialog()
-        }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -110,11 +106,6 @@ class MainActivity : RxActivity() {
             }
             else -> super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         }
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putBoolean(SETTINGS_DIALOG_DISPLAYED, displayedSettingsDialog != null)
     }
 
     override fun onDestroy() {
@@ -238,7 +229,5 @@ class MainActivity : RxActivity() {
 
     private companion object {
         private const val LOCATION_REQUEST = 9
-
-        private const val SETTINGS_DIALOG_DISPLAYED = "SETTINGS_DIALOG_DISPLAYED"
     }
 }
