@@ -1,4 +1,4 @@
-package dev.drewhamilton.android.test
+package dev.drewhamilton.skylight.android
 
 import android.view.View
 import androidx.test.espresso.UiController

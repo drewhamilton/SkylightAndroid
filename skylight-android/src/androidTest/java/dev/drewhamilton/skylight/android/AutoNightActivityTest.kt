@@ -6,8 +6,6 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
-import dev.drewhamilton.android.test.CustomActions
-import dev.drewhamilton.android.test.UiTest
 import java.util.concurrent.TimeUnit
 import org.junit.Assume.assumeTrue
 import org.junit.Test

@@ -76,6 +76,5 @@ dependencies {
 
     androidTestImplementation deps.junitExt
     androidTestImplementation deps.espresso
-    androidTestImplementation project(':test')
     androidTestImplementation deps.materialComponents
 }

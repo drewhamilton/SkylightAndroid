@@ -63,7 +63,7 @@ ext.projectVersions = [
 
 apply plugin: 'binary-compatibility-validator'
 apiValidation {
-    ignoredProjects += ['test', 'demo']
+    ignoredProjects += ['demo']
 }
 
 ext {

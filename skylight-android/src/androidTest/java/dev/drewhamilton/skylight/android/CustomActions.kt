@@ -1,4 +1,4 @@
-package dev.drewhamilton.android.test
+package dev.drewhamilton.skylight.android
 
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.ViewInteraction
