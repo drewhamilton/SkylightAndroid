@@ -35,9 +35,9 @@ class AutoNightActivityTest : UiTest<TestAutoNightActivity>(TestAutoNightActivit
         val now = System.currentTimeMillis()
         launchActivity(testIntent(dawnMilli = now + 500, duskMilli = now + 100_000))
 
-        CustomActions.waitForUiThread(shortDelayMillis, TimeUnit.MILLISECONDS)
+        waitForUiThread(shortDelayMillis, TimeUnit.MILLISECONDS)
         onView(ViewMatchers.withText("Night")).check(matches(isDisplayed()))
-        CustomActions.waitForUiThread(1500, TimeUnit.MILLISECONDS)
+        waitForUiThread(1500, TimeUnit.MILLISECONDS)
         onView(ViewMatchers.withText("Day")).check(matches(isDisplayed()))
     }
 
@@ -48,7 +48,7 @@ class AutoNightActivityTest : UiTest<TestAutoNightActivity>(TestAutoNightActivit
         launchActivity(testIntent(dawnMilli = now - 500, duskMilli = now + 500))
 
         onView(ViewMatchers.withText("Day")).check(matches(isDisplayed()))
-        CustomActions.waitForUiThread(1500, TimeUnit.MILLISECONDS)
+        waitForUiThread(1500, TimeUnit.MILLISECONDS)
         onView(ViewMatchers.withText("Night")).check(matches(isDisplayed()))
     }
 

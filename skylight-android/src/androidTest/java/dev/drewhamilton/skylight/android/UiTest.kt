@@ -6,6 +6,7 @@ import androidx.test.espresso.intent.rule.IntentsTestRule
 import org.junit.Assert
 import org.junit.Rule
 
+@Deprecated("Use ActivityScenario")
 abstract class UiTest<A : AppCompatActivity>(activityClass: Class<A> ) {
 
     @get:Rule
@@ -29,6 +30,6 @@ abstract class UiTest<A : AppCompatActivity>(activityClass: Class<A> ) {
 
     protected fun simulateConfigurationChange() {
         runOnUiThread { activity.recreate() }
-        CustomActions.waitForUiThread()
+        waitForUiThread()
     }
 }
