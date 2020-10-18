@@ -2,17 +2,12 @@ package dev.drewhamilton.skylight.android.demo.main
 
 import android.Manifest
 import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.TextView
 import androidx.annotation.StringRes
 import androidx.core.app.ActivityCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.updatePadding
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import dev.drewhamilton.skylight.Coordinates
 import dev.drewhamilton.skylight.Skylight
@@ -22,7 +17,6 @@ import dev.drewhamilton.skylight.android.DarkModeApplicator
 import dev.drewhamilton.skylight.android.DarkModeLifecycleObserver
 import dev.drewhamilton.skylight.android.SkylightForCoordinatesFactory
 import dev.drewhamilton.skylight.android.demo.AppComponent
-import dev.drewhamilton.skylight.android.demo.BuildConfig
 import dev.drewhamilton.skylight.android.demo.R
 import dev.drewhamilton.skylight.android.demo.databinding.MainDestinationBinding
 import dev.drewhamilton.skylight.android.demo.location.Location
@@ -73,23 +67,10 @@ class MainActivity : RxActivity() {
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        if (Build.VERSION.SDK_INT >= 29) {
-            WindowCompat.setDecorFitsSystemWindows(window, false)
-        }
-
         super.onCreate(savedInstanceState)
         AppComponent.instance.inject(this)
 
         setContentView(binding.root)
-
-        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, windowInsets ->
-            with(windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())) {
-                binding.toolbar.updatePadding(top = top)
-                binding.root.updatePadding(left = left, right = right)
-            }
-
-            windowInsets
-        }
 
         initializeMenu()
         initializeLocationOptions()

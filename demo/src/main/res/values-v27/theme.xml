@@ -5,7 +5,6 @@
 
   <style name="Base.V27.Theme.SkylightAndroidDemo.MainDestination" parent="Base.V21.Theme.SkylightAndroidDemo.MainDestination">
     <item name="android:windowLightNavigationBar">false</item>
-    <item name="android:navigationBarColor">@color/skylight_dusk</item>
     <item name="android:navigationBarDividerColor">@null</item>
   </style>
 </resources>

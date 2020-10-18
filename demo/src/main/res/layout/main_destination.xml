@@ -16,11 +16,7 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
 
-      app:menu="@menu/home"
-
-      style="@style/Widget.MaterialComponents.Toolbar.Surface"
-
-      tools:paddingTop="24dp">
+      app:menu="@menu/home">
 
     <androidx.appcompat.widget.AppCompatSpinner
         android:id="@+id/locationSelector"
