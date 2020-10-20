@@ -5,17 +5,11 @@ import androidx.annotation.CallSuper
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
-import dev.drewhamilton.skylight.Coordinates
 import dev.drewhamilton.skylight.SkylightDay
 import dev.drewhamilton.skylight.SkylightForCoordinates
-import dev.drewhamilton.skylight.calculator.CalculatorSkylight
-import dev.drewhamilton.skylight.fake.FakeSkylight
-import dev.drewhamilton.skylight.forCoordinates
 import dev.drewhamilton.skylight.isDark
 import java.time.Instant
 import java.time.LocalDate
-import java.time.LocalTime
-import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.temporal.ChronoUnit
 import kotlinx.coroutines.CoroutineScope
@@ -71,7 +65,7 @@ sealed class DarkModeLifecycleObserver(
      * A [DarkModeLifecycleObserver] that updates the night mode based on when the given [skylight] resolves light and
      * dark times.
      */
-    class Skylight(
+    class OfSkylightForCoordinates(
         darkModeApplicator: DarkModeApplicator,
         private val skylight: SkylightForCoordinates,
     ) : DarkModeLifecycleObserver(darkModeApplicator) {
@@ -160,54 +154,6 @@ sealed class DarkModeLifecycleObserver(
         ) : CountDownTimer(durationMillis, durationMillis) {
             override fun onTick(millisUntilFinished: Long) = Unit
             override fun onFinish() = onFinish.invoke()
-        }
-
-        @Suppress("RemoveRedundantQualifierName")
-        companion object {
-
-            /**
-             * Create a [DarkModeLifecycleObserver.Skylight] that updates the night mode at the default times of 7am
-             * and 10pm.
-             */
-            @JvmStatic fun fallback(darkModeApplicator: DarkModeApplicator): DarkModeLifecycleObserver.Skylight {
-                val skylight = DefaultFakeSkylight().forCoordinates(Coordinates(0.0, 0.0))
-                return DarkModeLifecycleObserver.Skylight(darkModeApplicator, skylight)
-            }
-
-            /**
-             * Construct an [DarkModeLifecycleObserver.Skylight] that updates the night mode at the given [dawn] and
-             * [dusk] times.
-             */
-            @JvmStatic fun ofTimes(
-                darkModeApplicator: DarkModeApplicator,
-                zone: ZoneId,
-                dawn: LocalTime,
-                sunrise: LocalTime,
-                sunset: LocalTime,
-                dusk: LocalTime
-            ): DarkModeLifecycleObserver.Skylight {
-                val skylight = FakeSkylight.Typical(
-                    zone = zone,
-                    dawn = dawn,
-                    sunrise = sunrise,
-                    sunset = sunset,
-                    dusk = dusk
-                ).forCoordinates(Coordinates(0.0, 0.0))
-                return DarkModeLifecycleObserver.Skylight(darkModeApplicator, skylight)
-            }
-
-            /**
-             * Construct an [DarkModeLifecycleObserver.Skylight] that updates the night mode at dawn and dusk at the
-             * given [latitude] and [longitude].
-             */
-            @JvmStatic fun ofCoordinates(
-                darkModeApplicator: DarkModeApplicator,
-                latitude: Double,
-                longitude: Double
-            ): DarkModeLifecycleObserver.Skylight {
-                val skylight = CalculatorSkylight().forCoordinates(Coordinates(latitude, longitude))
-                return DarkModeLifecycleObserver.Skylight(darkModeApplicator, skylight)
-            }
         }
     }
 

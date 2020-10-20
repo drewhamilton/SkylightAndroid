@@ -208,7 +208,7 @@ class MainActivity : RxActivity() {
     private fun applyThemeMode(mode: MutableThemeRepository.ThemeMode) {
         themeMode = mode
         darkModeLifecycleObserver = when (mode) {
-            MutableThemeRepository.ThemeMode.SKYLIGHT -> DarkModeLifecycleObserver.Skylight(
+            MutableThemeRepository.ThemeMode.SKYLIGHT -> DarkModeLifecycleObserver.OfSkylightForCoordinates(
                 darkModeApplicator,
                 skylightForCoordinatesFactory.createForLocation(this)
             )
