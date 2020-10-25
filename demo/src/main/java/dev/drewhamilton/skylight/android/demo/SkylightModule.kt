@@ -10,6 +10,8 @@ import dev.drewhamilton.skylight.android.demo.source.SkylightRepository
 import dev.drewhamilton.skylight.calculator.CalculatorSkylight
 import dev.drewhamilton.skylight.fake.FakeSkylight
 import dev.drewhamilton.skylight.sunrise_sunset_org.SunriseSunsetOrgSkylight
+import java.time.LocalTime
+import java.time.ZoneId
 import okhttp3.OkHttpClient
 
 @Module
@@ -21,7 +23,12 @@ object SkylightModule {
 
     @Provides
     @Reusable
-    fun fakeSkylight(): FakeSkylight = FakeSkylight.Atypical(FakeSkylight.Atypical.Type.NeverLight)
+    fun fakeSkylight(): FakeSkylight = FakeSkylight.Typical(
+        zone = ZoneId.systemDefault(),
+        dawn = LocalTime.now().plusSeconds(5),
+        sunrise = null, sunset = null,
+        dusk = LocalTime.now().plusSeconds(10)
+    )
 
     @Provides
     @Reusable

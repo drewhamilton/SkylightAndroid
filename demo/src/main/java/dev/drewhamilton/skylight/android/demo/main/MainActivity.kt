@@ -61,7 +61,10 @@ class MainActivity : RxActivity() {
     private lateinit var themeMode: MutableThemeRepository.ThemeMode
     private var darkModeLifecycleObserver: DarkModeLifecycleObserver? = null
         private set(value) {
-            field?.let { lifecycle.removeObserver(it) }
+            field?.let {
+                it.onStop(this)
+                lifecycle.removeObserver(it)
+            }
             field = value
             value?.let { lifecycle.addObserver(it) }
         }

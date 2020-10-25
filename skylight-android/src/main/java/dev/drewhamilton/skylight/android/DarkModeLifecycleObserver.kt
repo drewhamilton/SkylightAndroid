@@ -1,6 +1,5 @@
 package dev.drewhamilton.skylight.android
 
-import android.os.CountDownTimer
 import androidx.annotation.CallSuper
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
@@ -15,6 +14,8 @@ import java.time.temporal.ChronoUnit
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -26,20 +27,25 @@ sealed class DarkModeLifecycleObserver(
     private val darkModeApplicator: DarkModeApplicator
 ) : DefaultLifecycleObserver {
 
-    private var job: Job? = null
+    private var supervisor: Job? = null
 
     /**
-     * Determines the [DarkModeApplicator.DarkMode] at the current moment.
+     * Extension for launching a coroutine [block] that will be cancelled in [onStop].
+     */
+    protected fun CoroutineScope.launchSupervised(block: suspend CoroutineScope.() -> Unit) {
+        launch(context = checkNotNull(supervisor), block = block)
+    }
+
+    /**
+     * Determine the [DarkModeApplicator.DarkMode] at the current moment.
      */
     protected abstract suspend fun currentDarkMode(): DarkModeApplicator.DarkMode
 
-    protected fun CoroutineScope.applyCurrentDarkMode() {
-        job = launch {
-            val currentDarkMode = withContext(Dispatchers.IO) {
-                currentDarkMode()
-            }
-            darkModeApplicator.applyMode(currentDarkMode)
+    protected suspend fun applyCurrentDarkMode() {
+        val currentDarkMode = withContext(Dispatchers.IO) {
+            currentDarkMode()
         }
+        darkModeApplicator.applyMode(currentDarkMode)
     }
 
     /**
@@ -47,17 +53,21 @@ sealed class DarkModeLifecycleObserver(
      */
     @CallSuper
     override fun onStart(owner: LifecycleOwner) {
-        owner.lifecycleScope.applyCurrentDarkMode()
+        check(supervisor == null) { "onStart was called, but <$this> is already started" }
+        supervisor = SupervisorJob()
+
+        owner.lifecycleScope.launchSupervised {
+            applyCurrentDarkMode()
+        }
     }
 
     /**
-     * If applying the [currentDarkMode] is still in progress, stops this job. May be overridden to add additional
-     * behaviors.
+     * Stops any running coroutines, including the job to apply the [currentDarkMode].
      */
     @CallSuper
     override fun onStop(owner: LifecycleOwner) {
-        job?.cancel()
-        job = null
+        supervisor?.cancel()
+        supervisor = null
         super.onStop(owner)
     }
 
@@ -70,25 +80,12 @@ sealed class DarkModeLifecycleObserver(
         private val skylight: SkylightForCoordinates,
     ) : DarkModeLifecycleObserver(darkModeApplicator) {
 
-        /*
-         * Counts down to a night mode change while the LifecycleOwner is started
-         */
-        private var nightModeTimer: CountDownTimer? = null
-
         /**
          * Updates the current night mode setting and watches for the next dawn/dusk event when the [owner] starts.
          */
         override fun onStart(owner: LifecycleOwner) {
             super.onStart(owner)
-            owner.lifecycleScope.launch { startTimer(this) }
-        }
-
-        /**
-         * Stops watching for the next dawn/dusk event when the [owner] stops.
-         */
-        override fun onStop(owner: LifecycleOwner) {
-            super.onStop(owner)
-            stopTimer()
+            owner.lifecycleScope.launchSupervised { startTimer() }
         }
 
         /**
@@ -100,39 +97,32 @@ sealed class DarkModeLifecycleObserver(
         else
             DarkModeApplicator.DarkMode.LIGHT
 
-        private suspend fun startTimer(scope: CoroutineScope) {
-            val today = LocalDate.now()
-            var nextEvent = withContext(Dispatchers.IO) {
-                skylight.getSkylightDay(today).nextEvent
-            }
+        private suspend fun startTimer() {
+            // Loop for as long as there is a next Skylight event (`delay` call slows down the loop)
+            while (true) {
+                val today = LocalDate.now()
+                var nextEvent = withContext(Dispatchers.IO) {
+                    skylight.getSkylightDay(today).nextEvent
+                }
 
-            // If there is no dawn/dusk event later today, try tomorrow:
-            if (nextEvent == null) {
-                nextEvent = withContext(Dispatchers.IO) {
-                    skylight.getSkylightDay(today.plusDays(1)).nextEvent
+                // If there is no dawn/dusk event later today, try tomorrow:
+                if (nextEvent == null) {
+                    nextEvent = withContext(Dispatchers.IO) {
+                        skylight.getSkylightDay(today.plusDays(1)).nextEvent
+                    }
+                }
+
+                if (nextEvent == null) {
+                    // No events any time soon; nothing to do
+                    return
+                } else {
+                    // Count down to the next dawn/dusk event
+                    val timerDuration = ChronoUnit.MILLIS.between(Instant.now(), nextEvent) + 1000
+                    delay(timerDuration)
+
+                    applyCurrentDarkMode()
                 }
             }
-
-            if (nextEvent == null) {
-                // No dawn/dusk events any time soon; nothing to do
-                stopTimer()
-            } else {
-                // Count down to the next dawn/dusk event
-                val timerDuration = ChronoUnit.MILLIS.between(Instant.now(), nextEvent) + 1000
-                nightModeTimer = OneOffCountDownTimer(timerDuration) {
-                    // A dawn/dusk event has happened; update night mode again
-                    scope.applyCurrentDarkMode()
-                    // And then start counting down to the next event again, recursion-style
-                    scope.launch { startTimer(this) }
-                }.also {
-                    it.start()
-                }
-            }
-        }
-
-        private fun stopTimer() {
-            nightModeTimer?.cancel()
-            nightModeTimer = null
         }
 
         private val SkylightDay.nextEvent: Instant?
@@ -147,14 +137,6 @@ sealed class DarkModeLifecycleObserver(
                     else -> null
                 }
             }
-
-        private class OneOffCountDownTimer(
-            durationMillis: Long,
-            private val onFinish: () -> Unit
-        ) : CountDownTimer(durationMillis, durationMillis) {
-            override fun onTick(millisUntilFinished: Long) = Unit
-            override fun onFinish() = onFinish.invoke()
-        }
     }
 
     /**

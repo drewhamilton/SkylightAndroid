@@ -1,7 +1,5 @@
 package dev.drewhamilton.skylight.android
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatDelegate
 import dev.drewhamilton.skylight.android.AppCompatDelegateDarkModeApplicator.Scope
 
@@ -22,7 +20,7 @@ class AppCompatDelegateDarkModeApplicator @JvmOverloads constructor(
      */
     override fun applyMode(mode: DarkModeApplicator.DarkMode) {
         val appCompatMode = mode.appCompatValue
-        if (Build.VERSION.SDK_INT < 17 || scope == Scope.GLOBAL)
+        if (scope == Scope.GLOBAL)
             AppCompatDelegate.setDefaultNightMode(appCompatMode)
         else
             appCompatDelegate.localNightMode = appCompatMode
@@ -36,7 +34,6 @@ class AppCompatDelegateDarkModeApplicator @JvmOverloads constructor(
             DarkModeApplicator.DarkMode.DARK -> AppCompatDelegate.MODE_NIGHT_YES
             DarkModeApplicator.DarkMode.LIGHT -> AppCompatDelegate.MODE_NIGHT_NO
             DarkModeApplicator.DarkMode.FOLLOW_SYSTEM -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
-            DarkModeApplicator.DarkMode.BATTERY -> AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY
         }
 
     /**
@@ -44,6 +41,6 @@ class AppCompatDelegateDarkModeApplicator @JvmOverloads constructor(
      * or locally a single instance.
      */
     enum class Scope {
-        GLOBAL, @RequiresApi(17) LOCAL
+        GLOBAL, LOCAL
     }
 }

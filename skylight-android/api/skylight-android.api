@@ -39,7 +39,6 @@ public abstract interface class dev/drewhamilton/skylight/android/DarkModeApplic
 }
 
 public final class dev/drewhamilton/skylight/android/DarkModeApplicator$DarkMode : java/lang/Enum {
-	public static final field BATTERY Ldev/drewhamilton/skylight/android/DarkModeApplicator$DarkMode;
 	public static final field DARK Ldev/drewhamilton/skylight/android/DarkModeApplicator$DarkMode;
 	public static final field FOLLOW_SYSTEM Ldev/drewhamilton/skylight/android/DarkModeApplicator$DarkMode;
 	public static final field LIGHT Ldev/drewhamilton/skylight/android/DarkModeApplicator$DarkMode;
@@ -49,8 +48,9 @@ public final class dev/drewhamilton/skylight/android/DarkModeApplicator$DarkMode
 
 public abstract class dev/drewhamilton/skylight/android/DarkModeLifecycleObserver : androidx/lifecycle/DefaultLifecycleObserver {
 	public synthetic fun <init> (Ldev/drewhamilton/skylight/android/DarkModeApplicator;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
-	protected final fun applyCurrentDarkMode (Lkotlinx/coroutines/CoroutineScope;)V
+	protected final fun applyCurrentDarkMode (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
 	protected abstract fun currentDarkMode (Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	protected final fun launchSupervised (Lkotlinx/coroutines/CoroutineScope;Lkotlin/jvm/functions/Function2;)V
 	public fun onStart (Landroidx/lifecycle/LifecycleOwner;)V
 	public fun onStop (Landroidx/lifecycle/LifecycleOwner;)V
 }
@@ -62,7 +62,6 @@ public final class dev/drewhamilton/skylight/android/DarkModeLifecycleObserver$C
 public final class dev/drewhamilton/skylight/android/DarkModeLifecycleObserver$OfSkylightForCoordinates : dev/drewhamilton/skylight/android/DarkModeLifecycleObserver {
 	public fun <init> (Ldev/drewhamilton/skylight/android/DarkModeApplicator;Ldev/drewhamilton/skylight/SkylightForCoordinates;)V
 	public fun onStart (Landroidx/lifecycle/LifecycleOwner;)V
-	public fun onStop (Landroidx/lifecycle/LifecycleOwner;)V
 }
 
 public abstract interface class dev/drewhamilton/skylight/android/SkylightForCoordinatesFactory {
