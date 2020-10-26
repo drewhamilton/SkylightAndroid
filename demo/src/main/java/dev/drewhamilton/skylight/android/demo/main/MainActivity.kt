@@ -62,7 +62,7 @@ class MainActivity : RxActivity() {
     private var darkModeLifecycleObserver: DarkModeLifecycleObserver? = null
         private set(value) {
             field?.let {
-                it.onStop(this)
+                it.cancel()
                 lifecycle.removeObserver(it)
             }
             field = value
@@ -212,20 +212,20 @@ class MainActivity : RxActivity() {
         themeMode = mode
         darkModeLifecycleObserver = when (mode) {
             MutableThemeRepository.ThemeMode.SKYLIGHT -> DarkModeLifecycleObserver.OfSkylightForCoordinates(
-                darkModeApplicator,
-                skylightForCoordinatesFactory.createForLocation(this)
+                skylightForCoordinatesFactory.createForLocation(this),
+                darkModeApplicator
             )
             MutableThemeRepository.ThemeMode.SYSTEM -> DarkModeLifecycleObserver.Constant(
-                darkModeApplicator,
-                DarkModeApplicator.DarkMode.FOLLOW_SYSTEM
+                DarkModeApplicator.DarkMode.FOLLOW_SYSTEM,
+                darkModeApplicator
             )
             MutableThemeRepository.ThemeMode.LIGHT -> DarkModeLifecycleObserver.Constant(
-                darkModeApplicator,
-                DarkModeApplicator.DarkMode.LIGHT
+                DarkModeApplicator.DarkMode.LIGHT,
+                darkModeApplicator
             )
             MutableThemeRepository.ThemeMode.DARK -> DarkModeLifecycleObserver.Constant(
-                darkModeApplicator,
-                DarkModeApplicator.DarkMode.DARK
+                DarkModeApplicator.DarkMode.DARK,
+                darkModeApplicator
             )
         }
     }

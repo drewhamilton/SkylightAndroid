@@ -46,6 +46,7 @@ android {
     }
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8
+        freeCompilerArgs += ['-Xopt-in=kotlin.RequiresOptIn']
     }
     lintOptions {
         lintConfig file('../lint.xml')
@@ -74,7 +75,9 @@ dependencies {
     testImplementation deps.junit
     testImplementation deps.mockito
 
-    androidTestImplementation deps.junitExt
+    androidTestImplementation deps.coroutinesTest
     androidTestImplementation deps.espresso
+    androidTestImplementation deps.junitExt
     androidTestImplementation deps.materialComponents
+    androidTestImplementation deps.truth
 }

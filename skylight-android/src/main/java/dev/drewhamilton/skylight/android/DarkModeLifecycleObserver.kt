@@ -11,6 +11,7 @@ import java.time.Instant
 import java.time.LocalDate
 import java.time.ZonedDateTime
 import java.time.temporal.ChronoUnit
+import kotlin.coroutines.CoroutineContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -24,7 +25,7 @@ import kotlinx.coroutines.withContext
  * may implement additional lifecycle-based behaviors.
  */
 sealed class DarkModeLifecycleObserver(
-    private val darkModeApplicator: DarkModeApplicator
+    private val darkModeApplicator: DarkModeApplicator,
 ) : DefaultLifecycleObserver {
 
     private var supervisor: Job? = null
@@ -42,10 +43,7 @@ sealed class DarkModeLifecycleObserver(
     protected abstract suspend fun currentDarkMode(): DarkModeApplicator.DarkMode
 
     protected suspend fun applyCurrentDarkMode() {
-        val currentDarkMode = withContext(Dispatchers.IO) {
-            currentDarkMode()
-        }
-        darkModeApplicator.applyMode(currentDarkMode)
+        darkModeApplicator.applyMode(currentDarkMode())
     }
 
     /**
@@ -64,11 +62,16 @@ sealed class DarkModeLifecycleObserver(
     /**
      * Stops any running coroutines, including the job to apply the [currentDarkMode].
      */
-    @CallSuper
-    override fun onStop(owner: LifecycleOwner) {
+    final override fun onStop(owner: LifecycleOwner) {
+        cancel()
+    }
+
+    /**
+     * Stops any running coroutines, including the job to apply the [currentDarkMode].
+     */
+    fun cancel() {
         supervisor?.cancel()
         supervisor = null
-        super.onStop(owner)
     }
 
     /**
@@ -76,8 +79,9 @@ sealed class DarkModeLifecycleObserver(
      * dark times.
      */
     class OfSkylightForCoordinates(
-        darkModeApplicator: DarkModeApplicator,
         private val skylight: SkylightForCoordinates,
+        darkModeApplicator: DarkModeApplicator,
+        private val skylightContext: CoroutineContext = Dispatchers.IO,
     ) : DarkModeLifecycleObserver(darkModeApplicator) {
 
         /**
@@ -92,22 +96,24 @@ sealed class DarkModeLifecycleObserver(
          * Resolves to [DarkModeApplicator.DarkMode.DARK] if the [SkylightForCoordinates] is dark right now, else
          * resolves to [DarkModeApplicator.DarkMode.LIGHT].
          */
-        override suspend fun currentDarkMode(): DarkModeApplicator.DarkMode = if (skylight.isDark(ZonedDateTime.now()))
-            DarkModeApplicator.DarkMode.DARK
-        else
-            DarkModeApplicator.DarkMode.LIGHT
+        override suspend fun currentDarkMode(): DarkModeApplicator.DarkMode = withContext(skylightContext) {
+            if (skylight.isDark(ZonedDateTime.now()))
+                DarkModeApplicator.DarkMode.DARK
+            else
+                DarkModeApplicator.DarkMode.LIGHT
+        }
 
         private suspend fun startTimer() {
             // Loop for as long as there is a next Skylight event (`delay` call slows down the loop)
             while (true) {
                 val today = LocalDate.now()
-                var nextEvent = withContext(Dispatchers.IO) {
+                var nextEvent = withContext(skylightContext) {
                     skylight.getSkylightDay(today).nextEvent
                 }
 
                 // If there is no dawn/dusk event later today, try tomorrow:
                 if (nextEvent == null) {
-                    nextEvent = withContext(Dispatchers.IO) {
+                    nextEvent = withContext(skylightContext) {
                         skylight.getSkylightDay(today.plusDays(1)).nextEvent
                     }
                 }
@@ -143,8 +149,8 @@ sealed class DarkModeLifecycleObserver(
      * A [DarkModeLifecycleObserver] that simply applies [mode] in [onStart].
      */
     class Constant(
+        private val mode: DarkModeApplicator.DarkMode,
         darkModeApplicator: DarkModeApplicator,
-        private val mode: DarkModeApplicator.DarkMode
     ) : DarkModeLifecycleObserver(darkModeApplicator) {
         /**
          * Always resolves to the [DarkModeApplicator.DarkMode] passed to the constructor.
