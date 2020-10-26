@@ -25,7 +25,6 @@ class AppCompatDelegateDarkModeApplicator @JvmOverloads constructor(
         else
             appCompatDelegate.localNightMode = appCompatMode
 
-        // TODO: Check if this is necessary for GLOBAL scope
         appCompatDelegate.applyDayNight()
     }
 
