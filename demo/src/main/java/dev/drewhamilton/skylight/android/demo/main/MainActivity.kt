@@ -146,7 +146,6 @@ class MainActivity : RxActivity() {
             .untilDestroy()
     }
 
-    // FIXME: This crashes if the Activity is destroyed while the network call is in progress
     private fun Skylight.getSkylightDaySingle(coordinates: Coordinates, date: LocalDate) = Single.fromCallable {
         getSkylightDay(coordinates, date)
     }

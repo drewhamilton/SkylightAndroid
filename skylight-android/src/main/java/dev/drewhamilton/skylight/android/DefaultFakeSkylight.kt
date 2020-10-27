@@ -4,7 +4,6 @@ import dev.drewhamilton.skylight.fake.FakeSkylight
 import java.time.LocalTime
 import java.time.ZoneId
 
-// TODO: Move default params to Skylight library
 @Suppress("FunctionName") // Factory
 internal fun DefaultFakeSkylight(): FakeSkylight = FakeSkylight.Typical(
     zone = ZoneId.systemDefault(),
