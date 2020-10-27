@@ -87,13 +87,6 @@ allprojects { project ->
         // Don't cache snapshots:
         resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
     }
-
-    project.plugins.withType(com.android.build.gradle.LibraryPlugin) {
-        project.android.libraryVariants.all { variant ->
-            // TODO WORKAROUND: replace with https://issuetracker.google.com/issues/72050365 once released.
-            variant.generateBuildConfigProvider.get().enabled = false
-        }
-    }
 }
 
 task clean(type: Delete) {
