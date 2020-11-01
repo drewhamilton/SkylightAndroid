@@ -1,0 +1,11 @@
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    package="dev.drewhamilton.skylight.android.test">
+
+  <application android:theme="@style/Theme.AppCompat">
+
+    <activity android:name="dev.drewhamilton.skylight.android.AppCompatDelegateDarkModeApplicatorTest$TestActivity" />
+
+  </application>
+
+</manifest>

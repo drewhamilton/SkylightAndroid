@@ -5,21 +5,13 @@
     xmlns:tools="http://schemas.android.com/tools"
 
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
 
-  <com.google.android.material.appbar.MaterialToolbar
-      android:id="@+id/toolbar"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
+    android:paddingTop="16dp"
 
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toTopOf="parent"
-
-      app:navigationIcon="@drawable/ic_close_24dp"
-      app:title="@string/settings"
-
-      style="@style/Widget.MaterialComponents.Toolbar.Surface" />
+    tools:background="?colorSurface"
+    tools:layout_gravity="bottom"
+    tools:ignore="HardcodedText">
 
   <RadioGroup
       android:id="@+id/sourceSelection"
@@ -36,7 +28,7 @@
       app:layout_constraintVertical_bias="0"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/toolbar"
+      app:layout_constraintTop_toTopOf="parent"
       app:layout_constraintBottom_toTopOf="@+id/themeSelection">
 
     <TextView
@@ -68,7 +60,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:text="Dummy" />
+        android:text="Fake (never light)" />
 
   </RadioGroup>
 
@@ -83,10 +75,10 @@
       android:paddingEnd="@dimen/marginSides_mainText"
       android:showDividers="beginning|end"
 
-      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintBottom_toTopOf="@+id/version"
       app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/sourceSelection"
-      app:layout_constraintBottom_toBottomOf="parent">
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/sourceSelection">
 
     <TextView
         android:layout_width="match_parent"
@@ -106,6 +98,15 @@
         tools:checked="true" />
 
     <com.google.android.material.radiobutton.MaterialRadioButton
+        android:id="@+id/skylightButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:text="Skylight"
+
+        tools:checked="false" />
+
+    <com.google.android.material.radiobutton.MaterialRadioButton
         android:id="@+id/lightButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -120,5 +121,25 @@
         android:text="Dark" />
 
   </RadioGroup>
+
+  <TextView
+      android:id="@+id/version"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="@dimen/divider_list"
+      android:layout_marginEnd="@dimen/marginSides_mainText"
+      android:layout_marginStart="@dimen/marginSides_mainText"
+      android:layout_marginTop="@dimen/divider_list"
+
+      android:gravity="end"
+      android:textAppearance="?textAppearanceCaption"
+      android:textColor="?android:textColorSecondary"
+
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/themeSelection"
+
+      tools:text="Skylight Android 1.0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

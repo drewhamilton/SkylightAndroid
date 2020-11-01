@@ -1,0 +1,82 @@
+apply plugin: 'com.android.library'
+apply plugin: 'org.jetbrains.kotlin.android'
+
+ext {
+    artifactName = POM_ARTIFACT_ID
+    publishedDescription = 'Conveniences for using Skylight on Android.'
+}
+apply from: '../publish.gradle'
+
+android {
+    compileSdkVersion projectVersions.targetSdk
+
+    defaultConfig {
+        minSdkVersion projectVersions.minSdk
+        targetSdkVersion projectVersions.targetSdk
+        versionName projectVersions.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    signingConfigs {
+        release {
+            storeFile file(keystore)
+            storePassword keystorePassword
+            keyAlias keyAlias
+            keyPassword keyPassword
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt')
+        }
+    }
+
+    buildFeatures {
+        buildConfig false
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+        coreLibraryDesugaringEnabled = true
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8
+        freeCompilerArgs += ['-Xopt-in=kotlin.RequiresOptIn']
+    }
+    lintOptions {
+        lintConfig file('../lint.xml')
+    }
+}
+
+dependencies {
+    api deps.appCompat
+    api deps.lifecycle
+    implementation deps.lifecycleRuntime
+
+    api(deps.skylight) {
+        changing = deps.skylight.contains('SNAPSHOT')
+    }
+    implementation(deps.skylightCalculator) {
+        changing = deps.skylightCalculator.contains('SNAPSHOT')
+    }
+    api(deps.skylightFake) {
+        changing = deps.skylightFake.contains('SNAPSHOT')
+    }
+
+    coreLibraryDesugaring deps.coreLibraryDesugaring
+
+    testImplementation deps.junit
+    testImplementation deps.mockito
+
+    androidTestImplementation deps.coroutinesTest
+    androidTestImplementation deps.espresso
+    androidTestImplementation deps.junitExt
+    androidTestImplementation deps.materialComponents
+    androidTestImplementation deps.truth
+}

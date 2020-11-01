@@ -4,28 +4,28 @@
     package="dev.drewhamilton.skylight.android.demo">
 
   <uses-permission android:name="android.permission.INTERNET" />
+  <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
   <application
       android:name=".DemoApplication"
       android:label="@string/app_name"
       android:icon="@mipmap/ic_launcher"
       android:roundIcon="@mipmap/ic_launcher_round"
-      android:theme="@style/Theme.Skylight.DayNight"
+      android:theme="@style/Theme.Skylight"
       android:allowBackup="false"
       android:supportsRtl="true"
       tools:ignore="GoogleAppIndexingWarning"
       tools:replace="android:theme">
 
-    <activity android:name=".main.MainActivity">
+    <activity
+        android:name=".main.MainActivity"
+        android:theme="@style/Theme.SkylightAndroidDemo.MainDestination">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
-
-    <activity android:name=".settings.SettingsActivity" />
-
-    <activity android:name=".styles.StylesActivity" />
 
   </application>
 

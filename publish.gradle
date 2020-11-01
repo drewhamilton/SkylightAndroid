@@ -1,6 +1,6 @@
 // Applied per published module. The module must define ext.artifactName and ext.publishedDescription
 
-group = 'dev.drewhamilton.skylight.android'
+group = GROUP
 version = VERSION_NAME
 
 task sourcesJar(type: Jar) {
@@ -8,11 +8,8 @@ task sourcesJar(type: Jar) {
     from android.sourceSets.main.java.srcDirs
 }
 
-def javadocDestinationDir = "$buildDir/docs/javadoc"
 apply plugin: 'org.jetbrains.dokka'
-task dokkaJavadoc(type: dokka.class) {
-    outputFormat = 'javadoc'
-    outputDirectory = javadocDestinationDir
+dokkaJavadoc {
     if (project.hasProperty('javadocInputsDir'))
         inputs.dir javadocInputsDir
     else
@@ -21,7 +18,7 @@ task dokkaJavadoc(type: dokka.class) {
 
 task javadocJar(type: Jar, dependsOn: dokkaJavadoc) {
     archiveClassifier.set 'javadoc'
-    from javadocDestinationDir
+    from dokkaJavadoc.outputDirectory
 }
 
 artifacts {

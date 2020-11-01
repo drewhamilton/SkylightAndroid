@@ -3,8 +3,8 @@ package dev.drewhamilton.skylight.android.demo
 import android.app.Application
 import dagger.BindsInstance
 import dagger.Component
+import dev.drewhamilton.skylight.Skylight
 import dev.drewhamilton.skylight.android.demo.main.MainActivity
-import dev.drewhamilton.skylight.android.demo.settings.SettingsActivity
 import dev.drewhamilton.skylight.android.demo.theme.MutableThemeRepository
 import javax.inject.Singleton
 
@@ -15,11 +15,11 @@ import javax.inject.Singleton
 ])
 interface AppComponent {
 
+    fun skylight(): Skylight
+
     fun themeRepository(): MutableThemeRepository
 
     fun inject(mainActivity: MainActivity)
-
-    fun inject(settingsActivity: SettingsActivity)
 
     @Component.Factory interface Factory {
         fun create(
