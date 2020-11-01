@@ -1,4 +1,4 @@
-![](https://github.com/drewhamilton/SkylightAndroid/workflows/CI/badge.svg?branch=master)
+![](https://github.com/drewhamilton/SkylightAndroid/workflows/CI/badge.svg?branch=main)
 
 # Skylight Android
 

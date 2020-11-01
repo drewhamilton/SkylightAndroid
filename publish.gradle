@@ -63,7 +63,7 @@ afterEvaluate {
                     scm {
                         connection = 'scm:git:github.com/drewhamilton/SkylightAndroid.git'
                         developerConnection = 'scm:git:ssh://github.com/drewhamilton/SkylightAndroid.git'
-                        url = 'https://github.com/drewhamilton/SkylightAndroid/tree/master'
+                        url = 'https://github.com/drewhamilton/SkylightAndroid/tree/main'
                     }
                 }
             }
