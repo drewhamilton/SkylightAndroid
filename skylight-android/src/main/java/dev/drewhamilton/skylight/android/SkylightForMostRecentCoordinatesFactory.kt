@@ -17,7 +17,7 @@ import dev.drewhamilton.skylight.forCoordinates
  * An implementation of [SkylightForCoordinatesFactory] which uses the most recent known location if available, or a
  * location-agnostic fallback otherwise. This implementation does not query the device for its current location.
  */
-class SkylightForMostRecentCoordinatesFactory @JvmOverloads internal constructor(
+class SkylightForMostRecentCoordinatesFactory internal constructor(
     private val isPermissionGranted: Context.(permission: String) -> Boolean,
     private val preferredSkylight: Skylight = CalculatorSkylight(),
     private val fallbackSkylight: FakeSkylight = DefaultFakeSkylight(),

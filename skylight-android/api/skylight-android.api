@@ -53,8 +53,6 @@ public final class dev/drewhamilton/skylight/android/SkylightForMostRecentCoordi
 	public fun <init> (Ldev/drewhamilton/skylight/Skylight;)V
 	public fun <init> (Ldev/drewhamilton/skylight/Skylight;Ldev/drewhamilton/skylight/fake/FakeSkylight;)V
 	public synthetic fun <init> (Ldev/drewhamilton/skylight/Skylight;Ldev/drewhamilton/skylight/fake/FakeSkylight;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public fun <init> (Lkotlin/jvm/functions/Function2;)V
-	public fun <init> (Lkotlin/jvm/functions/Function2;Ldev/drewhamilton/skylight/Skylight;)V
 	public fun createForLocation (Landroid/content/Context;)Ldev/drewhamilton/skylight/SkylightForCoordinates;
 }
 
