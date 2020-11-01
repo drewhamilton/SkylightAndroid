@@ -1,6 +1,6 @@
 // Applied per published module. The module must define ext.artifactName and ext.publishedDescription
 
-group = 'dev.drewhamilton.skylight.android'
+group = GROUP
 version = VERSION_NAME
 
 task sourcesJar(type: Jar) {

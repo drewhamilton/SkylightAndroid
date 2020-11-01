@@ -2,7 +2,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'org.jetbrains.kotlin.android'
 
 ext {
-    artifactName = 'skylight-android'
+    artifactName = POM_ARTIFACT_ID
     publishedDescription = 'Conveniences for using Skylight on Android.'
 }
 apply from: '../publish.gradle'
