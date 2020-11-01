@@ -58,20 +58,18 @@ android {
 }
 
 dependencies {
-    implementation deps.kotlinStdLib
-
-    implementation deps.appCompat
+    api deps.appCompat
     api deps.lifecycle
     implementation deps.lifecycleRuntime
 
     api(deps.skylight) {
-        changing = versions.skylight.contains('SNAPSHOT')
+        changing = deps.skylight.contains('SNAPSHOT')
     }
     implementation(deps.skylightCalculator) {
-        changing = versions.skylight.contains('SNAPSHOT')
+        changing = deps.skylightCalculator.contains('SNAPSHOT')
     }
-    implementation(deps.skylightFake) {
-        changing = versions.skylight.contains('SNAPSHOT')
+    api(deps.skylightFake) {
+        changing = deps.skylightFake.contains('SNAPSHOT')
     }
 
     coreLibraryDesugaring deps.coreLibraryDesugaring
