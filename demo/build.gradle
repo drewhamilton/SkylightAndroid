@@ -10,13 +10,9 @@ android {
         applicationId "dev.drewhamilton.skylight.android.demo"
         minSdkVersion projectVersions.minSdk
         targetSdkVersion projectVersions.targetSdk
-        multiDexEnabled true
         versionCode 1
         versionName rootProject.VERSION_NAME
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
-        // Support core library desugaring:
-        multiDexEnabled true
     }
 
     buildTypes {
@@ -77,8 +73,6 @@ dependencies {
 
     implementation deps.dagger
     kapt deps.daggerCompiler
-
-    implementation deps.multidex
 
     testImplementation deps.junit
 

@@ -25,7 +25,6 @@ buildscript {
             materialComponents: 'com.google.android.material:material:1.2.1',
             mockito: 'org.mockito:mockito-inline:3.5.13',
             mockitoKotlin: 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0',
-            multidex: 'androidx.multidex:multidex:2.0.1',
             okHttp: 'com.squareup.okhttp3:okhttp:4.9.0',
             rxAndroid: 'io.reactivex.rxjava2:rxandroid:2.1.1',
             rxPreferences: "drewhamilton.rxpreferences:rxpreferences:$versions.rxPreferences",

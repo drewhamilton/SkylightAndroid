@@ -1,11 +1,11 @@
 package dev.drewhamilton.skylight.android.demo
 
+import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.multidex.MultiDexApplication
 import dev.drewhamilton.skylight.android.demo.theme.MutableThemeRepository
 
 @Suppress("Unused") // Used in manifest
-class DemoApplication : MultiDexApplication() {
+class DemoApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()

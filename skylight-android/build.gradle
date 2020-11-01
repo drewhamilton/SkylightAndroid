@@ -17,9 +17,6 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
-
-        // Support core library desugaring:
-        multiDexEnabled true
     }
 
     signingConfigs {
