@@ -22,6 +22,7 @@ import java.util.TimeZone;
 
 import dev.drewhamilton.skylight.SkylightDay;
 import dev.drewhamilton.skylight.SkylightForCoordinates;
+import dev.drewhamilton.skylight.calculator.CalculatorSkylight;
 import kotlin.jvm.functions.Function2;
 
 import static org.junit.Assert.assertEquals;
@@ -60,7 +61,9 @@ public class SkylightForMostRecentCoordinatesFactoryTest {
         SkylightForMostRecentCoordinatesFactory factory = new SkylightForMostRecentCoordinatesFactory(
                 (Function2<Context, String, Boolean>) (context, permission) ->
                         permission.equals(Manifest.permission.ACCESS_COARSE_LOCATION)
-                                || permission.equals(Manifest.permission.ACCESS_FINE_LOCATION)
+                                || permission.equals(Manifest.permission.ACCESS_FINE_LOCATION),
+                new CalculatorSkylight(),
+                DefaultFakeSkylightKt.DefaultFakeSkylight()
         );
 
         Location amsterdam = amsterdam();
@@ -82,7 +85,9 @@ public class SkylightForMostRecentCoordinatesFactoryTest {
         SkylightForMostRecentCoordinatesFactory factory = new SkylightForMostRecentCoordinatesFactory(
                 (Function2<Context, String, Boolean>) (context, permission) ->
                         permission.equals(Manifest.permission.ACCESS_COARSE_LOCATION)
-                                || permission.equals(Manifest.permission.ACCESS_FINE_LOCATION)
+                                || permission.equals(Manifest.permission.ACCESS_FINE_LOCATION),
+                new CalculatorSkylight(),
+                DefaultFakeSkylightKt.DefaultFakeSkylight()
         );
 
         Location amsterdam = amsterdam();
@@ -102,7 +107,9 @@ public class SkylightForMostRecentCoordinatesFactoryTest {
     public void createForLocationWithContext_coarsePermissionOnly_calculatesByCoordinatesOfNetworkLocation() {
         SkylightForMostRecentCoordinatesFactory factory = new SkylightForMostRecentCoordinatesFactory(
                 (Function2<Context, String, Boolean>) (context, permission) ->
-                        permission.equals(Manifest.permission.ACCESS_COARSE_LOCATION)
+                        permission.equals(Manifest.permission.ACCESS_COARSE_LOCATION),
+                new CalculatorSkylight(),
+                DefaultFakeSkylightKt.DefaultFakeSkylight()
         );
 
         Location amsterdam = amsterdam();
@@ -118,7 +125,9 @@ public class SkylightForMostRecentCoordinatesFactoryTest {
     public void createForLocationWithContext_finePermissionOnly_calculatesByCoordinatesOfGpsLocation() {
         SkylightForMostRecentCoordinatesFactory factory = new SkylightForMostRecentCoordinatesFactory(
                 (Function2<Context, String, Boolean>) (context, permission) ->
-                        permission.equals(Manifest.permission.ACCESS_FINE_LOCATION)
+                        permission.equals(Manifest.permission.ACCESS_FINE_LOCATION),
+                new CalculatorSkylight(),
+                DefaultFakeSkylightKt.DefaultFakeSkylight()
         );
 
         Location amsterdam = amsterdam();
@@ -134,7 +143,9 @@ public class SkylightForMostRecentCoordinatesFactoryTest {
     public void createForLocationWithContext_permissionButNoLocation_calculatesByDummy() {
         SkylightForMostRecentCoordinatesFactory factory = new SkylightForMostRecentCoordinatesFactory(
                 (Function2<Context, String, Boolean>) (context, permission) ->
-                        permission.equals(Manifest.permission.ACCESS_COARSE_LOCATION)
+                        permission.equals(Manifest.permission.ACCESS_COARSE_LOCATION),
+                new CalculatorSkylight(),
+                DefaultFakeSkylightKt.DefaultFakeSkylight()
         );
 
         SkylightForCoordinates skylight = factory.createForLocation(mockContext);
@@ -146,7 +157,9 @@ public class SkylightForMostRecentCoordinatesFactoryTest {
     @Test
     public void createForLocationWithContext_noPermission_calculatesByDummy() {
         SkylightForMostRecentCoordinatesFactory factory = new SkylightForMostRecentCoordinatesFactory(
-                (Function2<Context, String, Boolean>) (context, permission) -> false
+                (Function2<Context, String, Boolean>) (context, permission) -> false,
+                new CalculatorSkylight(),
+                DefaultFakeSkylightKt.DefaultFakeSkylight()
         );
 
         SkylightForCoordinates skylight = factory.createForLocation(mockContext);
