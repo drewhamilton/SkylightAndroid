@@ -2,8 +2,8 @@ name: Release
 
 on:
   push:
-    branches: alpha-for-startship
-    tags: '*'
+    branches: [ main ]
+    tags: [ '*' ]
 
 jobs:
   release:
