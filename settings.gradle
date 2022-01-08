@@ -1,3 +1,6 @@
+rootProject.name='Skylight Android'
+
 include ':skylight-android'
 include ':demo'
-rootProject.name='Skylight Android'
+
+enableFeaturePreview('VERSION_CATALOGS')

@@ -55,28 +55,29 @@ android {
 }
 
 dependencies {
-    api deps.appCompat
-    api deps.lifecycle
-    implementation deps.lifecycleRuntime
+    api(libs.androidx.appCompat)
+    api(libs.androidx.lifecycle.java8)
+    implementation(libs.androidx.lifecycle.runtime)
 
-    api(deps.skylight) {
-        changing = deps.skylight.contains('SNAPSHOT')
+    boolean usingSkylightSnapshots = libs.versions.skylight.get().contains('SNAPSHOT')
+    api(libs.skylight.core) {
+        changing = usingSkylightSnapshots
     }
-    implementation(deps.skylightCalculator) {
-        changing = deps.skylightCalculator.contains('SNAPSHOT')
+    implementation(libs.skylight.calculator) {
+        changing = usingSkylightSnapshots
     }
-    api(deps.skylightFake) {
-        changing = deps.skylightFake.contains('SNAPSHOT')
+    api(libs.skylight.fake) {
+        changing = usingSkylightSnapshots
     }
 
-    coreLibraryDesugaring deps.coreLibraryDesugaring
+    coreLibraryDesugaring(libs.android.coreLibraryDesugaring)
 
-    testImplementation deps.junit
-    testImplementation deps.mockito
+    testImplementation(libs.junit)
+    testImplementation(libs.mockito)
 
-    androidTestImplementation deps.coroutinesTest
-    androidTestImplementation deps.espresso
-    androidTestImplementation deps.junitExt
-    androidTestImplementation deps.materialComponents
-    androidTestImplementation deps.truth
+    androidTestImplementation(libs.kotlinx.coroutinesTest)
+    androidTestImplementation(libs.androidx.espresso)
+    androidTestImplementation(libs.androidx.junitExt)
+    androidTestImplementation(libs.materialComponents)
+    androidTestImplementation(libs.truth)
 }

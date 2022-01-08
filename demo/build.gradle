@@ -37,45 +37,46 @@ android {
 }
 
 dependencies {
-    implementation deps.kotlinStdLib
+    implementation(libs.kotlin.stdLib)
 
-    implementation(deps.skylight) {
-        changing = versions.skylight.contains('SNAPSHOT')
+    boolean usingSkylightSnapshots = libs.versions.skylight.get().contains('SNAPSHOT')
+    implementation(libs.skylight.core) {
+        changing = usingSkylightSnapshots
     }
-    implementation(deps.skylightSunriseSunsetOrg) {
-        changing = versions.skylight.contains('SNAPSHOT')
+    implementation(libs.skylight.sunriseSunsetOrg) {
+        changing = usingSkylightSnapshots
     }
-    implementation(deps.skylightCalculator) {
-        changing = versions.skylight.contains('SNAPSHOT')
+    implementation(libs.skylight.calculator) {
+        changing = usingSkylightSnapshots
     }
-    implementation(deps.skylightFake) {
-        changing = versions.skylight.contains('SNAPSHOT')
-    }
-
-    implementation(deps.skylightBrand) {
-        changing = versions.skylight.contains('SNAPSHOT')
+    implementation(libs.skylight.fake) {
+        changing = usingSkylightSnapshots
     }
 
-    implementation 'androidx.core:core-ktx:1.5.0-alpha04'
-    implementation deps.appCompat
-    implementation deps.constraintLayout
+    implementation(libs.skylightBrand) {
+        changing = libs.versions.skylightBrand.get().contains('SNAPSHOT')
+    }
+
+    implementation('androidx.core:core-ktx:1.5.0-alpha04')
+    implementation(libs.androidx.appCompat)
+    implementation(libs.androidx.constraintLayout)
 
     implementation project(':skylight-android')
 
-    implementation deps.rxPreferences
-    implementation deps.rxPreferencesKtx
-    implementation deps.rxPreferencesDagger
-    implementation deps.rxAndroid
+    implementation(libs.rxPreferences.core)
+    implementation(libs.rxPreferences.ktx)
+    implementation(libs.rxPreferences.dagger)
+    implementation(libs.rxAndroid)
 
-    implementation deps.okHttp
+    implementation(libs.okHttp)
 
-    coreLibraryDesugaring deps.coreLibraryDesugaring
+    coreLibraryDesugaring(libs.android.coreLibraryDesugaring)
 
-    implementation deps.dagger
-    kapt deps.daggerCompiler
+    implementation(libs.dagger.core)
+    kapt(libs.dagger.compiler)
 
-    testImplementation deps.junit
+    testImplementation(libs.junit)
 
-    androidTestImplementation deps.testRunner
-    androidTestImplementation deps.espresso
+    androidTestImplementation(libs.androidx.testRunner)
+    androidTestImplementation(libs.androidx.espresso)
 }
