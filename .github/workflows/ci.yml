@@ -11,13 +11,17 @@ jobs:
 
     strategy:
       matrix:
-        api-level: [ 21, 22, 23, 24, 25, 26, 27, 28, 29 ]
+        api-level: [ 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31 ]
 
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
       - name: Validate Gradle wrapper
         uses: gradle/wrapper-validation-action@v1
+      - name: Install JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
       - name: Build # including JVM tests
         run: ./gradlew clean build --stacktrace
       - name: Instrumented tests
