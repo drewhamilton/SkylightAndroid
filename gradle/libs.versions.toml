@@ -8,7 +8,7 @@ skylightBrand = "0.14.0"
 
 [libraries]
 
-android-coreLibraryDesugaring = "com.android.tools:desugar_jdk_libs:1.0.10"
+android-coreLibraryDesugaring = "com.android.tools:desugar_jdk_libs:1.1.5"
 android-gradle = "com.android.tools.build:gradle:7.0.4"
 
 androidx-appCompat = "androidx.appcompat:appcompat:1.2.0"
