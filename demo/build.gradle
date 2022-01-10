@@ -1,6 +1,5 @@
 apply plugin: 'com.android.application'
 apply plugin: 'org.jetbrains.kotlin.android'
-apply plugin: 'org.jetbrains.kotlin.android.extensions'
 apply plugin: 'org.jetbrains.kotlin.kapt'
 
 android {
