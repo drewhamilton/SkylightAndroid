@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <style name="Theme.SkylightAndroidDemo.MainDestination" parent="Base.V21.Theme.SkylightAndroidDemo.MainDestination" />
-
-  <style name="Base.V21.Theme.SkylightAndroidDemo.MainDestination" parent="Theme.Skylight">
-    <item name="android:navigationBarColor">@color/skylight_dusk</item>
-  </style>
-</resources>
