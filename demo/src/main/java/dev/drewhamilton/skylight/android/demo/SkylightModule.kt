@@ -12,6 +12,7 @@ import dev.drewhamilton.skylight.fake.FakeSkylight
 import dev.drewhamilton.skylight.sunrise_sunset_org.SunriseSunsetOrgSkylight
 import java.time.LocalTime
 import java.time.ZoneId
+import kotlinx.coroutines.runBlocking
 import okhttp3.OkHttpClient
 
 @Module
@@ -40,10 +41,12 @@ object SkylightModule {
         ssoSkylight: SunriseSunsetOrgSkylight,
         calculatorSkylight: CalculatorSkylight,
         fakeSkylight: FakeSkylight
-    ): Skylight = when (skylightRepository.getSelectedSkylightTypeOnce().blockingGet()!!) {
-        SkylightRepository.SkylightType.SSO -> ssoSkylight
-        SkylightRepository.SkylightType.CALCULATOR -> calculatorSkylight
-        SkylightRepository.SkylightType.DUMMY -> fakeSkylight
+    ): Skylight = runBlocking {
+        when (skylightRepository.getSelectedSkylightType()) {
+            SkylightRepository.SkylightType.SSO -> ssoSkylight
+            SkylightRepository.SkylightType.CALCULATOR -> calculatorSkylight
+            SkylightRepository.SkylightType.FAKE -> fakeSkylight
+        }
     }
 
     @Provides

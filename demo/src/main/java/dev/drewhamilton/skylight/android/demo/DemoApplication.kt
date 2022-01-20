@@ -3,6 +3,7 @@ package dev.drewhamilton.skylight.android.demo
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
 import dev.drewhamilton.skylight.android.demo.theme.MutableThemeRepository
+import kotlinx.coroutines.runBlocking
 
 @Suppress("Unused") // Used in manifest
 class DemoApplication : Application() {
@@ -12,9 +13,9 @@ class DemoApplication : Application() {
 
         AppComponent.create(this)
 
-        val savedThemeMode: MutableThemeRepository.ThemeMode = AppComponent.instance.themeRepository()
-            .getSelectedThemeMode()
-            .blockingFirst()
+        val savedThemeMode: MutableThemeRepository.ThemeMode = runBlocking {
+            AppComponent.instance.themeRepository().getSelectedThemeMode()
+        }
         val appCompatNightMode = when (savedThemeMode) {
             MutableThemeRepository.ThemeMode.SYSTEM,
             MutableThemeRepository.ThemeMode.SKYLIGHT -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM

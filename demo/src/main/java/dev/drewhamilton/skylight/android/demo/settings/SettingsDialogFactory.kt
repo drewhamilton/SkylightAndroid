@@ -9,8 +9,11 @@ import dev.drewhamilton.skylight.android.demo.databinding.SettingsDestinationBin
 import dev.drewhamilton.skylight.android.demo.source.MutableSkylightRepository
 import dev.drewhamilton.skylight.android.demo.source.SkylightRepository
 import dev.drewhamilton.skylight.android.demo.theme.MutableThemeRepository
-import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class SettingsDialogFactory @Inject constructor(
     private val skylightRepository: MutableSkylightRepository,
@@ -23,59 +26,64 @@ class SettingsDialogFactory @Inject constructor(
         val binding = SettingsDestinationBinding.inflate(LayoutInflater.from(context))
         setContentView(binding.root)
 
-        val subscriptions = CompositeDisposable()
+        val coroutineScope = CoroutineScope(Job())
 
-        subscriptions.add(
-            skylightRepository.getSelectedSkylightTypeStream()
-                .subscribe { type: SkylightRepository.SkylightType ->
-                    when (type) {
-                        SkylightRepository.SkylightType.SSO -> binding.networkButton.isChecked = true
-                        SkylightRepository.SkylightType.CALCULATOR -> binding.localButton.isChecked = true
-                        SkylightRepository.SkylightType.DUMMY -> binding.dummyButton.isChecked = true
-                    }
+        coroutineScope.launch {
+            skylightRepository.getSelectedSkylightTypeFlow().collect { type ->
+                when (type) {
+                    SkylightRepository.SkylightType.SSO -> binding.networkButton.isChecked = true
+                    SkylightRepository.SkylightType.CALCULATOR -> binding.localButton.isChecked = true
+                    SkylightRepository.SkylightType.FAKE -> binding.dummyButton.isChecked = true
                 }
-        )
+            }
+        }
 
         binding.sourceSelection.setOnCheckedChangeListener { _, checkedId ->
             val selectedType = when (checkedId) {
                 R.id.localButton -> SkylightRepository.SkylightType.CALCULATOR
-                R.id.dummyButton -> SkylightRepository.SkylightType.DUMMY
+                R.id.dummyButton -> SkylightRepository.SkylightType.FAKE
                 else -> SkylightRepository.SkylightType.SSO
             }
-            skylightRepository.selectSkylightType(selectedType)
-                .subscribe()
-            dismiss()
+            coroutineScope.launch {
+                val previousType = skylightRepository.getSelectedSkylightType()
+                if (previousType != selectedType) {
+                    skylightRepository.selectSkylightType(selectedType)
+                    dismiss()
+                }
+            }
         }
 
-        subscriptions.add(
-            themeRepository.getSelectedThemeMode()
-                .subscribe { mode: MutableThemeRepository.ThemeMode ->
-                    when (mode) {
-                        MutableThemeRepository.ThemeMode.SYSTEM -> binding.systemButton.isChecked = true
-                        MutableThemeRepository.ThemeMode.SKYLIGHT -> binding.skylightButton.isChecked = true
-                        MutableThemeRepository.ThemeMode.LIGHT -> binding.lightButton.isChecked = true
-                        MutableThemeRepository.ThemeMode.DARK -> binding.darkButton.isChecked = true
-                    }
+        coroutineScope.launch {
+            themeRepository.getSelectedThemeModeFlow().collect { mode ->
+                when (mode) {
+                    MutableThemeRepository.ThemeMode.SYSTEM -> binding.systemButton.isChecked = true
+                    MutableThemeRepository.ThemeMode.SKYLIGHT -> binding.skylightButton.isChecked = true
+                    MutableThemeRepository.ThemeMode.LIGHT -> binding.lightButton.isChecked = true
+                    MutableThemeRepository.ThemeMode.DARK -> binding.darkButton.isChecked = true
                 }
-        )
+            }
+        }
 
         binding.themeSelection.setOnCheckedChangeListener { _, checkedId ->
-            val selectedDarkMode = when (checkedId) {
+            val selectedThemeMode = when (checkedId) {
                 R.id.systemButton -> MutableThemeRepository.ThemeMode.SYSTEM
                 R.id.skylightButton -> MutableThemeRepository.ThemeMode.SKYLIGHT
                 R.id.lightButton -> MutableThemeRepository.ThemeMode.LIGHT
                 R.id.darkButton -> MutableThemeRepository.ThemeMode.DARK
                 else -> throw IllegalArgumentException("Unknown checkedId $checkedId")
             }
-            themeRepository.selectThemeMode(selectedDarkMode)
-                .subscribe()
-            dismiss()
+            coroutineScope.launch {
+                val previousThemeMode = themeRepository.getSelectedThemeMode()
+                if (previousThemeMode != selectedThemeMode) {
+                    themeRepository.selectThemeMode(selectedThemeMode)
+                    dismiss()
+                }
+            }
         }
 
         binding.version.text = context.getString(R.string.version_info, BuildConfig.VERSION_NAME)
 
         setOnDismissListener {
-            subscriptions.clear()
             onDismiss()
         }
     }

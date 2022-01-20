@@ -1,31 +1,56 @@
 package dev.drewhamilton.skylight.android.demo.theme
 
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.stringPreferencesKey
 import dagger.Reusable
-import drewhamilton.rxpreferences.RxPreferences
-import drewhamilton.rxpreferences.edit
-import drewhamilton.rxpreferences.getEnumStream
-import drewhamilton.rxpreferences.putEnum
-import io.reactivex.Completable
-import io.reactivex.Observable
+import dev.drewhamilton.skylight.android.demo.getEnum
+import dev.drewhamilton.skylight.android.demo.setEnum
 import javax.inject.Inject
+import javax.inject.Named
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.withContext
 
 @Reusable
-class MutableThemeRepository @Inject constructor(private val preferences: RxPreferences) {
+class MutableThemeRepository @Inject constructor(
+    private val dataStore: DataStore<Preferences>,
+    @Named("database") private val databaseDispatcher: CoroutineDispatcher = Dispatchers.Default,
+    @Named("main") private val mainDispatcher: CoroutineDispatcher = Dispatchers.Main,
+) {
 
-    fun getSelectedThemeMode(): Observable<ThemeMode> =
-        preferences.getEnumStream(Keys.DARK_MODE, Defaults.DARK_MODE)
+    fun getSelectedThemeModeFlow(): Flow<ThemeMode> = dataStore.data.map {
+        it.getEnum<ThemeMode>(Keys.DARK_MODE) ?: Defaults.DARK_MODE
+    }
 
-    fun selectThemeMode(themeMode: ThemeMode): Completable = preferences.edit {
-        putEnum(Keys.DARK_MODE, themeMode)
-    }.andThen {
+    suspend fun getSelectedThemeMode(): ThemeMode = dataStore.data
+        .first()
+        .getEnum<ThemeMode>(Keys.DARK_MODE)
+        ?: Defaults.DARK_MODE
+
+    suspend fun selectThemeMode(themeMode: ThemeMode) {
+        withContext(databaseDispatcher) {
+            dataStore.edit {
+                it.setEnum(Keys.DARK_MODE, themeMode)
+            }
+        }
+
         val appCompatNightMode = when (themeMode) {
             ThemeMode.SYSTEM -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
             ThemeMode.LIGHT -> AppCompatDelegate.MODE_NIGHT_NO
             ThemeMode.DARK -> AppCompatDelegate.MODE_NIGHT_YES
             else -> null
         }
-        appCompatNightMode?.let { AppCompatDelegate.setDefaultNightMode(it) }
+        appCompatNightMode?.let {
+            withContext(mainDispatcher) {
+                AppCompatDelegate.setDefaultNightMode(it)
+            }
+        }
     }
 
     enum class ThemeMode {
@@ -33,7 +58,7 @@ class MutableThemeRepository @Inject constructor(private val preferences: RxPref
     }
 
     private object Keys {
-        const val DARK_MODE = "DarkMode"
+        val DARK_MODE = stringPreferencesKey("DarkMode")
     }
 
     private object Defaults {
