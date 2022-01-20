@@ -6,17 +6,16 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import dev.drewhamilton.skylight.android.demo.BuildConfig
 import dev.drewhamilton.skylight.android.demo.R
 import dev.drewhamilton.skylight.android.demo.databinding.SettingsDestinationBinding
-import dev.drewhamilton.skylight.android.demo.source.MutableSkylightRepository
 import dev.drewhamilton.skylight.android.demo.source.SkylightRepository
 import dev.drewhamilton.skylight.android.demo.theme.MutableThemeRepository
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 class SettingsDialogFactory @Inject constructor(
-    private val skylightRepository: MutableSkylightRepository,
+    private val skylightRepository: SkylightRepository,
     private val themeRepository: MutableThemeRepository,
 ) {
     fun createSettingsDialog(
@@ -26,7 +25,7 @@ class SettingsDialogFactory @Inject constructor(
         val binding = SettingsDestinationBinding.inflate(LayoutInflater.from(context))
         setContentView(binding.root)
 
-        val coroutineScope = CoroutineScope(Job())
+        val coroutineScope = CoroutineScope(Dispatchers.Main)
 
         coroutineScope.launch {
             skylightRepository.getSelectedSkylightTypeFlow().collect { type ->
