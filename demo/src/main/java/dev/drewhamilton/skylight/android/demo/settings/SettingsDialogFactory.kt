@@ -7,7 +7,7 @@ import dev.drewhamilton.skylight.android.demo.BuildConfig
 import dev.drewhamilton.skylight.android.demo.R
 import dev.drewhamilton.skylight.android.demo.databinding.SettingsDestinationBinding
 import dev.drewhamilton.skylight.android.demo.source.SkylightRepository
-import dev.drewhamilton.skylight.android.demo.theme.MutableThemeRepository
+import dev.drewhamilton.skylight.android.demo.theme.ThemeRepository
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 
 class SettingsDialogFactory @Inject constructor(
     private val skylightRepository: SkylightRepository,
-    private val themeRepository: MutableThemeRepository,
+    private val themeRepository: ThemeRepository,
 ) {
     fun createSettingsDialog(
         context: Context,
@@ -55,20 +55,20 @@ class SettingsDialogFactory @Inject constructor(
         coroutineScope.launch {
             themeRepository.getSelectedThemeModeFlow().collect { mode ->
                 when (mode) {
-                    MutableThemeRepository.ThemeMode.SYSTEM -> binding.systemButton.isChecked = true
-                    MutableThemeRepository.ThemeMode.SKYLIGHT -> binding.skylightButton.isChecked = true
-                    MutableThemeRepository.ThemeMode.LIGHT -> binding.lightButton.isChecked = true
-                    MutableThemeRepository.ThemeMode.DARK -> binding.darkButton.isChecked = true
+                    ThemeRepository.ThemeMode.SYSTEM -> binding.systemButton.isChecked = true
+                    ThemeRepository.ThemeMode.SKYLIGHT -> binding.skylightButton.isChecked = true
+                    ThemeRepository.ThemeMode.LIGHT -> binding.lightButton.isChecked = true
+                    ThemeRepository.ThemeMode.DARK -> binding.darkButton.isChecked = true
                 }
             }
         }
 
         binding.themeSelection.setOnCheckedChangeListener { _, checkedId ->
             val selectedThemeMode = when (checkedId) {
-                R.id.systemButton -> MutableThemeRepository.ThemeMode.SYSTEM
-                R.id.skylightButton -> MutableThemeRepository.ThemeMode.SKYLIGHT
-                R.id.lightButton -> MutableThemeRepository.ThemeMode.LIGHT
-                R.id.darkButton -> MutableThemeRepository.ThemeMode.DARK
+                R.id.systemButton -> ThemeRepository.ThemeMode.SYSTEM
+                R.id.skylightButton -> ThemeRepository.ThemeMode.SKYLIGHT
+                R.id.lightButton -> ThemeRepository.ThemeMode.LIGHT
+                R.id.darkButton -> ThemeRepository.ThemeMode.DARK
                 else -> throw IllegalArgumentException("Unknown checkedId $checkedId")
             }
             coroutineScope.launch {

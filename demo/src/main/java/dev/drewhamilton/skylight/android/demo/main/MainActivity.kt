@@ -24,7 +24,7 @@ import dev.drewhamilton.skylight.android.demo.location.Location
 import dev.drewhamilton.skylight.android.demo.location.LocationRepository
 import dev.drewhamilton.skylight.android.demo.settings.SettingsDialogFactory
 import dev.drewhamilton.skylight.android.demo.source.SkylightRepository
-import dev.drewhamilton.skylight.android.demo.theme.MutableThemeRepository
+import dev.drewhamilton.skylight.android.demo.theme.ThemeRepository
 import java.time.LocalDate
 import java.time.ZoneId
 import java.time.ZonedDateTime
@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         MainDestinationBinding.inflate(layoutInflater)
     }
 
-    @Inject protected lateinit var themeRepository: MutableThemeRepository
+    @Inject protected lateinit var themeRepository: ThemeRepository
     @Inject protected lateinit var skylightRepository: SkylightRepository
     @Inject protected lateinit var locationRepository: LocationRepository
     @Inject protected lateinit var skylightForCoordinatesFactory: SkylightForCoordinatesFactory
@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
         AppCompatDelegateDarkModeApplicator(delegate)
     }
 
-    private lateinit var themeMode: MutableThemeRepository.ThemeMode
+    private lateinit var themeMode: ThemeRepository.ThemeMode
     private var darkModeLifecycleObserver: DarkModeLifecycleObserver? = null
         private set(value) {
             field?.let {
@@ -207,22 +207,22 @@ class MainActivity : AppCompatActivity() {
         displayedSettingsDialog = settingsDialog
     }
 
-    private fun applyThemeMode(mode: MutableThemeRepository.ThemeMode) {
+    private fun applyThemeMode(mode: ThemeRepository.ThemeMode) {
         themeMode = mode
         darkModeLifecycleObserver = when (mode) {
-            MutableThemeRepository.ThemeMode.SKYLIGHT -> DarkModeLifecycleObserver.OfSkylightForCoordinates(
+            ThemeRepository.ThemeMode.SKYLIGHT -> DarkModeLifecycleObserver.OfSkylightForCoordinates(
                 skylightForCoordinatesFactory.createForLocation(this),
                 darkModeApplicator
             )
-            MutableThemeRepository.ThemeMode.SYSTEM -> DarkModeLifecycleObserver.Constant(
+            ThemeRepository.ThemeMode.SYSTEM -> DarkModeLifecycleObserver.Constant(
                 DarkModeApplicator.DarkMode.FOLLOW_SYSTEM,
                 darkModeApplicator
             )
-            MutableThemeRepository.ThemeMode.LIGHT -> DarkModeLifecycleObserver.Constant(
+            ThemeRepository.ThemeMode.LIGHT -> DarkModeLifecycleObserver.Constant(
                 DarkModeApplicator.DarkMode.LIGHT,
                 darkModeApplicator
             )
-            MutableThemeRepository.ThemeMode.DARK -> DarkModeLifecycleObserver.Constant(
+            ThemeRepository.ThemeMode.DARK -> DarkModeLifecycleObserver.Constant(
                 DarkModeApplicator.DarkMode.DARK,
                 darkModeApplicator
             )

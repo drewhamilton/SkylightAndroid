@@ -18,7 +18,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.withContext
 
 @Reusable
-class MutableThemeRepository @Inject constructor(
+class ThemeRepository @Inject constructor(
     private val dataStore: DataStore<Preferences>,
     @Named("database") private val databaseDispatcher: CoroutineDispatcher = Dispatchers.Default,
     @Named("main") private val mainDispatcher: CoroutineDispatcher = Dispatchers.Main,
