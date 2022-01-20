@@ -11,6 +11,7 @@ import dev.drewhamilton.skylight.android.demo.theme.ThemeRepository
 import javax.inject.Inject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
@@ -83,6 +84,7 @@ class SettingsDialogFactory @Inject constructor(
         binding.version.text = context.getString(R.string.version_info, BuildConfig.VERSION_NAME)
 
         setOnDismissListener {
+            coroutineScope.cancel()
             onDismiss()
         }
     }
