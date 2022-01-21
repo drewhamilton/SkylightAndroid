@@ -7,200 +7,49 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-  <com.google.android.material.appbar.MaterialToolbar
-      android:id="@+id/toolbar"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-
-      app:layout_constraintTop_toTopOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintEnd_toEndOf="parent"
-
-      app:menu="@menu/home">
-
-    <androidx.appcompat.widget.AppCompatSpinner
-        android:id="@+id/locationSelector"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-
-        tools:listitem="@layout/item_spinner" />
-
-  </com.google.android.material.appbar.MaterialToolbar>
-
-  <View
-      android:id="@+id/dawnBackground"
-      android:layout_width="0dp"
-      android:layout_height="0dp"
-
-      app:layout_constraintBottom_toTopOf="@+id/sunriseBackground"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/toolbar" />
-
-  <TextView
-      android:id="@+id/timeZoneInfo"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_marginTop="@dimen/divider_list"
-      android:layout_marginStart="@dimen/marginSides_mainText"
-      android:layout_marginEnd="@dimen/marginSides_mainText"
-
-      android:text="@string/all_times_local"
-      android:textAppearance="?textAppearanceBody2"
-      android:textColor="?android:textColorHint"
-
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/toolbar" />
-
-  <TextView
-      android:id="@+id/dawnTime"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-
-      android:textAppearance="?textAppearanceHeadline2"
-
-      app:layout_constraintBottom_toBottomOf="@+id/dawnBackground"
-      app:layout_constraintEnd_toEndOf="@+id/duskTime"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/timeZoneInfo"
-      app:layout_constraintHorizontal_bias="1"
-
-      tools:text="7:38 AM" />
-
-  <TextView
-      android:id="@+id/dawnLabel"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-
-      android:text="@string/dawn"
-      android:textAppearance="?textAppearanceCaption"
-      android:visibility="invisible"
-
-      app:layout_constraintBaseline_toBaselineOf="@+id/dawnTime"
-      app:layout_constraintEnd_toStartOf="@+id/dawnTime"
-      app:layout_constraintHorizontal_bias="1"
-
-      tools:visibility="visible" />
-
-  <View
-      android:id="@+id/sunriseBackground"
-      android:layout_width="0dp"
-      android:layout_height="0dp"
-
-      app:layout_constraintBottom_toTopOf="@+id/sunsetBackground"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/dawnBackground" />
-
-  <TextView
-      android:id="@+id/sunriseTime"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-
-      android:textAppearance="?textAppearanceHeadline2"
-
-      app:layout_constraintBottom_toBottomOf="@+id/sunriseBackground"
-      app:layout_constraintEnd_toEndOf="@+id/duskTime"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="@+id/sunriseBackground"
-      app:layout_constraintHorizontal_bias="1"
-
-      tools:text="7:51 AM" />
-
-  <TextView
-      android:id="@+id/sunriseLabel"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-
-      android:text="@string/sunrise"
-      android:textAppearance="?textAppearanceCaption"
-      android:visibility="invisible"
-
-      app:layout_constraintBaseline_toBaselineOf="@+id/sunriseTime"
-      app:layout_constraintEnd_toStartOf="@+id/sunriseTime"
-      app:layout_constraintHorizontal_bias="1"
-
-      tools:visibility="visible" />
-
-  <View
-      android:id="@+id/sunsetBackground"
-      android:layout_width="0dp"
-      android:layout_height="0dp"
-
-      app:layout_constraintBottom_toTopOf="@+id/duskBackground"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/sunriseBackground" />
-
-  <TextView
-      android:id="@+id/sunsetTime"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-
-      android:textAppearance="?textAppearanceHeadline2"
-
-      app:layout_constraintBottom_toBottomOf="@+id/sunsetBackground"
-      app:layout_constraintEnd_toEndOf="@+id/duskTime"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="@+id/sunsetBackground"
-      app:layout_constraintHorizontal_bias="1"
-
-      tools:text="7:51 PM" />
-
-  <TextView
-      android:id="@+id/sunsetLabel"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-
-      android:text="@string/sunset"
-      android:textAppearance="?textAppearanceCaption"
-      android:visibility="invisible"
-
-      app:layout_constraintBaseline_toBaselineOf="@+id/sunsetTime"
-      app:layout_constraintEnd_toStartOf="@+id/sunsetTime"
-      app:layout_constraintHorizontal_bias="1"
-
-      tools:visibility="visible" />
-
-  <View
-      android:id="@+id/duskBackground"
+  <androidx.coordinatorlayout.widget.CoordinatorLayout
       android:layout_width="0dp"
       android:layout_height="0dp"
 
       app:layout_constraintBottom_toBottomOf="parent"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/sunsetBackground" />
+      app:layout_constraintTop_toTopOf="parent">
 
-  <TextView
-      android:id="@+id/duskTime"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginBottom="@dimen/times_bottom_spacing"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-      android:textAppearance="?textAppearanceHeadline2"
+      <com.google.android.material.appbar.MaterialToolbar
+          android:id="@+id/toolbar"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
 
-      app:layout_constraintBottom_toBottomOf="@+id/duskBackground"
-      app:layout_constraintEnd_toEndOf="parent"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="@+id/duskBackground"
+          app:menu="@menu/home"
+          app:title="@string/app_name"
 
-      tools:text="10:00 PM" />
+          tools:layout_marginTop="24dp" />
 
-  <TextView
-      android:id="@+id/duskLabel"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
+    </com.google.android.material.appbar.AppBarLayout>
 
-      android:text="@string/dusk"
-      android:textAppearance="?textAppearanceCaption"
-      android:visibility="invisible"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
 
-      app:layout_constraintBaseline_toBaselineOf="@+id/duskTime"
-      app:layout_constraintEnd_toStartOf="@+id/duskTime"
-      app:layout_constraintHorizontal_bias="1"
+        android:clipToPadding="false"
+        android:orientation="vertical"
+        android:paddingBottom="16dp"
+        android:paddingEnd="@dimen/marginSides_mainText"
+        android:paddingStart="@dimen/marginSides_mainText"
 
-      tools:visibility="visible" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+
+        tools:listitem="@layout/city_card" />
+
+  </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
