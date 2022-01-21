@@ -36,8 +36,6 @@ android {
 }
 
 dependencies {
-    implementation(libs.kotlin.stdLib)
-
     boolean usingSkylightSnapshots = libs.versions.skylight.get().contains('SNAPSHOT')
     implementation(libs.skylight.core) {
         changing = usingSkylightSnapshots
@@ -59,13 +57,10 @@ dependencies {
     implementation(libs.androidx.appCompat)
     implementation(libs.androidx.constraintLayout)
     implementation(libs.androidx.coreKtx)
+    implementation(libs.androidx.datastore)
+    implementation(libs.androidx.lifecycle.runtime)
 
     implementation project(':skylight-android')
-
-    implementation(libs.rxPreferences.core)
-    implementation(libs.rxPreferences.ktx)
-    implementation(libs.rxPreferences.dagger)
-    implementation(libs.rxAndroid)
 
     implementation(libs.okHttp)
 

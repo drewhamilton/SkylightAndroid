@@ -2,7 +2,8 @@ package dev.drewhamilton.skylight.android.demo
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate
-import dev.drewhamilton.skylight.android.demo.theme.MutableThemeRepository
+import dev.drewhamilton.skylight.android.demo.theme.ThemeRepository
+import kotlinx.coroutines.runBlocking
 
 @Suppress("Unused") // Used in manifest
 class DemoApplication : Application() {
@@ -12,14 +13,14 @@ class DemoApplication : Application() {
 
         AppComponent.create(this)
 
-        val savedThemeMode: MutableThemeRepository.ThemeMode = AppComponent.instance.themeRepository()
-            .getSelectedThemeMode()
-            .blockingFirst()
+        val savedThemeMode: ThemeRepository.ThemeMode = runBlocking {
+            AppComponent.instance.themeRepository().getSelectedThemeMode()
+        }
         val appCompatNightMode = when (savedThemeMode) {
-            MutableThemeRepository.ThemeMode.SYSTEM,
-            MutableThemeRepository.ThemeMode.SKYLIGHT -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
-            MutableThemeRepository.ThemeMode.LIGHT -> AppCompatDelegate.MODE_NIGHT_NO
-            MutableThemeRepository.ThemeMode.DARK -> AppCompatDelegate.MODE_NIGHT_YES
+            ThemeRepository.ThemeMode.SYSTEM,
+            ThemeRepository.ThemeMode.SKYLIGHT -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+            ThemeRepository.ThemeMode.LIGHT -> AppCompatDelegate.MODE_NIGHT_NO
+            ThemeRepository.ThemeMode.DARK -> AppCompatDelegate.MODE_NIGHT_YES
         }
         AppCompatDelegate.setDefaultNightMode(appCompatNightMode)
     }

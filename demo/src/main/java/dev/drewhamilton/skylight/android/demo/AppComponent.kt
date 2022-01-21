@@ -5,7 +5,7 @@ import dagger.BindsInstance
 import dagger.Component
 import dev.drewhamilton.skylight.Skylight
 import dev.drewhamilton.skylight.android.demo.main.MainActivity
-import dev.drewhamilton.skylight.android.demo.theme.MutableThemeRepository
+import dev.drewhamilton.skylight.android.demo.theme.ThemeRepository
 import javax.inject.Singleton
 
 @Singleton
@@ -17,7 +17,7 @@ interface AppComponent {
 
     fun skylight(): Skylight
 
-    fun themeRepository(): MutableThemeRepository
+    fun themeRepository(): ThemeRepository
 
     fun inject(mainActivity: MainActivity)
 

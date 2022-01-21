@@ -7,9 +7,10 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.TextView
 import androidx.annotation.StringRes
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import dev.drewhamilton.skylight.Coordinates
 import dev.drewhamilton.skylight.Skylight
 import dev.drewhamilton.skylight.SkylightDay
 import dev.drewhamilton.skylight.android.AppCompatDelegateDarkModeApplicator
@@ -21,29 +22,28 @@ import dev.drewhamilton.skylight.android.demo.R
 import dev.drewhamilton.skylight.android.demo.databinding.MainDestinationBinding
 import dev.drewhamilton.skylight.android.demo.location.Location
 import dev.drewhamilton.skylight.android.demo.location.LocationRepository
-import dev.drewhamilton.skylight.android.demo.rx.ui.RxActivity
 import dev.drewhamilton.skylight.android.demo.settings.SettingsDialogFactory
 import dev.drewhamilton.skylight.android.demo.source.SkylightRepository
-import dev.drewhamilton.skylight.android.demo.theme.MutableThemeRepository
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.functions.Consumer
-import io.reactivex.schedulers.Schedulers
+import dev.drewhamilton.skylight.android.demo.theme.ThemeRepository
 import java.time.LocalDate
 import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 import javax.inject.Inject
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.withContext
 
 @Suppress("ProtectedInFinal")
-class MainActivity : RxActivity() {
+class MainActivity : AppCompatActivity() {
 
     private val binding: MainDestinationBinding by lazy(mode = LazyThreadSafetyMode.NONE) {
         MainDestinationBinding.inflate(layoutInflater)
     }
 
-    @Inject protected lateinit var themeRepository: MutableThemeRepository
+    @Inject protected lateinit var themeRepository: ThemeRepository
     @Inject protected lateinit var skylightRepository: SkylightRepository
     @Inject protected lateinit var locationRepository: LocationRepository
     @Inject protected lateinit var skylightForCoordinatesFactory: SkylightForCoordinatesFactory
@@ -58,7 +58,7 @@ class MainActivity : RxActivity() {
         AppCompatDelegateDarkModeApplicator(delegate)
     }
 
-    private lateinit var themeMode: MutableThemeRepository.ThemeMode
+    private lateinit var themeMode: ThemeRepository.ThemeMode
     private var darkModeLifecycleObserver: DarkModeLifecycleObserver? = null
         private set(value) {
             field?.let {
@@ -78,16 +78,19 @@ class MainActivity : RxActivity() {
         initializeMenu()
         initializeLocationOptions()
 
-        themeRepository.getSelectedThemeMode()
-            .subscribe { themeMode: MutableThemeRepository.ThemeMode -> applyThemeMode(themeMode) }
-            .untilDestroy()
-
-        skylightRepository.getSelectedSkylightTypeStream()
-            .distinctUntilChanged()
-            .subscribe {
-                (binding.locationSelector.selectedItem as Location).display()
+        lifecycleScope.launchWhenCreated {
+            themeRepository.getSelectedThemeModeFlow().collect { themeMode ->
+                applyThemeMode(themeMode)
             }
-            .untilDestroy()
+        }
+
+        lifecycleScope.launchWhenCreated {
+            skylightRepository.getSelectedSkylightTypeFlow()
+                .distinctUntilChanged()
+                .collect {
+                    (binding.locationSelector.selectedItem as Location).display()
+                }
+        }
 
         ActivityCompat.requestPermissions(
             this,
@@ -139,15 +142,12 @@ class MainActivity : RxActivity() {
     }
 
     private fun Location.display() {
-        skylight.getSkylightDaySingle(coordinates, LocalDate.now())
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(Consumer { it.display(timeZone) })
-            .untilDestroy()
-    }
-
-    private fun Skylight.getSkylightDaySingle(coordinates: Coordinates, date: LocalDate) = Single.fromCallable {
-        getSkylightDay(coordinates, date)
+        lifecycleScope.launchWhenCreated {
+            val skylightDay = withContext(Dispatchers.IO) {
+                skylight.getSkylightDay(coordinates, LocalDate.now())
+            }
+            skylightDay.display(timeZone)
+        }
     }
 
     private fun SkylightDay.display(timeZone: ZoneId) {
@@ -207,22 +207,22 @@ class MainActivity : RxActivity() {
         displayedSettingsDialog = settingsDialog
     }
 
-    private fun applyThemeMode(mode: MutableThemeRepository.ThemeMode) {
+    private fun applyThemeMode(mode: ThemeRepository.ThemeMode) {
         themeMode = mode
         darkModeLifecycleObserver = when (mode) {
-            MutableThemeRepository.ThemeMode.SKYLIGHT -> DarkModeLifecycleObserver.OfSkylightForCoordinates(
+            ThemeRepository.ThemeMode.SKYLIGHT -> DarkModeLifecycleObserver.OfSkylightForCoordinates(
                 skylightForCoordinatesFactory.createForLocation(this),
                 darkModeApplicator
             )
-            MutableThemeRepository.ThemeMode.SYSTEM -> DarkModeLifecycleObserver.Constant(
+            ThemeRepository.ThemeMode.SYSTEM -> DarkModeLifecycleObserver.Constant(
                 DarkModeApplicator.DarkMode.FOLLOW_SYSTEM,
                 darkModeApplicator
             )
-            MutableThemeRepository.ThemeMode.LIGHT -> DarkModeLifecycleObserver.Constant(
+            ThemeRepository.ThemeMode.LIGHT -> DarkModeLifecycleObserver.Constant(
                 DarkModeApplicator.DarkMode.LIGHT,
                 darkModeApplicator
             )
-            MutableThemeRepository.ThemeMode.DARK -> DarkModeLifecycleObserver.Constant(
+            ThemeRepository.ThemeMode.DARK -> DarkModeLifecycleObserver.Constant(
                 DarkModeApplicator.DarkMode.DARK,
                 darkModeApplicator
             )
