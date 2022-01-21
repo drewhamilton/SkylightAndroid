@@ -10,7 +10,7 @@ import dev.drewhamilton.skylight.android.demo.databinding.CityCardBinding
 class CityCardAdapter : ListAdapter<CityCardAdapter.Data, CityCardAdapter.ViewHolder>(DiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(CityCardBinding.inflate(LayoutInflater.from(parent.context)))
+        return ViewHolder(CityCardBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
