@@ -11,6 +11,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.color.DynamicColors
 import dev.drewhamilton.skylight.Skylight
 import dev.drewhamilton.skylight.SkylightDay
 import dev.drewhamilton.skylight.android.AppCompatDelegateDarkModeApplicator
@@ -72,6 +73,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         WindowCompat.setDecorFitsSystemWindows(window, false)
+        DynamicColors.applyIfAvailable(this)
 
         super.onCreate(savedInstanceState)
         AppComponent.instance.inject(this)
