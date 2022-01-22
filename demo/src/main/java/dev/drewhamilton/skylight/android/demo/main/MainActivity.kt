@@ -5,6 +5,10 @@ import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import dev.drewhamilton.skylight.Skylight
@@ -67,10 +71,22 @@ class MainActivity : AppCompatActivity() {
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+
         super.onCreate(savedInstanceState)
         AppComponent.instance.inject(this)
 
         setContentView(binding.root)
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, windowInsets ->
+            with(windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())) {
+                binding.appBarLayout.updatePadding(top = top)
+                binding.root.updatePadding(left = left, right = right)
+                binding.list.updatePadding(bottom = bottom)
+            }
+
+            windowInsets
+        }
 
         initializeMenu()
         initializeLocationOptions()
