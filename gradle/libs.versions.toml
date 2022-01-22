@@ -3,7 +3,7 @@
 dagger = "2.40.5"
 kotlin = "1.6.10"
 skylight = "0.12.0"
-skylightBrand = "0.15.0-SNAPSHOT"
+skylightBrand = "0.15.0"
 
 [libraries]
 
