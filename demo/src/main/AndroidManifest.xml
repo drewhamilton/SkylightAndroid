@@ -12,7 +12,7 @@
       android:label="@string/app_name"
       android:icon="@mipmap/ic_launcher"
       android:roundIcon="@mipmap/ic_launcher_round"
-      android:theme="@style/Theme.Skylight"
+      android:theme="@style/Theme.Skylight.Fullscreen"
       android:allowBackup="false"
       android:supportsRtl="true"
       tools:ignore="GoogleAppIndexingWarning"
@@ -20,7 +20,7 @@
 
     <activity
         android:name=".main.MainActivity"
-        android:theme="@style/Theme.SkylightAndroidDemo.MainDestination">
+        android:exported="true">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.LAUNCHER" />

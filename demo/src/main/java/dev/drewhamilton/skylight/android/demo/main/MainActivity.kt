@@ -3,14 +3,15 @@ package dev.drewhamilton.skylight.android.demo.main
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.view.View
-import android.widget.AdapterView
-import android.widget.TextView
-import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.color.DynamicColors
 import dev.drewhamilton.skylight.Skylight
 import dev.drewhamilton.skylight.SkylightDay
 import dev.drewhamilton.skylight.android.AppCompatDelegateDarkModeApplicator
@@ -25,9 +26,8 @@ import dev.drewhamilton.skylight.android.demo.location.LocationRepository
 import dev.drewhamilton.skylight.android.demo.settings.SettingsDialogFactory
 import dev.drewhamilton.skylight.android.demo.source.SkylightRepository
 import dev.drewhamilton.skylight.android.demo.theme.ThemeRepository
+import java.time.Instant
 import java.time.LocalDate
-import java.time.ZoneId
-import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
 import javax.inject.Inject
@@ -54,6 +54,8 @@ class MainActivity : AppCompatActivity() {
     private val skylight: Skylight
         get() = AppComponent.instance.skylight()
 
+    private val timeFormatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)
+
     private val darkModeApplicator: DarkModeApplicator by lazy(LazyThreadSafetyMode.NONE) {
         AppCompatDelegateDarkModeApplicator(delegate)
     }
@@ -70,10 +72,23 @@ class MainActivity : AppCompatActivity() {
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        DynamicColors.applyIfAvailable(this)
+
         super.onCreate(savedInstanceState)
         AppComponent.instance.inject(this)
 
         setContentView(binding.root)
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, windowInsets ->
+            with(windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())) {
+                binding.appBarLayout.updatePadding(top = top)
+                binding.root.updatePadding(left = left, right = right)
+                binding.list.updatePadding(bottom = bottom)
+            }
+
+            windowInsets
+        }
 
         initializeMenu()
         initializeLocationOptions()
@@ -88,7 +103,7 @@ class MainActivity : AppCompatActivity() {
             skylightRepository.getSelectedSkylightTypeFlow()
                 .distinctUntilChanged()
                 .collect {
-                    (binding.locationSelector.selectedItem as Location).display()
+                    binding.cityCardAdapter.displayLocations()
                 }
         }
 
@@ -129,66 +144,50 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initializeLocationOptions() {
-        val locationOptions = locationRepository.getLocationOptions()
-        binding.locationSelector.adapter = LocationSpinnerAdapter(this, locationOptions)
-
-        binding.locationSelector.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) =
-                locationOptions[position].display()
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        val adapter = CityCardAdapter().also {
+            binding.list.adapter = it
         }
-        binding.locationSelector.setSelection(0)
+
+        adapter.displayLocations()
     }
 
-    private fun Location.display() {
+    private val MainDestinationBinding.cityCardAdapter: CityCardAdapter
+        get() = list.adapter as CityCardAdapter
+
+    private fun CityCardAdapter.displayLocations() {
+        val locations = locationRepository.getLocationOptions()
         lifecycleScope.launchWhenCreated {
-            val skylightDay = withContext(Dispatchers.IO) {
-                skylight.getSkylightDay(coordinates, LocalDate.now())
+            val today = LocalDate.now()
+            val data: List<CityCardAdapter.Data> = List(locations.size) { i ->
+                val location = locations[i]
+                val skylightDay = withContext(Dispatchers.IO) {
+                    skylight.getSkylightDay(location.coordinates, today)
+                }
+                when (skylightDay) {
+                    is SkylightDay.Typical -> CityCardAdapter.Data(
+                        cityName = location.longDisplayName,
+                        dawn = skylightDay.dawn.forDisplay(location),
+                        sunrise = skylightDay.sunrise.forDisplay(location),
+                        sunset = skylightDay.sunset.forDisplay(location),
+                        dusk = skylightDay.dusk.forDisplay(location),
+                    )
+                    else -> CityCardAdapter.Data(
+                        cityName = location.longDisplayName,
+                        dawn = "Never",
+                        sunrise = "Never",
+                        sunset = "Never",
+                        dusk = "Never",
+                    )
+                }
             }
-            skylightDay.display(timeZone)
+            submitList(data)
         }
     }
 
-    private fun SkylightDay.display(timeZone: ZoneId) {
-        var dawnDateTime: ZonedDateTime? = null
-        var sunriseDateTime: ZonedDateTime? = null
-        var sunsetDateTime: ZonedDateTime? = null
-        var duskDateTime: ZonedDateTime? = null
-
-        if (this is SkylightDay.Typical) {
-            dawnDateTime = dawn?.atZone(timeZone)
-            sunriseDateTime = sunrise?.atZone(timeZone)
-            sunsetDateTime = sunset?.atZone(timeZone)
-            duskDateTime = dusk?.atZone(timeZone)
-        }
-
-        binding.dawnTime.setTime(dawnDateTime, R.string.never)
-        binding.sunriseTime.setTime(sunriseDateTime, R.string.never)
-        binding.sunsetTime.setTime(sunsetDateTime, R.string.never)
-        binding.duskTime.setTime(duskDateTime, R.string.never)
-
-        binding.dawnLabel.visibility = View.VISIBLE
-        binding.sunriseLabel.visibility = View.VISIBLE
-        binding.sunsetLabel.visibility = View.VISIBLE
-        binding.duskLabel.visibility = View.VISIBLE
-    }
-
-    private fun TextView.setTime(time: ZonedDateTime?, @StringRes fallback: Int) =
-        setTime(time, fallback = context.getString(fallback))
-
-    private fun TextView.setTime(
-        time: ZonedDateTime?,
-        formatter: DateTimeFormatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT),
-        fallback: CharSequence = ""
-    ) {
-        if (time == null) {
-            hint = fallback
-            text = ""
-        } else {
-            text = formatter.format(time)
-            hint = ""
-        }
+    private fun Instant?.forDisplay(location: Location): String {
+        return this?.atZone(location.timeZone)?.let {
+            timeFormatter.format(it)
+        } ?: "Never"
     }
 
     private fun initializeMenu() {
