@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.annotation.RequiresPermission
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -50,8 +51,8 @@ class MainActivity : AppCompatActivity() {
 
     @Inject protected lateinit var themeRepository: ThemeRepository
     @Inject protected lateinit var skylightRepository: SkylightRepository
-    @Inject protected lateinit var locationRepository: LocationRepository
     @Inject protected lateinit var skylightForCoordinatesFactory: SkylightForCoordinatesFactory
+    private val locationRepository: LocationRepository by viewModels()
 
     @Inject protected lateinit var settingsDialogFactory: SettingsDialogFactory
     private var displayedSettingsDialog: BottomSheetDialog? = null
@@ -108,7 +109,7 @@ class MainActivity : AppCompatActivity() {
             skylightRepository.getSelectedSkylightTypeFlow()
                 .distinctUntilChanged()
                 .collect {
-                    binding.cityCardAdapter.displayLocations()
+                    reDisplayLocations()
                 }
         }
 
@@ -134,6 +135,7 @@ class MainActivity : AppCompatActivity() {
         )
         locationTask.addOnSuccessListener(this@MainActivity) { location ->
             Log.d("MainActivity", "Location found: $location")
+            locationRepository.onCurrentLocationDetermined(location.latitude, location.longitude)
         }
         locationTask.addOnCanceledListener(this) {
             Log.w("MainActivity", "Location request canceled")
@@ -150,40 +152,45 @@ class MainActivity : AppCompatActivity() {
             binding.list.adapter = it
         }
 
-        adapter.displayLocations()
+        lifecycleScope.launchWhenCreated {
+            locationRepository.locationsFlow.collect { locations ->
+                adapter.displayLocations(locations)
+            }
+        }
     }
 
-    private val MainDestinationBinding.cityCardAdapter: CityCardAdapter
-        get() = list.adapter as CityCardAdapter
-
-    private fun CityCardAdapter.displayLocations() {
-        val locations = locationRepository.getLocationOptions()
+    private fun reDisplayLocations() {
+        val adapter = binding.list.adapter as CityCardAdapter
         lifecycleScope.launchWhenCreated {
-            val today = LocalDate.now()
-            val data: List<CityCardAdapter.Data> = List(locations.size) { i ->
-                val location = locations[i]
-                val skylightDay = withContext(Dispatchers.IO) {
-                    skylight.getSkylightDay(location.coordinates, today)
-                }
-                when (skylightDay) {
-                    is SkylightDay.Typical -> CityCardAdapter.Data(
-                        cityName = location.longDisplayName,
-                        dawn = skylightDay.dawn.forDisplay(location),
-                        sunrise = skylightDay.sunrise.forDisplay(location),
-                        sunset = skylightDay.sunset.forDisplay(location),
-                        dusk = skylightDay.dusk.forDisplay(location),
-                    )
-                    else -> CityCardAdapter.Data(
-                        cityName = location.longDisplayName,
-                        dawn = "Never",
-                        sunrise = "Never",
-                        sunset = "Never",
-                        dusk = "Never",
-                    )
-                }
-            }
-            submitList(data)
+            adapter.displayLocations(locationRepository.locationsFlow.value)
         }
+    }
+
+    private suspend fun CityCardAdapter.displayLocations(locations: List<Location>) {
+        val today = LocalDate.now()
+        val data: List<CityCardAdapter.Data> = List(locations.size) { i ->
+            val location = locations[i]
+            val skylightDay = withContext(Dispatchers.IO) {
+                skylight.getSkylightDay(location.coordinates, today)
+            }
+            when (skylightDay) {
+                is SkylightDay.Typical -> CityCardAdapter.Data(
+                    cityName = location.longDisplayName,
+                    dawn = skylightDay.dawn.forDisplay(location),
+                    sunrise = skylightDay.sunrise.forDisplay(location),
+                    sunset = skylightDay.sunset.forDisplay(location),
+                    dusk = skylightDay.dusk.forDisplay(location),
+                )
+                else -> CityCardAdapter.Data(
+                    cityName = location.longDisplayName,
+                    dawn = "Never",
+                    sunrise = "Never",
+                    sunset = "Never",
+                    dusk = "Never",
+                )
+            }
+        }
+        submitList(data)
     }
 
     private fun Instant?.forDisplay(location: Location): String {
