@@ -1,10 +1,9 @@
 package dev.drewhamilton.skylight.android.demo.main
 
 import android.Manifest
-import android.content.pm.PackageManager
 import android.os.Bundle
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
@@ -107,40 +106,19 @@ class MainActivity : AppCompatActivity() {
                 }
         }
 
-        ActivityCompat.requestPermissions(
-            this,
-            arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION),
-            LOCATION_REQUEST
-        )
-    }
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        when (requestCode) {
-            LOCATION_REQUEST -> {
-                if (
-                    permissions.containsAny(
-                        Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION
-                    ) && grantResults.contains(PackageManager.PERMISSION_GRANTED)
-                ) {
-                    applyThemeMode(themeMode)
-                }
+        val locationPermissionRequest = registerForActivityResult(
+            ActivityResultContracts.RequestMultiplePermissions()
+        ) { permissions ->
+            if (permissions.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION, false)) {
+                applyThemeMode(themeMode)
             }
-            else -> super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         }
+        locationPermissionRequest.launch(arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION))
     }
 
     override fun onDestroy() {
         displayedSettingsDialog?.dismiss()
         super.onDestroy()
-    }
-
-    @Suppress("SameParameterValue")
-    private fun <T> Array<out T>.containsAny(vararg elements: T): Boolean {
-        elements.forEach {
-            if (this.contains(it))
-                return true
-        }
-        return false
     }
 
     private fun initializeLocationOptions() {
@@ -226,9 +204,5 @@ class MainActivity : AppCompatActivity() {
                 darkModeApplicator
             )
         }
-    }
-
-    private companion object {
-        private const val LOCATION_REQUEST = 9
     }
 }
