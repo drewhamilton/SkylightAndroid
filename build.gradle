@@ -16,7 +16,7 @@ buildscript {
 ext.projectVersions = [
     compileSdk: 31,
     minSdk: 21,
-    targetSdk: 28,
+    targetSdk: 31,
 ]
 
 apply plugin: 'binary-compatibility-validator'
