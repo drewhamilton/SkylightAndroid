@@ -59,6 +59,7 @@ dependencies {
     implementation(libs.androidx.coreKtx)
     implementation(libs.androidx.datastore)
     implementation(libs.androidx.lifecycle.runtime)
+    implementation(libs.playServices.location)
 
     implementation project(':skylight-android')
 

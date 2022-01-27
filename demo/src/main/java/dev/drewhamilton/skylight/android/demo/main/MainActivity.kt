@@ -1,14 +1,20 @@
 package dev.drewhamilton.skylight.android.demo.main
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresPermission
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.lifecycle.lifecycleScope
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.tasks.CancellationTokenSource
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.color.DynamicColors
 import dev.drewhamilton.skylight.Skylight
@@ -106,14 +112,32 @@ class MainActivity : AppCompatActivity() {
                 }
         }
 
+        @SuppressLint("MissingPermission")
         val locationPermissionRequest = registerForActivityResult(
             ActivityResultContracts.RequestMultiplePermissions()
         ) { permissions ->
             if (permissions.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION, false)) {
-                applyThemeMode(themeMode)
+                onCoarseLocationGranted()
             }
         }
         locationPermissionRequest.launch(arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION))
+    }
+
+    @RequiresPermission("android.permission.ACCESS_COARSE_LOCATION")
+    private fun onCoarseLocationGranted() {
+        applyThemeMode(themeMode)
+
+        val locationClient = LocationServices.getFusedLocationProviderClient(this@MainActivity)
+        val locationTask = locationClient.getCurrentLocation(
+            LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY,
+            CancellationTokenSource().token
+        )
+        locationTask.addOnSuccessListener(this@MainActivity) { location ->
+            Log.d("MainActivity", "Location found: $location")
+        }
+        locationTask.addOnCanceledListener(this) {
+            Log.w("MainActivity", "Location request canceled")
+        }
     }
 
     override fun onDestroy() {

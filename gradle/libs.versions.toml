@@ -41,6 +41,8 @@ mockitoKotlin = "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
 
 okHttp = "com.squareup.okhttp3:okhttp:4.9.0"
 
+playServices-location = "com.google.android.gms:play-services-location:19.0.1"
+
 skylight-core = { module = "dev.drewhamilton.skylight:skylight", version.ref = "skylight" }
 skylight-calculator = { module = "dev.drewhamilton.skylight:skylight-calculator", version.ref = "skylight" }
 skylight-fake = { module = "dev.drewhamilton.skylight:skylight-fake", version.ref = "skylight" }
