@@ -27,7 +27,7 @@ import dev.drewhamilton.skylight.android.SkylightForCoordinatesFactory
 import dev.drewhamilton.skylight.android.demo.AppComponent
 import dev.drewhamilton.skylight.android.demo.R
 import dev.drewhamilton.skylight.android.demo.databinding.MainDestinationBinding
-import dev.drewhamilton.skylight.android.demo.location.Location
+import dev.drewhamilton.skylight.android.demo.location.DisplayedLocation
 import dev.drewhamilton.skylight.android.demo.location.LocationRepository
 import dev.drewhamilton.skylight.android.demo.settings.SettingsDialogFactory
 import dev.drewhamilton.skylight.android.demo.source.SkylightRepository
@@ -166,7 +166,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private suspend fun CityCardAdapter.displayLocations(locations: List<Location>) {
+    private suspend fun CityCardAdapter.displayLocations(locations: List<DisplayedLocation>) {
         val today = LocalDate.now()
         val data: List<CityCardAdapter.Data> = List(locations.size) { i ->
             val location = locations[i]
@@ -193,7 +193,7 @@ class MainActivity : AppCompatActivity() {
         submitList(data)
     }
 
-    private fun Instant?.forDisplay(location: Location): String {
+    private fun Instant?.forDisplay(location: DisplayedLocation): String {
         return this?.atZone(location.timeZone)?.let {
             timeFormatter.format(it)
         } ?: "Never"

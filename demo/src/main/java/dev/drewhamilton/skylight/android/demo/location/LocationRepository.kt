@@ -17,15 +17,16 @@ class LocationRepository(
     includeSvalbard: Boolean,
 ) : AndroidViewModel(application) {
 
+    @Suppress("unused") // ViewModel reflective instantiation
     constructor(application: Application) : this(application, includeSvalbard = false)
 
-    val locationsFlow: StateFlow<List<Location>>
+    val locationsFlow: StateFlow<List<DisplayedLocation>>
         get() = _locationsFlow
 
     private val _locationsFlow = MutableStateFlow(
         value = ExampleLocation.values().map { it.toLocation(application) }.let { exampleList ->
             if (includeSvalbard)
-                exampleList + Location("Svalbard, Norway", ZoneId.of("Europe/Oslo"), Coordinates(77.8750, 20.9752))
+                exampleList + DisplayedLocation("Svalbard, Norway", ZoneId.of("Europe/Oslo"), Coordinates(77.8750, 20.9752))
             else
                 exampleList
         }
@@ -42,8 +43,16 @@ class LocationRepository(
             // TODO: Fallback digit limit
             val name = address?.locality ?: "$latitude, $longitude"
 
-            val location = Location(name, ZoneId.systemDefault(), Coordinates(latitude, longitude))
+            val location = DisplayedLocation(
+                longDisplayName = name,
+                timeZone = ZoneId.systemDefault(),
+                coordinates = Coordinates(latitude, longitude),
+                isHighlighted = true
+            )
             _locationsFlow.value = _locationsFlow.value.toMutableList().apply {
+                if (first().isHighlighted) {
+                    removeFirst()
+                }
                 add(0, location)
             }
         }

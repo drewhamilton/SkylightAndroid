@@ -6,10 +6,11 @@ import dev.drewhamilton.skylight.Coordinates
 import dev.drewhamilton.skylight.android.demo.R
 import java.time.ZoneId
 
-data class Location(
+data class DisplayedLocation(
     val longDisplayName: String,
     val timeZone: ZoneId,
-    val coordinates: Coordinates
+    val coordinates: Coordinates,
+    val isHighlighted: Boolean = false,
 ) {
     override fun toString() = longDisplayName
 }
@@ -29,4 +30,4 @@ enum class ExampleLocation(
 }
 
 fun ExampleLocation.toLocation(context: Context) =
-    Location(context.getString(longDisplayName), timeZone, coordinates)
+    DisplayedLocation(context.getString(longDisplayName), timeZone, coordinates)
