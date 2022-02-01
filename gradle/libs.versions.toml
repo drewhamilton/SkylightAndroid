@@ -1,6 +1,7 @@
 [versions]
 
 dagger = "2.40.5"
+deferredResources = "1.6.0"
 kotlin = "1.6.10"
 skylight = "0.12.0"
 skylightBrand = "0.15.0"
@@ -25,6 +26,9 @@ androidx-testRunner = "androidx.test:runner:1.3.0"
 
 dagger-core = { module = "com.google.dagger:dagger", version.ref = "dagger" }
 dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }
+
+deferredResources-core = { module = "com.backbase.oss.deferredresources:deferred-resources", version.ref = "deferredResources" }
+deferredResources-viewx = { module = "com.backbase.oss.deferredresources:deferred-resources-view-extensions", version.ref = "deferredResources" }
 
 dokka = "org.jetbrains.dokka:dokka-gradle-plugin:1.6.10"
 

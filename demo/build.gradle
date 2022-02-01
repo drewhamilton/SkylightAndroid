@@ -62,6 +62,9 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.androidx.lifecycle.viewmodel)
 
+    implementation(libs.deferredResources.core)
+    implementation(libs.deferredResources.viewx)
+
     implementation(libs.playServices.location)
 
     implementation project(':skylight-android')

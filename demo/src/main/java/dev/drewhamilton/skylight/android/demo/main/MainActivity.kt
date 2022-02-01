@@ -180,6 +180,7 @@ class MainActivity : AppCompatActivity() {
                     sunrise = skylightDay.sunrise.forDisplay(location),
                     sunset = skylightDay.sunset.forDisplay(location),
                     dusk = skylightDay.dusk.forDisplay(location),
+                    isHighlighted = location.isHighlighted,
                 )
                 else -> CityCardAdapter.Data(
                     cityName = location.longDisplayName,
@@ -187,6 +188,7 @@ class MainActivity : AppCompatActivity() {
                     sunrise = "Never",
                     sunset = "Never",
                     dusk = "Never",
+                    isHighlighted = location.isHighlighted,
                 )
             }
         }
