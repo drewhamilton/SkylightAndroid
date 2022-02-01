@@ -131,7 +131,7 @@ class MainActivity : AppCompatActivity() {
 
         val locationClient = LocationServices.getFusedLocationProviderClient(this@MainActivity)
         val locationTask = locationClient.getCurrentLocation(
-            LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY,
+            LocationRequest.PRIORITY_LOW_POWER,
             CancellationTokenSource().token
         )
         locationTask.addOnSuccessListener(this@MainActivity) { location ->

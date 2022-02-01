@@ -48,8 +48,7 @@ class LocationRepository(
                 @Suppress("BlockingMethodInNonBlockingContext")
                 geocoder.getFromLocation(latitude, longitude, 1).firstOrNull()
             }
-            // TODO: Fallback digit limit
-            val name = address?.locality ?: "$latitude, $longitude"
+            val name = address?.locality ?: "%.2f, %.2f".format(latitude, longitude)
 
             val location = DisplayedLocation(
                 longDisplayName = DeferredText.Constant(name),
