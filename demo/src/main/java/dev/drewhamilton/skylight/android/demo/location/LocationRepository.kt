@@ -4,6 +4,7 @@ import android.app.Application
 import android.location.Geocoder
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.backbase.deferredresources.DeferredText
 import dev.drewhamilton.skylight.Coordinates
 import java.time.ZoneId
 import kotlinx.coroutines.Dispatchers
@@ -13,26 +14,33 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class LocationRepository(
+    private val geocoder: Geocoder,
     application: Application,
     includeSvalbard: Boolean,
 ) : AndroidViewModel(application) {
 
     @Suppress("unused") // ViewModel reflective instantiation
-    constructor(application: Application) : this(application, includeSvalbard = false)
+    constructor(application: Application) : this(
+        geocoder = Geocoder(application),
+        application = application,
+        includeSvalbard = false,
+    )
 
     val locationsFlow: StateFlow<List<DisplayedLocation>>
         get() = _locationsFlow
 
     private val _locationsFlow = MutableStateFlow(
-        value = ExampleLocation.values().map { it.toLocation(application) }.let { exampleList ->
+        value = ExampleLocation.values().map { it.toLocation() }.let { exampleList ->
             if (includeSvalbard)
-                exampleList + DisplayedLocation("Svalbard, Norway", ZoneId.of("Europe/Oslo"), Coordinates(77.8750, 20.9752))
+                exampleList + DisplayedLocation(
+                    longDisplayName = DeferredText.Constant("Svalbard, Norway"),
+                    timeZone = ZoneId.of("Europe/Oslo"),
+                    coordinates = Coordinates(77.8750, 20.9752),
+                )
             else
                 exampleList
         }
     )
-
-    private val geocoder = Geocoder(application)
 
     fun onCurrentLocationDetermined(latitude: Double, longitude: Double) {
         viewModelScope.launch {
@@ -44,7 +52,7 @@ class LocationRepository(
             val name = address?.locality ?: "$latitude, $longitude"
 
             val location = DisplayedLocation(
-                longDisplayName = name,
+                longDisplayName = DeferredText.Constant(name),
                 timeZone = ZoneId.systemDefault(),
                 coordinates = Coordinates(latitude, longitude),
                 isHighlighted = true

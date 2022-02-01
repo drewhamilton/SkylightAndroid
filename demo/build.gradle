@@ -63,7 +63,6 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel)
 
     implementation(libs.deferredResources.core)
-    implementation(libs.deferredResources.viewx)
 
     implementation(libs.playServices.location)
 

@@ -13,6 +13,7 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.lifecycle.lifecycleScope
+import com.backbase.deferredresources.text.resolveToString
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.CancellationTokenSource
@@ -175,7 +176,7 @@ class MainActivity : AppCompatActivity() {
             }
             when (skylightDay) {
                 is SkylightDay.Typical -> CityCardAdapter.Data(
-                    cityName = location.longDisplayName,
+                    cityName = location.longDisplayName.resolveToString(this@MainActivity),
                     dawn = skylightDay.dawn.forDisplay(location),
                     sunrise = skylightDay.sunrise.forDisplay(location),
                     sunset = skylightDay.sunset.forDisplay(location),
@@ -183,7 +184,7 @@ class MainActivity : AppCompatActivity() {
                     isHighlighted = location.isHighlighted,
                 )
                 else -> CityCardAdapter.Data(
-                    cityName = location.longDisplayName,
+                    cityName = location.longDisplayName.resolveToString(this@MainActivity),
                     dawn = "Never",
                     sunrise = "Never",
                     sunset = "Never",

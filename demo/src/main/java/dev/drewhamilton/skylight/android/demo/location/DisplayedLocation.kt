@@ -1,19 +1,17 @@
 package dev.drewhamilton.skylight.android.demo.location
 
-import android.content.Context
 import androidx.annotation.StringRes
+import com.backbase.deferredresources.DeferredText
 import dev.drewhamilton.skylight.Coordinates
 import dev.drewhamilton.skylight.android.demo.R
 import java.time.ZoneId
 
 data class DisplayedLocation(
-    val longDisplayName: String,
+    val longDisplayName: DeferredText,
     val timeZone: ZoneId,
     val coordinates: Coordinates,
     val isHighlighted: Boolean = false,
-) {
-    override fun toString() = longDisplayName
-}
+)
 
 enum class ExampleLocation(
     @StringRes val longDisplayName: Int,
@@ -29,5 +27,5 @@ enum class ExampleLocation(
     NASHVILLE(R.string.nashville, ZoneId.of("America/Chicago"), Coordinates(36.1627, -86.7816)),
 }
 
-fun ExampleLocation.toLocation(context: Context) =
-    DisplayedLocation(context.getString(longDisplayName), timeZone, coordinates)
+fun ExampleLocation.toLocation() =
+    DisplayedLocation(DeferredText.Resource(longDisplayName), timeZone, coordinates)
